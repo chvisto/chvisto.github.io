@@ -16,7 +16,7 @@ for<br>
 
 ## Introduction
 
-* Hey this is Christo Jomon Joseph and I feel excited making this edit to my Datasheet. 
+* Hey this is Christo Jomon Joseph.
 
 ### Project Summary
 
