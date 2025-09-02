@@ -5,18 +5,18 @@ tags:
 - tag2
 ---
 <center>
-<font size= "6">(Your Name) Datasheet</font><br>
+<font size= "6">Christo's Datasheet</font><br>
 as part of<br>
 <font size= "8"> Project Name</font><br>
 for<br>
-<font size= "5"> Team ### </font><br>
+<font size= "5"> Team 103 </font><br>
 
-**Submission: month, DD, YYYY**
+**Submission: September, 01, 2025**
 </center>
 
 ## Introduction
 
-* This needs to be updated so that a reader gets an idea of the purpose of this datasheet.
+* Hey this is Christo Jomon Joseph and I feel excited making this edit to my Datasheet. 
 
 ### Project Summary
 
