@@ -1,24 +1,34 @@
 ---
-title: Individal Block Diagram
+title: Individual Block Diagram — Christo Jomon Joseph
 tags:
-- tag1
-- tag2
+- EGR304
+- BlockDiagram
+---
+
+## Individual Block Diagram — Christo Jomon Joseph
+
+**Subsystem:** Rotary Sensor  
+**MCU:** Microchip PIC18F57Q43 Curiosity Nano  
+**Project:** Private Use Door Automation  
+
 ---
 
 ## Overview
-This needs to be updated with a brief purpose for having the block diagram.
-Things to mention are:
-* power levels
-* sensor
-* Actuator
-* team connections
-* Power source
-* ...
+This block diagram shows the electrical layout of my **Rotary Sensor subsystem**, which measures the door’s rotation angle and shares that information with other team subsystems.
 
-To get some initial formatting help, one can view ["here"](https://embedded-systems-design.github.io/EGR304DataSheetTemplate/Appendix/basic-markdown-examples/) some basic techniques.
+It highlights:
 
+- **Power Levels:** All components are powered from a regulated **+5 V 1.5 A supply** provided by the team’s shared power source.
+- **Sensor:** ____________________________
+- **Microcontroller:** The PIC18F57Q43 reads the analog voltage using ADC1 (RA0). Two additional ADC pins (ADC2–RA2 and ADC3–RA1) send analog outputs to the motor and proximity subsystems for coordinated motion control and calibration.
+- **Actuators:** The subsystem includes a Blue LED (RC3) to indicate calibration status and a Setup Button (RA3) for initialization.
+- **Team Connections:**  
+  - **Connector 2 → Motor Subsystem:** Transmits analog angle feedback (ADC2).  
+  - **Connector 4 → Proximity Subsystem:** Sends analog setup reference (ADC3).  
+- **Power Source:** ________________________
 
-## Example Block Diagram 
-Showing an example of how to import a screenshot of the block diagram created outside of git and brought into a page.
+---
 
-![Example of Indivial Block diagram ](individual-block-diagram.png)
+## Block Diagram
+
+![Individual Block Diagram](individual-block-diagram.png)
