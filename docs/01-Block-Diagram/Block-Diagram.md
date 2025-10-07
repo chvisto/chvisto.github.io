@@ -30,3 +30,9 @@ It highlights:
 ## Block Diagram
 
 ![Individual Block Diagram](individual-block-diagram.png)
+
+## Access & Downloads
+
+Access the draw.io in Google Drive **[here](https://drive.google.com/file/d/13LKkwTJjgqqxmauylCVNC0H4SzO0dGRc/view?usp=sharing)**.
+
+To download the Block Diagram PNG click **[here](https://drive.google.com/uc?export=download&id=1cveRdTWnUzYzCEbDlviDR4Fl8jq-rSPm)**
