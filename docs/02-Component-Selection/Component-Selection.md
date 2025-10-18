@@ -253,7 +253,7 @@ title: Component Selection
 
 **Cons**  
 * Green LED forward voltage a bit higher than red  
-* Not ultra-low brightness – might be overkill if you want subtle indicators  
+ 
 
 > **Choice:** Option 1 – WP7113ID  
 >
