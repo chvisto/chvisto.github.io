@@ -60,7 +60,7 @@ title: Component Selection Example
 ### Option 1: MCP6002-I/P
 ![image4](image4.png)
 
-- $0.52 each  
+- $0.44 each  
 - [link to product](https://www.digikey.com/en/products/detail/microchip-technology/MCP6002-I-P/500875)
 
 **Pros**  
@@ -75,7 +75,7 @@ title: Component Selection Example
 ### Option 2: LM358N/NOPB
 ![image5](image5.png)
 
-- $0.40 each  
+- $0.97 each  
 - [link to product](https://www.digikey.com/en/products/detail/texas-instruments/LM358N-NOPB/6264)
 
 **Pros**  
@@ -162,7 +162,7 @@ title: Component Selection Example
 ### Option 1: B3F-1000
 ![image10](image10.png)
 
-- $0.21 each  
+- $0.24 each  
 - [link to product](https://www.digikey.com/en/products/detail/omron-electronics-inc-emc-div/B3F-1000/33150)
 
 **Pros**  
@@ -178,7 +178,7 @@ title: Component Selection Example
 ### Option 2: TL1100F160Q
 ![image11](image11.png)
 
-- $0.16 each  
+- $0.56 each  
 - [link to product](https://www.digikey.com/en/products/detail/e-switch/TL1100F160Q/59082)
 
 **Pros**  
@@ -242,9 +242,9 @@ title: Component Selection Example
 ---
 
 ### Option 3: VCC 200-BG
-![image15](image15.png)
+![image15](image14.png)
 
-- $1.13 each  
+- $1.13 each
 - [link to product](https://www.digikey.com/en/products/detail/visual-communications-company/vcc/200-BG/8656282)
 
 **Pros**  
