@@ -1,5 +1,5 @@
 ---
-title: Component Selection Example
+title: Component Selection
 ---
 
 ## Voltage Regulator (5 V, 1.5 A max)
@@ -52,7 +52,7 @@ title: Component Selection Example
 
 > **Choice:** Option 2 – LM7805CT/NOPB  
 >
-> **Rationale:** I picked the TO-220 version because it’s easy to mount and test on a breadboard and can handle more heat with a clip-on heatsink if needed.
+> **Rationale:** I picked the LM7805CT because it’s easy to mount and test on a breadboard and can handle more heat with a clip-on heatsink if needed.
 
 
 ## Op-Amp Buffer (Dual, 5 V Single Supply)
