@@ -17,7 +17,7 @@ This block diagram shows the electrical layout of my **Rotary Sensor subsystem**
 It highlights:
 
 - **Power Levels:** All components are powered from a regulated **+5 V 1.5 A supply** provided by the team’s shared power source.
-- **Sensor:** ---
+- **Rotary Sensor:** P0915N-FC15BR10K (Rotary Potentiometer). 
 - **Microcontroller:** The PIC18F57Q43 reads the analog voltage using ADC1 (RA0). Two additional ADC pins (ADC2–RA2 and ADC3–RA1) send analog outputs to the motor and proximity subsystems for coordinated motion control and calibration.
 - **Actuators:** The subsystem includes a Blue LED (RC3) to indicate calibration status and a Setup Button (RA3) for initialization.
 - **Team Connections:**  
@@ -35,4 +35,4 @@ It highlights:
 
 Access the draw.io in Google Drive **[here](https://drive.google.com/file/d/13LKkwTJjgqqxmauylCVNC0H4SzO0dGRc/view?usp=sharing)**.
 
-To download the Block Diagram PNG click **[here](https://drive.google.com/uc?export=download&id=1cveRdTWnUzYzCEbDlviDR4Fl8jq-rSPm)**
+To download the Block Diagram PNG click **[here](individual-block-diagram.png)**
