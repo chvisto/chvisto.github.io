@@ -92,7 +92,7 @@ title: Component Selection
 ![image9](image9.png)
 
 - $2.18 each  
-- [link to product](https://www.digikey.com/en/products/detail/bourns-inc/PEC11R-4215F-S0024/4699227)
+- [link to product](https://www.digikey.com/en/products/detail/bourns-inc/PEC11R-4215F-S0024/4499665)
 
 **Pros**  
 * Reliable, high-quality encoder from Bourns  
