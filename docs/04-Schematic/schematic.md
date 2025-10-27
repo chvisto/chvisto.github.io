@@ -4,10 +4,14 @@ title: Schematic
 
 ## Overview
 
-This schematic supports the entire subsystem by providing power, control, and signal handling. The 9V input passes through a fuse and the LM7805 regulator to supply a stable 5V to all components. The PIC18F57Q43 Curiosity Nano controls the system, taking input from the potentiometer through the MCP6002 OP Amp and sends signals out through the ribbon cable connectors. LEDs and test points are included for easy debugging and power verification for a reliable operation of the circuit.
+This schematic keeps the rotary encoder subsystem powered, controlled, and connected. A 9 V input runs through a fuse and the LM7805 voltage regulator, giving a steady +5 V to both the PIC18F57Q43 Curiosity Nano and the Bourns PEC11R-4215F-S0024 rotary encoder.
+
+The PIC18F57Q43 takes digital inputs from Channel A (RB0) and Channel B (RB3) to detect rotation and direction. It then sends analog outputs from RA2 (ADC2) and RA1 (ADC3) to the motor and proximity subsystems for smooth door movement and calibration.
+
+A Red LED (RC3) shows calibration status, and a setup button (RA3) handles initialization. Test points are added for quick debugging and power checks, keeping the circuit easy to verify and reliable during operation.
 
 
-![schematic](Screenshot.png){style width:"350" height:"300;"}
+![schematic](Screenshot.png)
 **Figure 01:** Rotary subsystem schematic
 
 
