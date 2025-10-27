@@ -23,7 +23,6 @@ It highlights:
 - **Team Connections:**  
   - **Connector 2 → Motor Subsystem:** Transmits analog angle feedback (ADC2).  
   - **Connector 4 → Proximity Subsystem:** Sends analog setup reference (ADC3).  
-- **Power Source:** ---
 
 ---
 
