@@ -106,55 +106,57 @@ title: Component Selection
 > **Rationale:** It’s rail-to-rail, runs on 5 V, and works perfectly as a buffer for my rotary sensor signal into the PIC ADC.
 
 
-## Rotary Sensor (10 kΩ Linear Potentiometer)
+## Rotary Sensor (Rotary Encoder)
 
-### Option 1: P120PK-Y25BR10K
+### Option 1: Bourns PEC11R-4220F-S0024
 ![image7](image7.png)
 
-- $1.42 each  
-- [link to product](https://www.digikey.com/en/products/detail/tt-electronics-bi/P120PK-Y25BR10K/5957454)
+- $1.89 each  
+- [link to product](https://www.digikey.com/en/products/detail/bourns-inc/PEC11R-4220F-S0024/4699220)
 
 **Pros**  
-* Compact and easy to mount  
-* Smooth rotation and cheap  
+* Low-cost incremental quadrature encoder  
+* Same pin layout as other PEC11R models  
 
 **Cons**  
-* Low power rating (only signal-level)  
+* Weaker shaft support  
+* Shorter mechanical life  
 
 ---
 
-### Option 2: P0915N-FC15BR10K
+### Option 2: Bourns PEC11R-4215K-N0024
 ![image8](image8.png)
 
-- $2.29 each  
-- [link to product](https://www.digikey.com/en/products/detail/tt-electronics-bi/P0915N-FC15BR10K/4780740)
+- $1.89 each  
+- [link to product](https://www.digikey.com/en/products/detail/bourns-inc/PEC11R-4215K-N0024/4699218)
 
 **Pros**  
-* Panel-mount style with nut and washer  
-* Feels smooth and durable  
+* Cheapest variant  
+* Compatible footprint  
 
 **Cons**  
-* Larger footprint  
-* Same low power rating  
+* Lower detent torque and shorter lifespan  
+* Slightly rougher feel when rotating  
 
 ---
 
-### Option 3: 3310Y-001-103L
+### Option 3: Bourns PEC11R-4215F-S0024
 ![image9](image9.png)
 
-- $3.22 each  
-- [link to product](https://www.digikey.com/en/products/detail/bourns-inc/3310Y-001-103L/1088215)
+- $2.18 each  
+- [link to product](https://www.digikey.com/en/products/detail/bourns-inc/PEC11R-4215F-S0024/4699227)
 
 **Pros**  
-* Higher 0.25 W rating and solid build  
-* Trusted brand for sensors  
+* Reliable, high-quality encoder from Bourns  
+* Smooth feel with 24 detents per revolution  
+* Ideal for microcontroller interfacing at 5 V  
 
 **Cons**  
-* Bigger and more expensive  
+* Slightly higher cost than cheaper variants  
 
-> **Choice:** Option 2 – P0915N-FC15BR10K  
+> **Choice:** Option 3 – Bourns PEC11R-4215F-S0024  
 >
-> **Rationale:** It fits our door automation setup best since it can mount to a panel and connect directly to the op-amp buffer and ADC.
+> **Rationale:** This encoder offers stable quadrature output, long mechanical life, and excellent build quality for consistent position feedback in the door automation system.
 
 
 ## Setup Button (Digital Input)
@@ -244,7 +246,7 @@ title: Component Selection
 ### Option 3: VCC 200-BG
 ![image15](image14.png)
 
-- $1.13 each
+- $1.13 each  
 - [link to product](https://www.digikey.com/en/products/detail/visual-communications-company/vcc/200-BG/8656282)
 
 **Pros**  
@@ -253,7 +255,6 @@ title: Component Selection
 
 **Cons**  
 * Green LED forward voltage a bit higher than red  
- 
 
 > **Choice:** Option 1 – WP7113ID  
 >
