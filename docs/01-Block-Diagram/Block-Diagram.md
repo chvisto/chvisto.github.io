@@ -17,7 +17,7 @@ This block diagram shows the electrical layout of my **Rotary Sensor subsystem**
 It highlights:
 
 - **Power Levels:** All components are powered from a regulated **+5 V 1.5 A supply** provided by the team’s shared power source.
-- **Rotary Sensor:** 
+- **Rotary Sensor:** Bourns PEC11R-4215F-S0024  
 - **Microcontroller:** The PIC18F57Q43 reads the analog voltage using ADC1 (RA0). Two additional ADC pins (ADC2–RA2 and ADC3–RA1) send analog outputs to the motor and proximity subsystems for coordinated motion control and calibration.
 - **Actuators:** The subsystem includes a Blue LED (RC3) to indicate calibration status and a Setup Button (RA3) for initialization.
 - **Team Connections:**  
