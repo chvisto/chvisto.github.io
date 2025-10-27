@@ -54,58 +54,6 @@ title: Component Selection
 >
 > **Rationale:** I picked the LM7805CT because it’s easy to mount and test on a breadboard and can handle more heat with a clip-on heatsink if needed.
 
-
-## Op-Amp Buffer (Dual, 5 V Single Supply)
-
-### Option 1: MCP6002-I/P
-![image4](image4.png)
-
-- $0.44 each  
-- [link to product](https://www.digikey.com/en/products/detail/microchip-technology/MCP6002-I-P/500875)
-
-**Pros**  
-* Rail-to-rail input/output  
-* Low power, works great at 5 V  
-
-**Cons**  
-* Not meant for high-speed signals  
-
----
-
-### Option 2: LM358N/NOPB
-![image5](image5.png)
-
-- $0.97 each  
-- [link to product](https://www.digikey.com/en/products/detail/texas-instruments/LM358N-NOPB/6264)
-
-**Pros**  
-* Cheap and very common  
-* Stable and easy to find  
-
-**Cons**  
-* Output doesn’t reach exact 0 V or 5 V  
-
----
-
-### Option 3: TLV2462CP
-![image6](image6.png)
-
-- $3.14 each  
-- [link to product](https://www.digikey.com/en/products/detail/texas-instruments/TLV2462CP/277537)
-
-**Pros**  
-* Fast and rail-to-rail output  
-* Great for clean signal reads  
-
-**Cons**  
-* Costs more  
-* Draws more current  
-
-> **Choice:** Option 1 – MCP6002-I/P  
->
-> **Rationale:** It’s rail-to-rail, runs on 5 V, and works perfectly as a buffer for my rotary sensor signal into the PIC ADC.
-
-
 ## Rotary Sensor (Rotary Encoder)
 
 ### Option 1: Bourns PEC11R-4220F-S0024
