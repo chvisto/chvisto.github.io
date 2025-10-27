@@ -23,7 +23,7 @@ This datasheet focuses on the rotary encoder subsystem for our Private-Use Autom
 * The automatic door opener project is designed to improve safety and accessibility for private use. The system replaces physical handles with sensor based actuation allowing users to open and close doors hands free.
 The project is divided into four main subsystems: motor, IR sensors, flex sensor, and rotary encoder. My subsystem (Rotary Encoder) tracks the angular position of the door and relays this information to the microcontroller so it can coordinate with the other components.
 
-* To view how all subsystems integrate and communicate, visit our [full team report.](https://embedded-systems-design.github.io/EGR304TeamTemplate/)
+* To view how all subsystems integrate and communicate, visit our [full team report.](https://egr304-2025-f-103.github.io/)
 
 
 ### My Contribution
