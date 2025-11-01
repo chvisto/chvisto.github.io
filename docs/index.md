@@ -28,8 +28,7 @@ The project is divided into four main subsystems: motor, IR sensors, flex sensor
 
 ### My Contribution
 
-* This needs to be updated to reflect a team introduction
-* Content should also help an unfamiliar reader navigate to areas of interest. Information like:
+* I worked on the Rotary Sensor Subsystem, which focuses on  tracking the door’s position using a rotary encoder. My role included selecting and testing components, creating the schematic, and ensuring proper signal connections to the PIC18F57Q43 microcontroller.
 
 ### Areas of Interest
 
