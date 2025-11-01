@@ -6,7 +6,7 @@ tags:
 ---
 
 ## Overview
-In the Bill of Materials, I selected components that were similar to the ones used in class to ensure compatibility and reliability except the rotary encoder of course. All parts were chosen from DigiKey because they provide detailed datasheets and verified specifications. This made it easier to confirm performance and quality while keeping the design aligned with the course requirements.
+In the Bill of Materials, I selected components that were similar to the ones used in class to ensure compatibility and reliability except the rotary encoder of course. All parts were chosen from DigiKey because they provide detailed datasheets and verified specifications. 
 
 ## Bill of Materials 
 ![](BOM-Screenshot.png){style width: "2000"}
