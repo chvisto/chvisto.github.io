@@ -19,6 +19,6 @@ This page shows the Printed Circuit Board design for the Rotary Encoder subsyste
 
 ## Resouces
 
-The Top and Bottom Layer as a PDF download is available [*here*](PCB-top-bottom-CJJ.pdf), and the Zip folder of the project [*here*](rotary-encoder.zip).
+The Top and Bottom Layer as a PDF download is available [*here*](PCB-top-bottom-CJJ.pdf), and the updated ECAD project .zip file [*here*](rotary-encoder.zip).
 
-The Gerber Files for the PCB can be downloaded [*here](Gerber-Files-CJJ.zip)
+The Gerber Files for the PCB can be downloaded [*here*](Gerber-Files-CJJ.zip)
