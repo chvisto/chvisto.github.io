@@ -9,7 +9,7 @@
       
       
       
-        <link rel="canonical" href="https://embedded-systems-design.github.io/EGR304DataSheetTemplate/05-PCB-Design/schematic/">
+        <link rel="canonical" href="https://embedded-systems-design.github.io/EGR304DataSheetTemplate/05-PCB-Design/PCB-design/">
       
       
         <link rel="prev" href="../../04-Schematic/schematic/">
@@ -26,7 +26,7 @@
 
     
       
-        <title>Schematic - EGR 304 Christo's Data Sheet</title>
+        <title>PCB Design - EGR 304 Christo's Data Sheet</title>
       
     
     
@@ -125,7 +125,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Schematic
+              PCB Design
             
           </span>
         </div>
@@ -655,7 +655,7 @@
           
   
   <span class="md-ellipsis">
-    Schematic
+    PCB Design
   </span>
   
 
@@ -666,7 +666,7 @@
         
   
   <span class="md-ellipsis">
-    Schematic
+    PCB Design
   </span>
   
 
@@ -822,7 +822,7 @@
                   
 
   
-    <a href="https://github.com/embedded-systems-design/EGR304DataSheetTemplate/edit/main/docs/05-PCB-Design/schematic.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/embedded-systems-design/EGR304DataSheetTemplate/edit/main/docs/05-PCB-Design/PCB-design.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"></path></svg>
     </a>
@@ -830,16 +830,18 @@
   
 
 
-  <h1>Schematic</h1>
+  <h1>PCB Design</h1>
 
 <h2 id="overview">Overview</h2>
-<p>This schematic keeps the rotary encoder subsystem powered, controlled, and connected. A 9 V input runs through a fuse and the LM7805 voltage regulator, giving a steady +5 V to both the PIC18F57Q43 Curiosity Nano and the Bourns PEC11R-4215F-S0024 rotary encoder.</p>
-<p>The PIC18F57Q43 takes digital inputs from Channel A (RB0) and Channel B (RB3) to detect rotation and direction. It then sends analog outputs from RA2 (ADC2) and RA1 (ADC3) to the motor and proximity subsystems for smooth door movement and calibration.</p>
-<p>A Red LED (RC3) shows calibration status, and a setup button (RA3) handles initialization. Test points are added for quick debugging and power checks, keeping the circuit easy to verify and reliable during operation.</p>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Screenshot.png" data-desc-position="bottom"><img alt="schematic" src="../Screenshot.png"></a>
-<strong>Figure 01:</strong> Rotary subsystem schematic</p>
+<p>This page shows the Printed Circuit Board design for the Rotary Encoder subsystem. This board takes the schematic and lays it out in a physical form that can be manufactured and assembled. It is one of the final steps before soldering and testing the hardware. The board uses two copper layers, top and bottom. The components are placed on the top side, with plated through-holes and pads for each pin. The top layer carries the regulated 5V where needed, while the bottom layer is used as the ground reference for the circuit. Signals between the encoder, microcontroller header, buffer components, and indicators are routed using copper traces that stay isolated from other nets. Once the layout is completed and verified, the design is exported into manufacturing files (Gerber file).</p>
+<hr>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../PCB-top.png" data-desc-position="bottom"><img alt="PCB-Design" src="../PCB-top.png"></a>
+<strong>Figure 01:</strong> Top Layer of the PCB</p>
+<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../PCB-bottom.png" data-desc-position="bottom"><img alt="PCB-Design" src="../PCB-bottom.png"></a>
+<strong>Figure 02:</strong> Bottom Layer of the PCB</p>
 <h2 id="resouces">Resouces</h2>
-<p>The schematic as a PDF download is available <a href="../schematic-design.pdf"><em>here</em></a>, and the Zip folder of the project <a href="../schematic-design.zip"><em>here</em></a>.</p>
+<p>The Top and Bottom Layer as a PDF download is available <a href="../PCB-top-bottom-CJJ.pdf"><em>here</em></a>, and the Zip folder of the project <a href="../rotary-encoder.zip"><em>here</em></a>.</p>
+<p>The Gerber Files for the PCB can be downloaded <a href="../Gerber-Files-CJJ.zip">*here</a></p>
 
 
 
