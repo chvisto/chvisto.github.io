@@ -2,37 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://embedded-systems-design.github.io/EGR304DataSheetTemplate/</loc>
-         <lastmod>2025-12-02</lastmod>
+         <lastmod>2025-12-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://embedded-systems-design.github.io/EGR304DataSheetTemplate/01-Block-Diagram/Block-Diagram/</loc>
-         <lastmod>2025-12-02</lastmod>
+         <lastmod>2025-12-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://embedded-systems-design.github.io/EGR304DataSheetTemplate/02-Component-Selection/Component-Selection/</loc>
-         <lastmod>2025-12-02</lastmod>
+         <lastmod>2025-12-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://embedded-systems-design.github.io/EGR304DataSheetTemplate/03-BOM/BOM/</loc>
-         <lastmod>2025-12-02</lastmod>
+         <lastmod>2025-12-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://embedded-systems-design.github.io/EGR304DataSheetTemplate/04-Schematic/schematic/</loc>
-         <lastmod>2025-12-02</lastmod>
+         <lastmod>2025-12-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://embedded-systems-design.github.io/EGR304DataSheetTemplate/05-PCB-Design/PCB-design/</loc>
-         <lastmod>2025-12-02</lastmod>
+         <lastmod>2025-12-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://embedded-systems-design.github.io/EGR304DataSheetTemplate/06-Power-Budget/Power-Budget/</loc>
-         <lastmod>2025-12-02</lastmod>
+         <lastmod>2025-12-06</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
