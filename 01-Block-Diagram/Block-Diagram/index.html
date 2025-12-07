@@ -925,13 +925,18 @@
 <p>It highlights:</p>
 <ul>
 <li><strong>Power Levels:</strong> All components are powered from a regulated <strong>+5 V 1.5 A supply</strong> provided by the team’s shared power source.</li>
-<li><strong>Rotary Sensor:</strong> Bourns PEC11R-4215F-S0024  </li>
+<li><strong>Rotary Sensor:</strong> KY-040 rotary encoder </li>
 <li><strong>Microcontroller:</strong> The Microchip PIC18F57Q43 Curiosity Nano receives digital signals from the rotary encoder through Channel A (RB0) and Channel B (RB3) to determine the door’s rotation direction and position.
-The controller also uses ADC2 (RA2) and ADC3 (RA1) to send analog outputs to the motor and proximity subsystems for synchronized control and calibration.</li>
-<li><strong>Actuators:</strong> The subsystem includes a Red LED (RC3) to indicate calibration status and a Setup Button (RA3) for initialization.</li>
+The controller also uses DAC to convert the Digital signals from the rotary encoder to send analog outputs to the motor and proximity subsystems for synchronized control and calibration.</li>
+<li><strong>Actuators:</strong> The subsystem includes a Red LED (RC3) to indicate calibration status and a Setup Button (RD7) for initialization.</li>
 <li><strong>Team Connections:</strong>  </li>
-<li><strong>Connector 2 → Motor Subsystem:</strong> Transmits analog angle feedback (ADC2).  </li>
-<li><strong>Connector 4 → Proximity Subsystem:</strong> Sends analog setup reference (ADC3).  </li>
+<li><strong>RB2 :</strong>  Tells Rotary Sensor that the Motor is on.</li>
+<li><strong>RB1 :</strong>  Tells Motor that it needs to move for the set up.</li>
+<li><strong>RC4 :</strong>  Tells Motor that it needs to move or stop during regular use.</li>
+<li><strong>RF4 :</strong> Connects Rotary encoder to IR subsystem for calibration.</li>
+<li><strong>RC2 :</strong> Connects Rotary Sensor to Felx subsystem to start calibration.</li>
+<li><strong>RA2 :</strong> Connects Rotary sensor to Flex subsystem for cross check while door is in motion.</li>
+<li><strong>RA2 :</strong> Connects Rotary encoder to the proximity subsystem for cross check while door is in motion.</li>
 </ul>
 <hr>
 <h2 id="block-diagram">Block Diagram</h2>
