@@ -830,11 +830,13 @@
 
 <h1 id="component-selection">Component Selection</h1>
 <p>This page explains the major parts used in my Rotary Encoder Subsystem and the 5 V Voltage Regulation Subsystem.<br>
-Each part includes three options with cost links pros and cons.</p>
+Each part includes three options with cost links, pros and cons.<br>
+Each rationale also explains why the part supports the project requirements.</p>
 <hr>
 <h1 id="5-v-voltage-regulator-voltage-regulation-subsystem">5 V Voltage Regulator (Voltage Regulation Subsystem)</h1>
 <p>The 5 V regulator powers the PIC18F57Q43 and the rotary encoder.<br>
-It needs to give stable 5 V with low noise so the PIC reads signals clean.</p>
+It needs to give stable 5 V with low noise so the PIC reads signals clean.<br>
+A stable 5 V rail is required for accurate angle detection and microcontroller reliability.</p>
 <hr>
 <h2 id="option-1-lm340mpx-50nopb">Option 1: LM340MPX-5.0/NOPB</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="image1.png" data-desc-position="bottom"><img src="image1.png" width="180px"></a></p>
@@ -849,6 +851,9 @@ It needs to give stable 5 V with low noise so the PIC reads signals clean.</p>
 <p><strong>Cons</strong><br>
 <em> Not good for breadboards<br>
 </em> Needs copper area for heat  </p>
+<p><strong>Why this matters</strong><br>
+A clean 5 V output keeps PIC inputs stable and prevents encoder misreads.<br>
+This supports the requirement for accurate door angle feedback.</p>
 <hr>
 <h2 id="option-2-lm7805ctnopb">Option 2: LM7805CT/NOPB</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="image2.png" data-desc-position="bottom"><img src="image2.png" width="180px"></a></p>
@@ -864,6 +869,9 @@ It needs to give stable 5 V with low noise so the PIC reads signals clean.</p>
 <p><strong>Cons</strong><br>
 <em> Bigger body<br>
 </em> Can get warm under load  </p>
+<p><strong>Why this matters</strong><br>
+This regulator keeps the 5 V rail stable even with load changes.<br>
+Stable voltage is required so the PIC can measure encoder signals consistently.</p>
 <hr>
 <h2 id="option-3-lm7805sxnopb">Option 3: LM7805SX/NOPB</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="image3.png" data-desc-position="bottom"><img src="image3.png" width="180px"></a></p>
@@ -877,19 +885,25 @@ It needs to give stable 5 V with low noise so the PIC reads signals clean.</p>
 <p><strong>Cons</strong><br>
 <em> Needs thermal pad<br>
 </em> Harder to solder  </p>
+<p><strong>Why this matters</strong><br>
+Good thermal handling helps keep the 5 V rail stable during continuous operation.<br>
+This supports system reliability over repeated door cycles.</p>
 <hr>
 <blockquote>
 <h1 id="final-choice">Final Choice</h1>
-<p>LM7805CT/NOPB  </p>
+<p><strong>LM7805CT/NOPB</strong>  </p>
 <p>The LM7805CT gives consistent 5 V and works well with the PIC.<br>
 The TO-220 body makes testing simple and gives space for a heatsink.<br>
-The 5 V output stays stable even under load which helps encoder accuracy.<br>
-This is the safest and most reliable choice for the rail.</p>
+The 5 V output stays stable even under load which helps encoder accuracy.  </p>
+<p><strong>Why this fits the requirements</strong><br>
+A stable 5 V rail is required for the PIC, encoder, and communication lines.<br>
+This regulator meets the reliability and noise control requirements of the subsystem.</p>
 </blockquote>
 <hr>
 <h1 id="rotary-sensor-rotary-encoder">Rotary Sensor (Rotary Encoder)</h1>
 <p>The encoder gives angle feedback so the system knows when the door is at 0° and 90°.<br>
-It must send clean signals and last through repeated cycles.</p>
+It must send clean signals and last through repeated cycles.<br>
+Accurate angle detection is a requirement for proper door motion control.</p>
 <hr>
 <h2 id="option-1-bourns-em14r0d-r20-l064s-final-choice">Option 1: Bourns EM14R0D-R20-L064S (FINAL CHOICE)</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="image9.png" data-desc-position="bottom"><img src="image9.png" width="220px"></a></p>
@@ -903,15 +917,18 @@ It must send clean signals and last through repeated cycles.</p>
 <em> Long shaft<br>
 </em> High durability<br>
 <em> Smooth rotation<br>
-</em> Clean signals  </p>
+</em> Clean quadrature signals  </p>
 <p><strong>Cons</strong><br>
 <em> Higher price<br>
 </em> Larger size  </p>
+<p><strong>Why this matters</strong><br>
+High resolution and clean quadrature output are needed so the PIC can detect angles accurately.<br>
+This meets the requirement for precise door position tracking.</p>
 <hr>
 <h2 id="option-2-bourns-pec11r-4215f-s0024">Option 2: Bourns PEC11R-4215F-S0024</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="image8.png" data-desc-position="bottom"><img src="image8.png" width="180px"></a></p>
 <ul>
-<li><strong>$2.18 each</strong>  </li>
+<li><strong>$2.2 each</strong>  </li>
 <li><a href="https://www.digikey.com/en/products/detail/bourns-inc/PEC11R-4215F-S0024/4499665">PEC11R-4215F-S0024 – Bourns</a></li>
 </ul>
 <p><strong>Pros</strong><br>
@@ -922,11 +939,14 @@ It must send clean signals and last through repeated cycles.</p>
 <em> Lower resolution<br>
 </em> Shorter shaft<br>
 * Not as durable  </p>
+<p><strong>Why this matters</strong><br>
+Lower resolution may reduce accuracy when detecting door endpoints.<br>
+This does not fully support the precision needed for 0° and 90° detection.</p>
 <hr>
 <h2 id="option-3-ky-040-rotary-encoder-module">Option 3: KY-040 Rotary Encoder Module</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="image7.png" data-desc-position="bottom"><img src="image7.png" width="180px"></a></p>
 <ul>
-<li><strong>~$1.50 each</strong>  </li>
+<li><strong>~$1.85 each</strong>  </li>
 <li><a href="https://www.amazon.com/Cylewet-Encoder-15%C3%9716-5-Arduino-CYT1062/dp/B06XQTHDRR">KY-040 Module</a></li>
 </ul>
 <p><strong>Pros</strong><br>
@@ -937,73 +957,91 @@ It must send clean signals and last through repeated cycles.</p>
 <em> Noisy signal<br>
 </em> Low accuracy<br>
 * Not good for final systems  </p>
+<p><strong>Why this matters</strong><br>
+Noisy output leads to inaccurate angle readings.<br>
+This fails the requirement for consistent and reliable door position feedback.</p>
 <hr>
 <blockquote>
 <h1 id="final-choice_1">Final Choice</h1>
-<p>Bourns EM14R0D-R20-L064S  </p>
-<p>The system needs accurate angle detection and the EM14 gives that with 64 steps.<br>
+<p><strong>Bourns EM14R0D-R20-L064S</strong>  </p>
+<p>The system needs accurate angle detection and the EM14 provides clean quadrature transitions with 64 steps.<br>
 It handles repeated door cycles without wearing out and the long shaft helps with mounting.<br>
-Signal quality stays clean so the PIC reads angles properly.<br>
-This makes it the best match for this subsystem.</p>
+Signal quality stays stable so the PIC reads angles correctly.  </p>
+<p><strong>Why this fits the requirements</strong><br>
+The project requires reliable angle detection for 0° and 90° stopping.<br>
+The EM14 provides the accuracy and durability required for long term operation.</p>
 </blockquote>
 <hr>
 <h1 id="external-power-supply">External Power Supply</h1>
-<p>This supply powers the whole system.<br>
-It must give stable DC and enough current for all parts.</p>
+<p>The project needs a 9 V regulated supply to feed the 5 V regulator.<br>
+It must be safe, reliable, and give enough current for all subsystems.<br>
+A stable 9 V input keeps the 5 V rail from dropping during motor movement or PIC activity.</p>
 <hr>
-<h2 id="option-1-bel-power-swi12-12-n-p5">Option 1: Bel Power SWI12-12-N-P5</h2>
+<h2 id="option-1-tri-mag-l6r12-090">Option 1: Tri-Mag L6R12-090</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="image4.png" data-desc-position="bottom"><img src="image4.png" width="180px"></a></p>
 <ul>
-<li><strong>≈$15.16 each</strong>  </li>
-<li><a href="https://www.digikey.com/en/products/detail/bel-power-solutions/SWI12-12-N-P5/5287239">SWI12-12-N-P5 – Bel Power Solutions</a></li>
+<li><strong>$8.76</strong>  </li>
+<li><a href="https://www.digikey.com/en/products/detail/tri-mag-llc/L6R12-090/7682630">L6R12-090 – Tri-Mag LLC</a>  </li>
+<li>Regulated 9 V output, <strong>1.33 A max</strong></li>
 </ul>
 <p><strong>Pros</strong><br>
-<em> 12 V output<br>
-</em> Works from 90 to 264 VAC<br>
-<em> Level VI efficiency<br>
-</em> Low idle power  </p>
+<em> Clean 9 V output<br>
+</em> Widely stocked<br>
+<em> UL listed<br>
+</em> Enough current for basic microcontroller systems  </p>
 <p><strong>Cons</strong><br>
-<em> Only 1 A<br>
-</em> US plug only  </p>
+<em> Only 1.33 A headroom<br>
+</em> Lower margin for motors or added subsystems  </p>
+<p><strong>Why this matters</strong><br>
+A stable 9 V source is required to keep the 5 V rail clean.<br>
+With only 1.33 A, this option may limit current during door movement or peak loads.</p>
 <hr>
-<h2 id="option-2-mean-well-gst25a12-p1j-final-choice">Option 2: Mean Well GST25A12-P1J (FINAL CHOICE)</h2>
+<h2 id="option-2-triad-wsu090-1300">Option 2: Triad WSU090-1300</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="image5.png" data-desc-position="bottom"><img src="image5.png" width="180px"></a></p>
 <ul>
-<li><strong>≈$13.70 each</strong>  </li>
-<li><a href="https://www.digikey.com/en/products/detail/mean-well-usa-inc/GST25A12-P1J/7703648">GST25A12-P1J – Mean Well USA Inc.</a></li>
+<li><strong>$8.86</strong>  </li>
+<li><a href="https://www.digikey.com/en/products/detail/triad-magnetics/WSU090-1300/3094977">WSU090-1300 – Triad Magnetics</a>  </li>
+<li>Regulated 9 V output, <strong>1.3 A max</strong></li>
 </ul>
 <p><strong>Pros</strong><br>
-<em> 12 V<br>
-</em> Up to 2.08 A<br>
-<em> Wide input range<br>
-</em> Built in protections<br>
-* Reliable long term  </p>
+<em> Reliable regulation<br>
+</em> Similar size to standard wall adapters<br>
+* Good long term performance  </p>
 <p><strong>Cons</strong><br>
-<em> Needs AC cord<br>
-</em> Bigger body  </p>
+<em> Same current limit as Option 1<br>
+</em> Fewer units in stock  </p>
+<p><strong>Why this matters</strong><br>
+1.3 A is enough for the PIC and encoder subsystem but gives limited headroom for motor surges.<br>
+This may not fully support stable operation under load.</p>
 <hr>
-<h2 id="option-3-triad-wsu090-2000-r">Option 3: Triad WSU090-2000-R</h2>
+<h2 id="option-3-triad-wsu090-2000-r-final-choice">Option 3: Triad WSU090-2000-R (FINAL CHOICE)</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="image6.png" data-desc-position="bottom"><img src="image6.png" width="180px"></a></p>
 <ul>
-<li><strong>≈$12.15 each</strong>  </li>
-<li><a href="https://www.digikey.com/en/products/detail/triad-magnetics/WSU090-2000-R/3094952">WSU090-2000-R – Triad Magnetics</a></li>
+<li><strong>$12.15</strong>  </li>
+<li><a href="https://www.digikey.com/en/products/detail/triad-magnetics/WSU090-2000-R/3094952">WSU090-2000-R – Triad Magnetics</a>  </li>
+<li>Regulated 9 V output, <strong>2 A max</strong></li>
 </ul>
 <p><strong>Pros</strong><br>
-<em> 9 V at 2 A<br>
-</em> Good input range<br>
-<em> Compact<br>
-</em> Has protections  </p>
+<em> Highest current output of all options<br>
+</em> Good regulation and long term stability<br>
+<em> Safe wall mount design<br>
+</em> Enough current for PIC, encoder, motor, and future expansion  </p>
 <p><strong>Cons</strong><br>
-<em> Less margin for the 5 V regulator<br>
-</em> Lower efficiency rating  </p>
+<em> Slightly higher cost<br>
+</em> Fixed cable length  </p>
+<p><strong>Why this matters</strong><br>
+2 A ensures the regulator always gets a stable input voltage.<br>
+This prevents brownouts, voltage dips, and unstable encoder readings during door motion.<br>
+It directly supports the requirement for reliable and safe subsystem operation.</p>
 <hr>
 <blockquote>
 <h1 id="final-choice_2">Final Choice</h1>
-<p>Mean Well GST25A12-P1J  </p>
-<p>This unit gives 12 V at 2.08 A which is more than enough for my setup.<br>
-It has protection features and a wide input range so it stays safe.<br>
-12 V gives good margin for the regulator and helps keep the system stable.<br>
-The cost is close to smaller adapters but with better output which fits the project needs.</p>
+<p><strong>Triad WSU090-2000-R</strong>  </p>
+<p>This power supply gives the most current headroom, which keeps the 5 V regulator stable and supports reliable subsystem operation even under heavier loads.<br>
+Its regulated output meets the project requirements for safe, consistent system power.  </p>
+<p><strong>Why this fits the requirements</strong><br>
+The project requires stable power for the motor, PIC, and sensors.<br>
+This adapter gives enough current and regulation to meet those requirements reliably.</p>
 </blockquote>
 
 
