@@ -19,7 +19,7 @@ A stable 5 V rail is required for accurate angle detection and microcontroller r
 ---
 
 ## Option 1: LM340MPX-5.0/NOPB
-<img src="image1.png" width="500px">
+![LM340MPX-5.0](image1.png){style="max-height:200px;"}
 
 - **$1.43 each**  
 - [LM340MPX-5.0/NOPB – Texas Instruments](https://www.digikey.com/en/products/detail/texas-instruments/LM340MPX-5-0-NOPB/367021)
@@ -40,7 +40,7 @@ This supports the requirement for accurate door angle feedback.
 ---
 
 ## Option 2: LM7805CT/NOPB
-<img src="image2.png" width="500px">
+![LM7805CT](image2.png){style="max-height:200px;"}
 
 - **$1.80 each**  
 - [LM7805CT/NOPB – Texas Instruments](https://www.digikey.com/en/products/detail/texas-instruments/LM7805CT-NOPB/3901929)
@@ -62,7 +62,7 @@ Stable voltage is required so the PIC can measure encoder signals consistently.
 ---
 
 ## Option 3: LM7805SX/NOPB
-<img src="image3.png" width="500px">
+![LM7805SX](image3.png){style="max-height:200px;"}
 
 - **$1.80 each**  
 - [LM7805SX/NOPB – Texas Instruments](https://www.digikey.com/en/products/detail/texas-instruments/LM7805SX-NOPB/6110585)
@@ -103,7 +103,7 @@ Accurate angle detection is a requirement for proper door motion control.
 ---
 
 ## Option 1: Bourns EM14R0D-R20-L064S (FINAL CHOICE)
-<img src="image9.png" width="500px">
+![EM14 Encoder](image9.png){style="max-height:200px;"}
 
 - **$31.31 each**  
 - [EM14R0D-R20-L064S – Bourns 64-Position Encoder](https://www.digikey.com/en/products/detail/bourns-inc/EM14R0D-R20-L064S/2538006)
@@ -127,7 +127,7 @@ This meets the requirement for precise door position tracking.
 ---
 
 ## Option 2: Bourns PEC11R-4215F-S0024
-<img src="image8.png" width="500px">
+![PEC11R](image8.png){style="max-height:200px;"}
 
 - **$2.2 each**  
 - [PEC11R-4215F-S0024 – Bourns](https://www.digikey.com/en/products/detail/bourns-inc/PEC11R-4215F-S0024/4499665)
@@ -149,7 +149,7 @@ This does not fully support the precision needed for 0° and 90° detection.
 ---
 
 ## Option 3: KY-040 Rotary Encoder Module
-<img src="image7.png" width="500px">
+![KY040](image7.png){style="max-height:200px;"}
 
 - **~$1.85 each**  
 - [KY-040 Module](https://www.amazon.com/Cylewet-Encoder-15%C3%9716-5-Arduino-CYT1062/dp/B06XQTHDRR)
@@ -192,7 +192,7 @@ A stable 9 V input keeps the 5 V rail from dropping during motor movement or PIC
 ---
 
 ## Option 1: Tri-Mag L6R12-090
-<img src="image4.png" width="500px">
+![TriMag L6R12-090](image4.png){style="max-height:200px;"}
 
 - **$8.76**  
 - [L6R12-090 – Tri-Mag LLC](https://www.digikey.com/en/products/detail/tri-mag-llc/L6R12-090/7682630)  
@@ -215,7 +215,7 @@ With only 1.33 A, this option may limit current during door movement or peak loa
 ---
 
 ## Option 2: Triad WSU090-1300
-<img src="image5.png" width="500px">
+![WSU090-1300](image5.png){style="max-height:200px;"}
 
 - **$8.86**  
 - [WSU090-1300 – Triad Magnetics](https://www.digikey.com/en/products/detail/triad-magnetics/WSU090-1300/3094977)  
@@ -237,7 +237,7 @@ This may not fully support stable operation under load.
 ---
 
 ## Option 3: Triad WSU090-2000-R (FINAL CHOICE)
-<img src="image6.png" width="500px">
+![WSU090-2000-R](image6.png){style="max-height:200px;"}
 
 - **$12.15**  
 - [WSU090-2000-R – Triad Magnetics](https://www.digikey.com/en/products/detail/triad-magnetics/WSU090-2000-R/3094952)  
@@ -247,7 +247,7 @@ This may not fully support stable operation under load.
 * Highest current output of all options  
 * Good regulation and long term stability  
 * Safe wall mount design  
-* Enough current for PIC, encoder, motor, and future expansion  
+* Enough headroom for PIC, encoder, and future expansion  
 
 **Cons**  
 * Slightly higher cost  
