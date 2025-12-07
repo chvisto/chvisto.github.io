@@ -17,13 +17,19 @@ This block diagram shows the electrical layout of my **Rotary Sensor subsystem**
 It highlights:
 
 - **Power Levels:** All components are powered from a regulated **+5 V 1.5 A supply** provided by the team’s shared power source.
-- **Rotary Sensor:** Bourns PEC11R-4215F-S0024  
+- **Rotary Sensor:** KY-040 rotary encoder 
 - **Microcontroller:** The Microchip PIC18F57Q43 Curiosity Nano receives digital signals from the rotary encoder through Channel A (RB0) and Channel B (RB3) to determine the door’s rotation direction and position.
-The controller also uses ADC2 (RA2) and ADC3 (RA1) to send analog outputs to the motor and proximity subsystems for synchronized control and calibration.
-- **Actuators:** The subsystem includes a Red LED (RC3) to indicate calibration status and a Setup Button (RA3) for initialization.
+The controller also uses DAC to convert the Digital signals from the rotary encoder to send analog outputs to the motor and proximity subsystems for synchronized control and calibration.
+- **Actuators:** The subsystem includes a Red LED (RC3) to indicate calibration status and a Setup Button (RD7) for initialization.
 - **Team Connections:**  
-  - **Connector 2 → Motor Subsystem:** Transmits analog angle feedback (ADC2).  
-  - **Connector 4 → Proximity Subsystem:** Sends analog setup reference (ADC3).  
+  - **RB2 :**  Tells Rotary Sensor that the Motor is on.
+  - **RB1 :**  Tells Motor that it needs to move for the set up.
+  - **RC4 :**  Tells Motor that it needs to move or stop during regular use.
+  - **RF4 :** Connects Rotary encoder to IR subsystem for calibration.
+  - **RC2 :** Connects Rotary Sensor to Felx subsystem to start calibration.
+  - **RA2 :** Connects Rotary sensor to Flex subsystem for cross check while door is in motion.
+  - **RA2 :** Connects Rotary encoder to the proximity subsystem for cross check while door is in motion.
+
 
 ---
 
