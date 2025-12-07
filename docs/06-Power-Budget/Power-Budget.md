@@ -3,7 +3,7 @@ title: Power Budget
 ---
 
 ## Overview
-I created this power budget to make sure my subsystem runs safely and efficiently without overloading the 5 V regulator. It lists all the components I’m actually using : the LM7805CT voltage regulator, PEC11R rotary encoder, B3F-1000 setup button, and WP7113ID LED.
+I created this power budget to make sure my subsystem runs safely and efficiently without overloading the 5 V regulator. It lists all the components I’m actually using : the LM7805CT voltage regulator, EM14 rotary encoder, B3F-1000 setup button, and WP7113ID LED.
 
 Each component’s voltage and current were recorded and the total current draw was calculated. I then added a 25% safety margin to cover any unexpected power spikes or variations during operation.
 
