@@ -901,9 +901,181 @@
 <h2 id="overview">Overview</h2>
 <p>In the Bill of Materials, I selected components that were similar to the ones used in class to ensure compatibility and reliability except the rotary encoder of course. All parts were chosen from DigiKey because they provide detailed datasheets and verified specifications. </p>
 <h2 id="bill-of-materials">Bill of Materials</h2>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../BOM-Screenshot.png" data-desc-position="bottom"><img _2000_="&quot;2000&quot;" alt="" src="../BOM-Screenshot.png" style="style" width:="width:"></a>
-<strong>Figure 2:</strong> Bill of Materials</p>
-<p>An Excel sheet of the Bill of Materials can be downloaded  <a href="../Christo-BOM.xlsx"><em>here</em></a></p>
+<table>
+<thead>
+<tr>
+<th>Part Name / Description</th>
+<th>Unit Qty</th>
+<th>Per Unit Cost</th>
+<th>Total Cost</th>
+<th>Manufacturer</th>
+<th>Manufacturer Part #</th>
+<th>Supplier</th>
+<th>Vendor Part Number</th>
+<th>Datasheet Link</th>
+<th>Schematic Reference</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Voltage Regulator, 5 V, 1.5 A, TO-220-3 package</td>
+<td>1</td>
+<td>$1.80</td>
+<td>$1.80</td>
+<td>Texas Instruments</td>
+<td>LM7805CT/NOPB</td>
+<td>DigiKey</td>
+<td>296-47192-ND</td>
+<td>https://www.ti.com/lit/ds/symlink/lm7805.pdf</td>
+<td>U1</td>
+</tr>
+<tr>
+<td>Rotary Encoder, Mechanical 24 Quadrature (Incremental)</td>
+<td>1</td>
+<td>$2.20</td>
+<td>$2.20</td>
+<td>Bourns Inc.</td>
+<td>PEC11R-4215F-S0024</td>
+<td>DigiKey</td>
+<td>PEC11R-4215F-S0024-ND</td>
+<td>https://www.bourns.com/docs/Product-Datasheets/PEC11R.pdf</td>
+<td>SW2</td>
+</tr>
+<tr>
+<td>Tactile Switch SPST-NO Top Actuated Through Hole</td>
+<td>1</td>
+<td>$0.24</td>
+<td>$0.24</td>
+<td>Omron Electronics Inc.</td>
+<td>B3F-1000</td>
+<td>DigiKey</td>
+<td>SW400-ND</td>
+<td>https://omronfs.omron.com/en_US/ecb/products/pdf/en-b3f.pdf</td>
+<td>SW1</td>
+</tr>
+<tr>
+<td>LED Red</td>
+<td>1</td>
+<td>$0.00</td>
+<td>$0.00</td>
+<td>~</td>
+<td>~</td>
+<td>DigiKey</td>
+<td>~</td>
+<td>https://www.kingbrightusa.com/images/catalog/SPEC/BL-HB537A.pdf</td>
+<td>D1</td>
+</tr>
+<tr>
+<td>PIC18F47Q10 Curiosity Nano Evaluation Kit (placeholder for PIC18F57Q43)</td>
+<td>1</td>
+<td>$0.00</td>
+<td>$0.00</td>
+<td>Microchip Technology</td>
+<td>DM164150</td>
+<td>Microchip Direct</td>
+<td>DM182029-ND</td>
+<td>https://ww1.microchip.com/downloads/en/DeviceDoc/70005583a.pdf</td>
+<td>CJJ_PIC18F57Q43_CuriosityNano1</td>
+</tr>
+<tr>
+<td>0.33 µF Multilayer Ceramic Capacitor</td>
+<td>1</td>
+<td>$0.10</td>
+<td>$0.10</td>
+<td>TDK Corporation</td>
+<td>FG28C0G2W330JNT06</td>
+<td>DigiKey</td>
+<td>445-173069-1-ND</td>
+<td>https://product.tdk.com/info/en/catalog/datasheets/mlcc_commercial_en.pdf</td>
+<td>C1</td>
+</tr>
+<tr>
+<td>0.1 µF Ceramic Capacitor</td>
+<td>1</td>
+<td>$0.10</td>
+<td>$0.10</td>
+<td>YAGEO</td>
+<td>CC0805KRX7R9BB104</td>
+<td>DigiKey</td>
+<td>311-1344-1-ND</td>
+<td>https://www.yageo.com/upload/media/product/mlcc/catalogue/NP0X7R.pdf</td>
+<td>C2</td>
+</tr>
+<tr>
+<td>Fast-Blow Fuse, 500 mA, 5x20mm</td>
+<td>5</td>
+<td>$0.20</td>
+<td>$1.00</td>
+<td>Eaton - Electronics Division</td>
+<td>BK/1A1918-500R</td>
+<td>DigiKey</td>
+<td>F2312-ND</td>
+<td>https://www.eaton.com/ecm/groups/public/@pub/@eaton/@electrical/documents/content/ct_206443.pdf</td>
+<td>F1</td>
+</tr>
+<tr>
+<td>Fuse holder</td>
+<td>1</td>
+<td>$0.40</td>
+<td>$0.40</td>
+<td>Eaton - Electronics Division</td>
+<td>BK-6013</td>
+<td>DigiKey</td>
+<td>283-2776-ND</td>
+<td>https://www.eaton.com/ecm/groups/public/@pub/@eaton/@electrical/documents/content/ct_206421.pdf</td>
+<td>~</td>
+</tr>
+<tr>
+<td>PJ-102AH Power Jack 5.5mm Barrel</td>
+<td>1</td>
+<td>$0.72</td>
+<td>$0.72</td>
+<td>CUI Devices</td>
+<td>PJ-102AH</td>
+<td>DigiKey</td>
+<td>CP-102AH-ND</td>
+<td>https://www.cuidevices.com/product/resource/pj-102ah.pdf</td>
+<td>J1</td>
+</tr>
+<tr>
+<td>40 Pin 2.54mm Single Row Straight Female PCB Header</td>
+<td>1</td>
+<td>$0.59</td>
+<td>$0.59</td>
+<td>Adafruit Industries</td>
+<td>598</td>
+<td>DigiKey</td>
+<td>1528-1324-ND</td>
+<td>https://cdn-learn.adafruit.com/pdfs/downloads/adafruit-raspberry-pi-cobbler-kit.pdf</td>
+<td>J2, J3, J4</td>
+</tr>
+<tr>
+<td>40 Pin (40x1) Header Connector (Male)</td>
+<td>1</td>
+<td>$0.33</td>
+<td>$0.33</td>
+<td>SparkFun Electronics</td>
+<td>PRT-00116</td>
+<td>DigiKey</td>
+<td>1568-1628-ND</td>
+<td>https://cdn.sparkfun.com/datasheets/Prototyping/Headers-Female.pdf</td>
+<td>J2, J3, J4, T1–T4</td>
+</tr>
+<tr>
+<td>Resistor Kit (Assorted Values)</td>
+<td>1</td>
+<td>$7.00</td>
+<td>$7.00</td>
+<td>~</td>
+<td>~</td>
+<td>Amazon</td>
+<td>~</td>
+<td>https://www.amazon.com/Resistor-Kit-Value-Pack/dp/B0819ZQ8ZJ</td>
+<td>R1, R2, R3</td>
+</tr>
+</tbody>
+</table>
+<p>An Image for the Bill of materials can be found <a href="../BOM-Screenshot.png"><em>here</em></a> and the Excel sheet of the Bill of Materials can be downloaded  <a href="../Christo-BOM.xlsx"><em>here</em></a></p>
 
 
 
