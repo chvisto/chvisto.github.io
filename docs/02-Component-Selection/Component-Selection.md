@@ -22,16 +22,15 @@ Accurate angle detection is a requirement for proper door motion control.
 - [EM14R0D-R20-L064S – Bourns 64-Position Encoder](https://www.digikey.com/en/products/detail/bourns-inc/EM14R0D-R20-L064S/2538006)
 
 **Pros**  
-* 64 resolution steps  
-* Gold plated contacts  
-* Long shaft  
-* High durability  
-* Smooth rotation  
-* Clean quadrature signals  
+- 64 resolution steps    
+- Long shaft  
+- High durability  
+- Smooth rotation  
+- Clean quadrature signals  
 
 **Cons**  
-* Higher price  
-* Larger size  
+- Higher price  
+- Larger size  
 
 **Why this matters**  
 High resolution and clean quadrature output are needed so the PIC can detect angles accurately.  
@@ -46,14 +45,14 @@ This meets the requirement for precise door position tracking.
 - [PEC11R-4215F-S0024 – Bourns](https://www.digikey.com/en/products/detail/bourns-inc/PEC11R-4215F-S0024/4499665)
 
 **Pros**  
-* Common encoder choice  
-* 24 detents  
-* Clean quadrature  
+- Common encoder choice  
+- 24 detents  
+- Clean quadrature  
 
 **Cons**  
-* Lower resolution  
-* Shorter shaft  
-* Not as durable  
+- Lower resolution  
+- Shorter shaft  
+- Not as durable  
 
 **Why this matters**  
 Lower resolution may reduce accuracy when detecting door endpoints.  
@@ -68,14 +67,14 @@ This does not fully support the precision needed for 0° and 90° detection.
 - [KY-040 Module](https://www.amazon.com/Cylewet-Encoder-15%C3%9716-5-Arduino-CYT1062/dp/B06XQTHDRR)
 
 **Pros**  
-* Easy to test  
-* 5 V logic  
-* Has small PCB  
+- Easy to test  
+- 5 V logic  
+- Has small PCB  
 
 **Cons**  
-* Noisy signal  
-* Low accuracy  
-* Not good for final systems  
+- Noisy signal  
+- Low accuracy  
+- Not good for final systems  
 
 **Why this matters**  
 Noisy output leads to inaccurate angle readings.  

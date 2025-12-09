@@ -7,9 +7,9 @@ Title : Hardware V2.0
 No project, no matter how long you spend on it, is ever perfect. There is always room for improvement. For my Version 2.0, I would improve the project so it moves closer to an industry level standard.
 
 I would focus on these areas:  
-* Schematic  
-* PCB design  
-* Software  
+- Schematic  
+- PCB design  
+- Software  
 
 ---
 

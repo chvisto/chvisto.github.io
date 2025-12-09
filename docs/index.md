@@ -11,12 +11,12 @@ as part of<br>
 for<br>
 <font size= "5"> Team 103 </font><br>
 
-**Submission: October, 27, 2025**
+**Submission: December 8, 2025**
 </center>
 
 ## Introduction
 
-This datasheet focuses on the rotary encoder subsystem for our Private-Use Automatic Door Opener. The encoder gives position feedback to the microcontroller which allows the system to track the door’s movement and determine its open or closed state. This feedback is essential for ensuring that the motor operates safely and within its limits.
+This datasheet focuses on the rotary encoder subsystem for our Private Use Automatic Door Opener. The encoder gives position feedback to the microcontroller which allows the system to track the door’s movement and determine its open or closed state. This feedback is essential for ensuring that the motor operates safely and within its limits.
 
 ### Project Summary
 
@@ -32,15 +32,18 @@ The project is divided into four main subsystems: motor, IR sensors, flex sensor
 
 ### Areas of Interest
 
-* For encoder wiring and subsystem integration details, see the [Block Diagram section.](https://chvisto.github.io/01-Block-Diagram/Block-Diagram/)
+- For encoder wiring and subsystem integration details, see the [Block Diagram section.](https://chvisto.github.io/01-Block-Diagram/Block-Diagram/)
 
-* For the reasoning behind component choices and tested alternatives, visit the [Component Selection section.](https://chvisto.github.io/02-Component-Selection/Component-Selection/)
+- For the reasoning behind component choices and tested alternatives, visit the [Component Selection section.](https://chvisto.github.io/02-Component-Selection/Component-Selection/)
 
-* For the full list of electrical parts and hardware used, refer to the [BOM (Bill of Materials) section.](https://chvisto.github.io/03-BOM/BOM/)
+- For the full list of electrical parts and hardware used, refer to the [BOM (Bill of Materials) section.](https://chvisto.github.io/03-BOM/BOM/)
 
-* The full circuit layout can be viewed in the [Schematic section.](https://chvisto.github.io/04-Schematic/schematic/)
+- The full circuit layout can be viewed in the [Schematic section.](https://chvisto.github.io/04-Schematic/schematic/)
 
-* For details on voltage regulation and power distribution, check the [Power Budget section.](https://chvisto.github.io/05-Power-Budget/Power-Budget/)
+- For details on voltage regulation and power distribution, check the [Power Budget section.](https://chvisto.github.io/06-Power-Budget/Power-Budget/)
 
-* For calibration data, test logs, or supporting notes, review the [Appendix section.](https://chvisto.github.io/Appendix/)
+- For board layout see the [PCB Design section.](https://chvisto.github.io/05-PCB-Design/PCB-design/)
 
+- For the final embedded code running on the microcontroller, visit the [Microcontroller Code section.](https://chvisto.github.io/07-Microcontroller-Code/Microcontroller-code/)
+
+- For plans for improving the design read the [Hardware V2.0 section.](https://chvisto.github.io/08-Hardware-V2.0/Hardware-V2.0/)
