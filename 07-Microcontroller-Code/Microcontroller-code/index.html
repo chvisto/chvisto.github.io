@@ -805,18 +805,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#code" class="md-nav__link">
+  <a href="#team-code-calibrationnormal-rotation" class="md-nav__link">
     <span class="md-ellipsis">
-      Code
+      Team code (Calibration/Normal Rotation)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#download-the-zip-file" class="md-nav__link">
+  <a href="#individual-code-incrementdecrementreset" class="md-nav__link">
     <span class="md-ellipsis">
-      Download the Zip File
+      Individual Code (Increment/Decrement/Reset)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-the-zip-file-of-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Download the Zip file of the project
     </span>
   </a>
   
@@ -872,18 +881,27 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#code" class="md-nav__link">
+  <a href="#team-code-calibrationnormal-rotation" class="md-nav__link">
     <span class="md-ellipsis">
-      Code
+      Team code (Calibration/Normal Rotation)
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#download-the-zip-file" class="md-nav__link">
+  <a href="#individual-code-incrementdecrementreset" class="md-nav__link">
     <span class="md-ellipsis">
-      Download the Zip File
+      Individual Code (Increment/Decrement/Reset)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#download-the-zip-file-of-the-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Download the Zip file of the project
     </span>
   </a>
   
@@ -915,8 +933,607 @@
   <h1>Microcontroller Code</h1>
 
 <h2 id="overview">Overview</h2>
-<p>This is the code for the Rotary Encoder Subsystem. The Code performs the main operations of the rotary encoder that includes the increment count, the decrement count and also the reset. </p>
-<h2 id="code">Code</h2>
+<p>I had two separate codes for my demonstrations.
+For the team demonstration, the rotary encoder rotated with the motor and treated each count as 4 degrees. When the encoder reached 90 degrees, it signaled the motor to stop since the door was fully open. Likewise, when it returned to 0 degrees, it notified the motor that the door was fully closed and could not rotate any further. Throughout the entire process, it continuously sent analog values to both the Flex and Proximity subsystems so they could track the door’s exact position at all times.</p>
+<p>For the individual demonstration, I had to correct the printed output for each step because the encoder readings were not accurate. Using interrupts resolved this issue, and the updated code successfully demonstrated the increment, decrement, and reset functions of the rotary encoder.</p>
+<h2 id="team-code-calibrationnormal-rotation">Team code (Calibration/Normal Rotation)</h2>
+<div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">"mcc_generated_files/system/system.h"</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;xc.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdbool.h&gt;</span>
+
+<span class="cp">#ifndef _XTAL_FREQ</span>
+<span class="cp">#define _XTAL_FREQ 64000000UL</span>
+<span class="cp">#endif</span>
+
+<span class="c1">// ---------------- GLOBALS ----------------</span>
+
+<span class="c1">// Quadrature encoder count</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">encoderCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">// Encoder resolution</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">COUNTS_PER_REV</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">80</span><span class="p">;</span><span class="w">   </span><span class="c1">// 20 detents x 4 edges</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">MAX_ANGLE_DEG</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">90</span><span class="p">;</span><span class="w">   </span><span class="c1">// door range 0 to 90</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">COUNTS_AT_90_DEG</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">COUNTS_PER_REV</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">MAX_ANGLE_DEG</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">360</span><span class="p">;</span><span class="w"> </span><span class="c1">// 80*90/360 = 20</span>
+
+<span class="c1">// System state flags</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">calibMode</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">   </span><span class="c1">// 1 = in calibration mode</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">calibReached90</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">   </span><span class="c1">// 1 = hit 90, going back to 0</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">hasCalibrated</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">   </span><span class="c1">// 1 = calibration completed</span>
+
+<span class="c1">// Extra modes</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">runMode</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">   </span><span class="c1">// 1 = run mode</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">detailedMode</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">   </span><span class="c1">// 1 = detailed encoder explanation</span>
+
+<span class="c1">// Previous encoder states</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">rb0Prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">          </span><span class="c1">// Channel A (RB0) previous</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">rb3Prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">          </span><span class="c1">// Channel B (RB3) previous</span>
+
+<span class="c1">// Buttons previous states</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">rd7Prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">          </span><span class="c1">// RD7 mode button</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ra5Prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">          </span><span class="c1">// RA5 encoder push reset</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">sw0Prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">          </span><span class="c1">// RB4 SW0 reset</span>
+
+<span class="c1">// Long press tracking for RD7</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">rd7HoldTicks</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w">  </span><span class="n">rd7LongHandled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">// Tap detection on RD7</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w">  </span><span class="n">tapCount</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">tapWindowTicks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="c1">// Limit print tracking</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">at90Printed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">      </span><span class="c1">// for calibration 90</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">at0Printed</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">      </span><span class="c1">// for calibration 0</span>
+
+<span class="c1">// Timing</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w">  </span><span class="n">LOOP_DELAY_MS</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">LONG_PRESS_MS</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">LONG_PRESS_TICKS</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">LONG_PRESS_MS</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">LOOP_DELAY_MS</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">TAP_WINDOW_MS</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mi">1000</span><span class="p">;</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">TAP_WINDOW_TICKS</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">TAP_WINDOW_MS</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">LOOP_DELAY_MS</span><span class="p">;</span>
+
+<span class="c1">// ---------------- UART HELPER ----------------</span>
+<span class="k">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">UART1_WriteText</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">txt</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">txt</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">UART1_IsTxReady</span><span class="p">())</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">        </span><span class="n">UART1_Write</span><span class="p">(</span><span class="o">*</span><span class="n">txt</span><span class="o">++</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// Motor permission on RB2</span>
+<span class="k">static</span><span class="w"> </span><span class="kr">inline</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="nf">PermSignal</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">IO_RB2_GetValue</span><span class="p">();</span><span class="w">   </span><span class="c1">// 1 = motor subsystem allows movement</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">SYSTEM_Initialize</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// -------- INPUT CONFIG --------</span>
+
+<span class="w">    </span><span class="c1">// Encoder Channel B = RB3</span>
+<span class="w">    </span><span class="n">IO_RB3_SetDigitalMode</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RB3_SetDigitalInput</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RB3_SetPullup</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// Encoder Channel A = RB0</span>
+<span class="w">    </span><span class="n">IO_RB0_SetDigitalMode</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RB0_SetDigitalInput</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RB0_SetPullup</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// RD7 mode button</span>
+<span class="w">    </span><span class="n">IO_RD7_SetDigitalMode</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RD7_SetDigitalInput</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RD7_SetPullup</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// RA5 encoder push reset</span>
+<span class="w">    </span><span class="n">IO_RA5_SetDigitalMode</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RA5_SetDigitalInput</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RA5_SetPullup</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// RB4 SW0 reset (onboard button)</span>
+<span class="w">    </span><span class="n">IO_RB4_SetDigitalMode</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RB4_SetDigitalInput</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RB4_SetPullup</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// RB2 motor permission</span>
+<span class="w">    </span><span class="n">IO_RB2_SetDigitalMode</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RB2_SetDigitalInput</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RB2_SetPullup</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// -------- OUTPUT CONFIG --------</span>
+
+<span class="w">    </span><span class="c1">// RC3 LED for 0/90 in system modes</span>
+<span class="w">    </span><span class="n">IO_RC3_SetDigitalMode</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RC3_SetDigitalOutput</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RC3_SetLow</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// RB1: motor open line</span>
+<span class="w">    </span><span class="n">IO_RB1_SetDigitalMode</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RB1_SetDigitalOutput</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RB1_SetLow</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// RC4: motor close / flag</span>
+<span class="w">    </span><span class="n">IO_RC4_SetDigitalMode</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RC4_SetDigitalOutput</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RC4_SetLow</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// RF4: mirror of RC4</span>
+<span class="w">    </span><span class="n">IO_RF4_SetDigitalMode</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RF4_SetDigitalOutput</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RF4_SetLow</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// RC2: calibration line</span>
+<span class="w">    </span><span class="n">IO_RC2_SetDigitalMode</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RC2_SetDigitalOutput</span><span class="p">();</span>
+<span class="w">    </span><span class="n">IO_RC2_SetLow</span><span class="p">();</span>
+
+<span class="w">    </span><span class="c1">// RA2 DAC configured in MCC</span>
+
+<span class="w">    </span><span class="c1">// Init previous values</span>
+<span class="w">    </span><span class="n">rb3Prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IO_RB3_GetValue</span><span class="p">();</span>
+<span class="w">    </span><span class="n">rb0Prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IO_RB0_GetValue</span><span class="p">();</span>
+<span class="w">    </span><span class="n">rd7Prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IO_RD7_GetValue</span><span class="p">();</span>
+<span class="w">    </span><span class="n">ra5Prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IO_RA5_GetValue</span><span class="p">();</span>
+<span class="w">    </span><span class="n">sw0Prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IO_RB4_GetValue</span><span class="p">();</span>
+
+<span class="w">    </span><span class="kt">char</span><span class="w"> </span><span class="n">buf</span><span class="p">[</span><span class="mi">200</span><span class="p">];</span>
+
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// per-iteration event flags</span>
+<span class="w">        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">hit90Event</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">endCalibEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// ---------- READ BUTTONS ----------</span>
+<span class="w">        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">rd7Now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IO_RD7_GetValue</span><span class="p">();</span>
+<span class="w">        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">ra5Now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IO_RA5_GetValue</span><span class="p">();</span>
+<span class="w">        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">sw0Now</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IO_RB4_GetValue</span><span class="p">();</span>
+<span class="w">        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">perm</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">PermSignal</span><span class="p">();</span>
+
+<span class="w">        </span><span class="c1">// ----- RA5: POSITION RESET ANYTIME -----</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">ra5Prev</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">ra5Now</span><span class="p">)</span><span class="w">   </span><span class="c1">// falling edge</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">encoderCount</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">calibReached90</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">at90Printed</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">at0Printed</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">            </span><span class="n">UART1_WriteText</span><span class="p">(</span><span class="s">"RA5: reset to 0</span><span class="se">\r\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">ra5Prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ra5Now</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// ----- SW0 (RB4): FULL SYSTEM RESET -----</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">sw0Prev</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">sw0Now</span><span class="p">)</span><span class="w">   </span><span class="c1">// falling edge</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// turn everything off</span>
+<span class="w">            </span><span class="n">IO_RB1_SetLow</span><span class="p">();</span>
+<span class="w">            </span><span class="n">IO_RC4_SetLow</span><span class="p">();</span>
+<span class="w">            </span><span class="n">IO_RF4_SetLow</span><span class="p">();</span>
+<span class="w">            </span><span class="n">IO_RC2_SetLow</span><span class="p">();</span>
+<span class="w">            </span><span class="n">IO_RC3_SetLow</span><span class="p">();</span>
+
+<span class="w">            </span><span class="c1">// reset all state</span>
+<span class="w">            </span><span class="n">encoderCount</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">calibMode</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">runMode</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">detailedMode</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">calibReached90</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">hasCalibrated</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">            </span><span class="n">at90Printed</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">at0Printed</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">            </span><span class="n">tapCount</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">tapWindowTicks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">rd7HoldTicks</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">rd7LongHandled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">            </span><span class="c1">// zero DAC</span>
+<span class="w">            </span><span class="n">DAC1_SetOutput</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+<span class="w">            </span><span class="n">UART1_WriteText</span><span class="p">(</span><span class="s">"SW0: full reset</span><span class="se">\r\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="n">sw0Prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sw0Now</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// ----- RD7: TAP + LONG PRESS -----</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">rd7Now</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">rd7HoldTicks</span><span class="o">++</span><span class="p">;</span>
+
+<span class="w">            </span><span class="c1">// long press -&gt; exit any mode</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">calibMode</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">runMode</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">detailedMode</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">                </span><span class="o">!</span><span class="n">rd7LongHandled</span><span class="w"> </span><span class="o">&amp;&amp;</span>
+<span class="w">                </span><span class="n">rd7HoldTicks</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">LONG_PRESS_TICKS</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">calibMode</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">                </span><span class="n">runMode</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">                </span><span class="n">detailedMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">                </span><span class="n">tapCount</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">                </span><span class="n">tapWindowTicks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">                </span><span class="n">IO_RB1_SetLow</span><span class="p">();</span>
+<span class="w">                </span><span class="n">IO_RC4_SetLow</span><span class="p">();</span>
+<span class="w">                </span><span class="n">IO_RF4_SetLow</span><span class="p">();</span>
+<span class="w">                </span><span class="n">IO_RC2_SetLow</span><span class="p">();</span>
+<span class="w">                </span><span class="n">IO_RC3_SetLow</span><span class="p">();</span>
+
+<span class="w">                </span><span class="n">rd7LongHandled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">                </span><span class="n">UART1_WriteText</span><span class="p">(</span><span class="s">"Mode: OFF</span><span class="se">\r\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">rd7Prev</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// short tap if released before long-press duration</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rd7HoldTicks</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">LONG_PRESS_TICKS</span><span class="p">)</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tapCount</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">tapCount</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">                        </span><span class="n">tapWindowTicks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                    </span><span class="k">else</span>
+<span class="w">                    </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">tapCount</span><span class="o">++</span><span class="p">;</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="n">rd7HoldTicks</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="n">rd7LongHandled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">rd7Prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">rd7Now</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// ----- TAP WINDOW DECISION -----</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tapCount</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">tapWindowTicks</span><span class="o">++</span><span class="p">;</span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tapWindowTicks</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">TAP_WINDOW_TICKS</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// special handling: if we are already in RUN mode and see a double tap, toggle OFF</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">runMode</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">tapCount</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">))</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">runMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">                    </span><span class="n">IO_RB1_SetLow</span><span class="p">();</span>
+<span class="w">                    </span><span class="n">IO_RC4_SetLow</span><span class="p">();</span>
+<span class="w">                    </span><span class="n">IO_RF4_SetLow</span><span class="p">();</span>
+<span class="w">                    </span><span class="n">IO_RC2_SetLow</span><span class="p">();</span>
+<span class="w">                    </span><span class="n">IO_RC3_SetLow</span><span class="p">();</span>
+
+<span class="w">                    </span><span class="n">UART1_WriteText</span><span class="p">(</span><span class="s">"Mode: OFF</span><span class="se">\r\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">                </span><span class="k">else</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="c1">// normal global behavior</span>
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tapCount</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">{</span>
+<span class="w">                        </span><span class="c1">// triple tap -&gt; DETAIL mode</span>
+<span class="w">                        </span><span class="n">calibMode</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">                        </span><span class="n">runMode</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">                        </span><span class="n">detailedMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="w">                        </span><span class="n">at90Printed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">                        </span><span class="n">at0Printed</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">                        </span><span class="n">IO_RB1_SetLow</span><span class="p">();</span>
+<span class="w">                        </span><span class="n">IO_RC4_SetLow</span><span class="p">();</span>
+<span class="w">                        </span><span class="n">IO_RF4_SetLow</span><span class="p">();</span>
+<span class="w">                        </span><span class="n">IO_RC2_SetLow</span><span class="p">();</span>
+<span class="w">                        </span><span class="n">IO_RC3_SetLow</span><span class="p">();</span>
+
+<span class="w">                        </span><span class="n">UART1_WriteText</span><span class="p">(</span><span class="s">"Mode: DETAIL</span><span class="se">\r\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tapCount</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">{</span>
+<span class="w">                        </span><span class="c1">// double tap -&gt; RUN mode (if calibrated)</span>
+<span class="w">                        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">hasCalibrated</span><span class="p">)</span>
+<span class="w">                        </span><span class="p">{</span>
+<span class="w">                            </span><span class="n">UART1_WriteText</span><span class="p">(</span><span class="s">"Cannot start: not calibrated</span><span class="se">\r\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">                        </span><span class="p">}</span>
+<span class="w">                        </span><span class="k">else</span>
+<span class="w">                        </span><span class="p">{</span>
+<span class="w">                            </span><span class="n">calibMode</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">                            </span><span class="n">detailedMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">                            </span><span class="n">runMode</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+
+<span class="w">                            </span><span class="n">at90Printed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">                            </span><span class="n">at0Printed</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">                            </span><span class="n">IO_RB1_SetLow</span><span class="p">();</span>
+<span class="w">                            </span><span class="n">IO_RC4_SetLow</span><span class="p">();</span>
+<span class="w">                            </span><span class="n">IO_RF4_SetLow</span><span class="p">();</span>
+<span class="w">                            </span><span class="n">IO_RC2_SetLow</span><span class="p">();</span>
+
+<span class="w">                            </span><span class="n">UART1_WriteText</span><span class="p">(</span><span class="s">"Mode: RUN</span><span class="se">\r\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">                            </span><span class="n">UART1_WriteText</span><span class="p">(</span><span class="s">"Waiting for motor to rotate</span><span class="se">\r\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">                        </span><span class="p">}</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">tapCount</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">{</span>
+<span class="w">                        </span><span class="c1">// single tap -&gt; CALIBRATION mode</span>
+<span class="w">                        </span><span class="n">calibMode</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">                        </span><span class="n">runMode</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">                        </span><span class="n">detailedMode</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">                        </span><span class="n">calibReached90</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">                        </span><span class="n">at90Printed</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">                        </span><span class="n">at0Printed</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">                        </span><span class="n">UART1_WriteText</span><span class="p">(</span><span class="s">"Mode: CALIBRATION</span><span class="se">\r\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">                        </span><span class="n">UART1_WriteText</span><span class="p">(</span><span class="s">"Motor: opening to 90</span><span class="se">\r\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+
+<span class="w">                </span><span class="n">tapCount</span><span class="w">       </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">                </span><span class="n">tapWindowTicks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1">// ---------- READ ENCODER CHANNELS ----------</span>
+<span class="w">        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">aNow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IO_RB0_GetValue</span><span class="p">();</span>
+<span class="w">        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">bNow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IO_RB3_GetValue</span><span class="p">();</span>
+
+<span class="w">        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">movementHappened</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">int8_t</span><span class="w">  </span><span class="n">lastDelta</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">prevState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">rb0Prev</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">rb3Prev</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">currState</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">aNow</span><span class="w">   </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">bNow</span><span class="p">;</span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">currState</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">prevState</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="kt">int8_t</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">            </span><span class="k">switch</span><span class="w"> </span><span class="p">(</span><span class="n">prevState</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="k">case</span><span class="w"> </span><span class="mb">0b00</span><span class="p">:</span>
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">currState</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mb">0b01</span><span class="p">)</span><span class="w">      </span><span class="n">delta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">                    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">currState</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mb">0b10</span><span class="p">)</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">                    </span><span class="k">break</span><span class="p">;</span>
+<span class="w">                </span><span class="k">case</span><span class="w"> </span><span class="mb">0b01</span><span class="p">:</span>
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">currState</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mb">0b11</span><span class="p">)</span><span class="w">      </span><span class="n">delta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">                    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">currState</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mb">0b00</span><span class="p">)</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">                    </span><span class="k">break</span><span class="p">;</span>
+<span class="w">                </span><span class="k">case</span><span class="w"> </span><span class="mb">0b11</span><span class="p">:</span>
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">currState</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mb">0b10</span><span class="p">)</span><span class="w">      </span><span class="n">delta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">                    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">currState</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mb">0b01</span><span class="p">)</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">                    </span><span class="k">break</span><span class="p">;</span>
+<span class="w">                </span><span class="k">case</span><span class="w"> </span><span class="mb">0b10</span><span class="p">:</span>
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">currState</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mb">0b00</span><span class="p">)</span><span class="w">      </span><span class="n">delta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+<span class="w">                    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">currState</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mb">0b11</span><span class="p">)</span><span class="w"> </span><span class="n">delta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="w">                    </span><span class="k">break</span><span class="p">;</span>
+<span class="w">                </span><span class="k">default</span><span class="o">:</span>
+<span class="w">                    </span><span class="k">break</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">canMove</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">calibMode</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">detailedMode</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">canMove</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">runMode</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">hasCalibrated</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">perm</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">canMove</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">delta</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">canMove</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">encoderCount</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">delta</span><span class="p">;</span>
+<span class="w">                </span><span class="n">movementHappened</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">                </span><span class="n">lastDelta</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="n">delta</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">rb0Prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">aNow</span><span class="p">;</span>
+<span class="w">        </span><span class="n">rb3Prev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bNow</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// ---------- ANGLES ----------</span>
+<span class="w">        </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">angleRawDeg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">int16_t</span><span class="p">)(((</span><span class="kt">int32_t</span><span class="p">)</span><span class="n">encoderCount</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">360</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">COUNTS_PER_REV</span><span class="p">);</span>
+
+<span class="w">        </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">angleWrappedDeg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">angleRawDeg</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">360</span><span class="p">;</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">angleWrappedDeg</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">angleWrappedDeg</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">360</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">angleDeg</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="c1">// system angle (0–90)</span>
+<span class="w">        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">closedFlag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">openFlag</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">dacVal</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">        </span><span class="c1">// ---------- CALIBRATION MODE ----------</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">calibMode</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">angleDeg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">angleRawDeg</span><span class="p">;</span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">angleDeg</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">angleDeg</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">                </span><span class="n">encoderCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">angleDeg</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">MAX_ANGLE_DEG</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">angleDeg</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">MAX_ANGLE_DEG</span><span class="p">;</span>
+<span class="w">                </span><span class="n">encoderCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">COUNTS_AT_90_DEG</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="n">closedFlag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">angleDeg</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">            </span><span class="n">openFlag</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">angleDeg</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">MAX_ANGLE_DEG</span><span class="p">);</span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">closedFlag</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">openFlag</span><span class="p">)</span><span class="w"> </span><span class="n">IO_RC3_SetHigh</span><span class="p">();</span>
+<span class="w">            </span><span class="k">else</span><span class="w">                        </span><span class="n">IO_RC3_SetLow</span><span class="p">();</span>
+
+<span class="w">            </span><span class="n">IO_RC2_SetHigh</span><span class="p">();</span><span class="w">  </span><span class="c1">// tell subsystems we’re calibrating</span>
+
+<span class="w">            </span><span class="c1">// phase tracking</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">calibReached90</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">openFlag</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">calibReached90</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">calibReached90</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="c1">// 0 -&gt; 90 : open direction</span>
+<span class="w">                </span><span class="n">IO_RB1_SetHigh</span><span class="p">();</span>
+<span class="w">                </span><span class="n">IO_RC4_SetLow</span><span class="p">();</span>
+<span class="w">                </span><span class="n">IO_RF4_SetLow</span><span class="p">();</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="k">else</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">closedFlag</span><span class="p">)</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="c1">// 90 -&gt; 0 : close direction</span>
+<span class="w">                    </span><span class="n">IO_RB1_SetLow</span><span class="p">();</span>
+<span class="w">                    </span><span class="n">IO_RC4_SetHigh</span><span class="p">();</span>
+<span class="w">                    </span><span class="n">IO_RF4_SetHigh</span><span class="p">();</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">                </span><span class="k">else</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="c1">// reached 0 at end of calibration</span>
+<span class="w">                    </span><span class="n">IO_RB1_SetLow</span><span class="p">();</span>
+<span class="w">                    </span><span class="n">IO_RC4_SetLow</span><span class="p">();</span>
+<span class="w">                    </span><span class="n">IO_RF4_SetLow</span><span class="p">();</span>
+
+<span class="w">                    </span><span class="n">calibMode</span><span class="w">      </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">hasCalibrated</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">                    </span><span class="n">calibReached90</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+
+<span class="w">                    </span><span class="n">IO_RC2_SetLow</span><span class="p">();</span>
+
+<span class="w">                    </span><span class="n">endCalibEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="c1">// detect first hit of 90</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">openFlag</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">at90Printed</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">hit90Event</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">                </span><span class="n">at90Printed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">openFlag</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">at90Printed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="n">dacVal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="p">)(((</span><span class="kt">uint32_t</span><span class="p">)</span><span class="n">angleDeg</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">255u</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">MAX_ANGLE_DEG</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="c1">// ---------- RUN MODE ----------</span>
+<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">runMode</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">angleDeg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">angleRawDeg</span><span class="p">;</span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">angleDeg</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">angleDeg</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">                </span><span class="n">encoderCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">angleDeg</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">MAX_ANGLE_DEG</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">angleDeg</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">MAX_ANGLE_DEG</span><span class="p">;</span>
+<span class="w">                </span><span class="n">encoderCount</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">COUNTS_AT_90_DEG</span><span class="p">;</span>
+<span class="w">            </span><span class="p">}</span>
+
+<span class="w">            </span><span class="n">closedFlag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">angleDeg</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">            </span><span class="n">openFlag</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">angleDeg</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">MAX_ANGLE_DEG</span><span class="p">);</span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">closedFlag</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">openFlag</span><span class="p">)</span><span class="w"> </span><span class="n">IO_RC3_SetHigh</span><span class="p">();</span>
+<span class="w">            </span><span class="k">else</span><span class="w">                        </span><span class="n">IO_RC3_SetLow</span><span class="p">();</span>
+
+<span class="w">            </span><span class="n">IO_RB1_SetLow</span><span class="p">();</span>
+<span class="w">            </span><span class="n">IO_RC4_SetLow</span><span class="p">();</span>
+<span class="w">            </span><span class="n">IO_RF4_SetLow</span><span class="p">();</span>
+<span class="w">            </span><span class="n">IO_RC2_SetLow</span><span class="p">();</span>
+
+<span class="w">            </span><span class="n">dacVal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="p">)(((</span><span class="kt">uint32_t</span><span class="p">)</span><span class="n">angleDeg</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">255u</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">MAX_ANGLE_DEG</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="c1">// ---------- DETAILED MODE ----------</span>
+<span class="w">        </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">detailedMode</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">IO_RC3_SetLow</span><span class="p">();</span>
+<span class="w">            </span><span class="n">IO_RB1_SetLow</span><span class="p">();</span>
+<span class="w">            </span><span class="n">IO_RC4_SetLow</span><span class="p">();</span>
+<span class="w">            </span><span class="n">IO_RF4_SetLow</span><span class="p">();</span>
+<span class="w">            </span><span class="n">IO_RC2_SetLow</span><span class="p">();</span>
+
+<span class="w">            </span><span class="n">dacVal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="kt">uint8_t</span><span class="p">)(((</span><span class="kt">uint32_t</span><span class="p">)</span><span class="n">angleWrappedDeg</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">255u</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">360u</span><span class="p">);</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">        </span><span class="k">else</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="n">IO_RC3_SetLow</span><span class="p">();</span>
+<span class="w">            </span><span class="n">IO_RB1_SetLow</span><span class="p">();</span>
+<span class="w">            </span><span class="n">IO_RC4_SetLow</span><span class="p">();</span>
+<span class="w">            </span><span class="n">IO_RF4_SetLow</span><span class="p">();</span>
+<span class="w">            </span><span class="n">IO_RC2_SetLow</span><span class="p">();</span>
+<span class="w">            </span><span class="n">dacVal</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="c1">// ---------- DAC ----------</span>
+<span class="w">        </span><span class="n">DAC1_SetOutput</span><span class="p">(</span><span class="n">dacVal</span><span class="p">);</span>
+
+<span class="w">        </span><span class="c1">// ---------- UART DEBUG ----------</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">movementHappened</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="c1">// System-style print for CALIB/RUN or when we just ended calibration</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">calibMode</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">runMode</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">endCalibEvent</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="n">sprintf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span><span class="w"> </span><span class="s">"cnt=%d angle=%d dac=%u</span><span class="se">\r\n</span><span class="s">"</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">encoderCount</span><span class="p">,</span><span class="w"> </span><span class="n">angleDeg</span><span class="p">,</span><span class="w"> </span><span class="n">dacVal</span><span class="p">);</span>
+<span class="w">                </span><span class="n">UART1_WriteText</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+
+<span class="w">                </span><span class="c1">// extra messages in calibration mode</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">hit90Event</span><span class="p">)</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">UART1_WriteText</span><span class="p">(</span><span class="s">"Limit 90: motor go back to 0</span><span class="se">\r\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">endCalibEvent</span><span class="p">)</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="n">UART1_WriteText</span><span class="p">(</span><span class="s">"Limit 0: motor stop</span><span class="se">\r\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">                    </span><span class="n">UART1_WriteText</span><span class="p">(</span><span class="s">"Calibration complete</span><span class="se">\r\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">                </span><span class="p">}</span>
+
+<span class="w">                </span><span class="c1">// extra messages in RUN mode at 0 and 90</span>
+<span class="w">                </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">runMode</span><span class="p">)</span>
+<span class="w">                </span><span class="p">{</span>
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">openFlag</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">UART1_WriteText</span><span class="p">(</span><span class="s">"Run: 90 deg - motor stop</span><span class="se">\r\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">closedFlag</span><span class="p">)</span>
+<span class="w">                    </span><span class="p">{</span>
+<span class="w">                        </span><span class="n">UART1_WriteText</span><span class="p">(</span><span class="s">"Run: 0 deg - motor stop</span><span class="se">\r\n</span><span class="s">"</span><span class="p">);</span>
+<span class="w">                    </span><span class="p">}</span>
+<span class="w">                </span><span class="p">}</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">detailedMode</span><span class="p">)</span>
+<span class="w">            </span><span class="p">{</span>
+<span class="w">                </span><span class="k">const</span><span class="w"> </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">dirStr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">lastDelta</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="s">"CW"</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="s">"CCW"</span><span class="p">;</span>
+
+<span class="w">                </span><span class="n">sprintf</span><span class="p">(</span><span class="n">buf</span><span class="p">,</span>
+<span class="w">                        </span><span class="s">"DETAIL: cnt=%d delta=%d dir=%s rawAngle=%d wrapped=%d</span><span class="se">\r\n</span><span class="s">"</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">encoderCount</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">lastDelta</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">dirStr</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">angleRawDeg</span><span class="p">,</span>
+<span class="w">                        </span><span class="n">angleWrappedDeg</span><span class="p">);</span>
+<span class="w">                </span><span class="n">UART1_WriteText</span><span class="p">(</span><span class="n">buf</span><span class="p">);</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+
+<span class="w">        </span><span class="n">__delay_ms</span><span class="p">(</span><span class="n">LOOP_DELAY_MS</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="individual-code-incrementdecrementreset">Individual Code (Increment/Decrement/Reset)</h2>
 <div class="highlight"><pre><span></span><code><span class="cp">#include</span><span class="w"> </span><span class="cpf">"mcc_generated_files/system/system.h"</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;xc.h&gt;</span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span>
@@ -1157,8 +1774,8 @@
 <span class="w">    </span><span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="download-the-zip-file">Download the Zip File</h2>
-<p>The Zip file for the program can be found <a href="../Rotary_Encoder_Ky040.zip"><em>here</em></a></p>
+<h2 id="download-the-zip-file-of-the-project">Download the Zip file of the project</h2>
+<p>The Zip file for the program can be found <a href="../Rotary_Encoder_Ky040.zip"><em>here.</em></a></p>
 
 
 
