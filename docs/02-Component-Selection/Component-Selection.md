@@ -83,7 +83,7 @@ This fails the requirement for consistent and reliable door position feedback.
 
 ---
 
-> # Final Choice  
+> ## Final Choice  
 > **Bourns EM14R0D-R20-L064S**  
 >  
 > The system needs accurate angle detection and the EM14 provides clean quadrature transitions with 64 steps.  
