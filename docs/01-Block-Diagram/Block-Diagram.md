@@ -17,7 +17,7 @@ This block diagram shows the electrical layout of my **Rotary Sensor subsystem**
 It highlights:
 
 - **Power Levels:** All components are powered from a regulated **+5 V 1.5 A supply** provided by the team’s shared power source.
-- **Rotary Sensor:** KY-040 rotary encoder 
+- **Rotary Sensor:** Bourns EM14R0D-R20-L064S
 - **Microcontroller:** The Microchip PIC18F57Q43 Curiosity Nano receives digital signals from the rotary encoder through Channel A (RB0) and Channel B (RB3) to determine the door’s rotation direction and position.
 The controller also uses DAC to convert the Digital signals from the rotary encoder to send analog outputs to the motor and proximity subsystems for synchronized control and calibration.
 - **Actuators:** The subsystem includes a Red LED (RC3) to indicate calibration status and a Setup Button (RD7) for initialization.
