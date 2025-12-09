@@ -27,9 +27,7 @@ title: PCB Design
 **Figure 06:** Bottom Layer of the PCB
 
 ---
-
-
-# Resouces
+# Resources
 
 The Top and Bottom Layer as a PDF download is available [*here*](PCB-top-bottom-CJJ.pdf), and the updated ECAD project .zip file [*here*](rotary-encoder.zip).
 
