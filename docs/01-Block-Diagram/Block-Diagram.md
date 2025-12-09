@@ -37,8 +37,8 @@ The controller also uses DAC to convert the Digital signals from the rotary enco
 
 ![Individual Block Diagram](individual-block-diagram.png)
 
----
-# Part Importance
+
+## Part Importance
 
 | Part            | Importance |
 |-----------------|------------|
@@ -46,7 +46,6 @@ The controller also uses DAC to convert the Digital signals from the rotary enco
 | Rotary Encoder  | Provides precise rotational feedback, allowing the system to determine the door’s exact position at all times. |
 | LED             | Serves as a status indicator by showing whether the door is fully open or fully closed. |
 | Switch Button   | Used to transition between calibration mode and normal mode|
----
 
 ## Access & Downloads
 
