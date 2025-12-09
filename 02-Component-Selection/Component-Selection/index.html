@@ -535,6 +535,17 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Component Selection
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -544,6 +555,67 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rotary-sensor-rotary-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rotary Sensor (Rotary Encoder)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rotary Sensor (Rotary Encoder)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-1-bourns-em14r0d-r20-l064s-final-choice" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option 1: Bourns EM14R0D-R20-L064S (FINAL CHOICE)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-bourns-pec11r-4215f-s0024" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option 2: Bourns PEC11R-4215F-S0024
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-3-ky-040-rotary-encoder-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option 3: KY-040 Rotary Encoder Module
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -807,6 +879,56 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rotary-sensor-rotary-encoder" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rotary Sensor (Rotary Encoder)
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rotary Sensor (Rotary Encoder)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#option-1-bourns-em14r0d-r20-l064s-final-choice" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option 1: Bourns EM14R0D-R20-L064S (FINAL CHOICE)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-2-bourns-pec11r-4215f-s0024" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option 2: Bourns PEC11R-4215F-S0024
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#option-3-ky-040-rotary-encoder-module" class="md-nav__link">
+    <span class="md-ellipsis">
+      Option 3: KY-040 Rotary Encoder Module
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -829,83 +951,14 @@
 
 
 <h1 id="component-selection">Component Selection</h1>
-<p>This page explains the major parts used in my Rotary Encoder Subsystem and the 5 V Voltage Regulation Subsystem.<br>
-Each part includes three options with cost links, pros and cons.<br>
-Each rationale also explains why the part supports the project requirements.</p>
+<p>This section involves successfully selecting the most suitable rotary encoder that fits my team's goals.</p>
 <hr>
-<h1 id="5-v-voltage-regulator-voltage-regulation-subsystem">5 V Voltage Regulator (Voltage Regulation Subsystem)</h1>
-<p>The 5 V regulator powers the PIC18F57Q43 and the rotary encoder.<br>
-It needs to give stable 5 V with low noise so the PIC reads signals clean.<br>
-A stable 5 V rail is required for accurate angle detection and microcontroller reliability.</p>
-<hr>
-<h2 id="option-1-lm340mpx-50nopb">Option 1: LM340MPX-5.0/NOPB</h2>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../image1.png" data-desc-position="bottom"><img alt="LM340MPX-5.0" src="../image1.png" style="max-height:200px;"></a></p>
-<ul>
-<li><strong>$1.43 each</strong>  </li>
-<li><a href="https://www.digikey.com/en/products/detail/texas-instruments/LM340MPX-5-0-NOPB/367021">LM340MPX-5.0/NOPB – Texas Instruments</a></li>
-</ul>
-<p><strong>Pros</strong><br>
-<em> Small SMD size<br>
-</em> Good regulation<br>
-* Well documented  </p>
-<p><strong>Cons</strong><br>
-<em> Not good for breadboards<br>
-</em> Needs copper area for heat  </p>
-<p><strong>Why this matters</strong><br>
-A clean 5 V output keeps PIC inputs stable and prevents encoder misreads.<br>
-This supports the requirement for accurate door angle feedback.</p>
-<hr>
-<h2 id="option-2-lm7805ctnopb">Option 2: LM7805CT/NOPB</h2>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../image2.png" data-desc-position="bottom"><img alt="LM7805CT" src="../image2.png" style="max-height:200px;"></a></p>
-<ul>
-<li><strong>$1.80 each</strong>  </li>
-<li><a href="https://www.digikey.com/en/products/detail/texas-instruments/LM7805CT-NOPB/3901929">LM7805CT/NOPB – Texas Instruments</a></li>
-</ul>
-<p><strong>Pros</strong><br>
-<em> TO-220 package is easy to work with<br>
-</em> Stable 5 V output<br>
-<em> Easy to test<br>
-</em> Low noise helps encoder readings  </p>
-<p><strong>Cons</strong><br>
-<em> Bigger body<br>
-</em> Can get warm under load  </p>
-<p><strong>Why this matters</strong><br>
-This regulator keeps the 5 V rail stable even with load changes.<br>
-Stable voltage is required so the PIC can measure encoder signals consistently.</p>
-<hr>
-<h2 id="option-3-lm7805sxnopb">Option 3: LM7805SX/NOPB</h2>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../image3.png" data-desc-position="bottom"><img alt="LM7805SX" src="../image3.png" style="max-height:200px;"></a></p>
-<ul>
-<li><strong>$1.80 each</strong>  </li>
-<li><a href="https://www.digikey.com/en/products/detail/texas-instruments/LM7805SX-NOPB/6110585">LM7805SX/NOPB – Texas Instruments</a></li>
-</ul>
-<p><strong>Pros</strong><br>
-<em> Small SMD part<br>
-</em> Good thermal performance  </p>
-<p><strong>Cons</strong><br>
-<em> Needs thermal pad<br>
-</em> Harder to solder  </p>
-<p><strong>Why this matters</strong><br>
-Good thermal handling helps keep the 5 V rail stable during continuous operation.<br>
-This supports system reliability over repeated door cycles.</p>
-<hr>
-<blockquote>
-<h1 id="final-choice">Final Choice</h1>
-<p><strong>LM7805CT/NOPB</strong>  </p>
-<p>The LM7805CT gives consistent 5 V and works well with the PIC.<br>
-The TO-220 body makes testing simple and gives space for a heatsink.<br>
-The 5 V output stays stable even under load which helps encoder accuracy.  </p>
-<p><strong>Why this fits the requirements</strong><br>
-A stable 5 V rail is required for the PIC, encoder, and communication lines.<br>
-This regulator meets the reliability and noise control requirements of the subsystem.</p>
-</blockquote>
-<hr>
-<h1 id="rotary-sensor-rotary-encoder">Rotary Sensor (Rotary Encoder)</h1>
+<h2 id="rotary-sensor-rotary-encoder">Rotary Sensor (Rotary Encoder)</h2>
 <p>The encoder gives angle feedback so the system knows when the door is at 0° and 90°.<br>
 It must send clean signals and last through repeated cycles.<br>
 Accurate angle detection is a requirement for proper door motion control.</p>
 <hr>
-<h2 id="option-1-bourns-em14r0d-r20-l064s-final-choice">Option 1: Bourns EM14R0D-R20-L064S (FINAL CHOICE)</h2>
+<h3 id="option-1-bourns-em14r0d-r20-l064s-final-choice">Option 1: Bourns EM14R0D-R20-L064S (FINAL CHOICE)</h3>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../image9.png" data-desc-position="bottom"><img alt="EM14 Encoder" src="../image9.png" style="max-height:200px;"></a></p>
 <ul>
 <li><strong>$31.31 each</strong>  </li>
@@ -925,7 +978,7 @@ Accurate angle detection is a requirement for proper door motion control.</p>
 High resolution and clean quadrature output are needed so the PIC can detect angles accurately.<br>
 This meets the requirement for precise door position tracking.</p>
 <hr>
-<h2 id="option-2-bourns-pec11r-4215f-s0024">Option 2: Bourns PEC11R-4215F-S0024</h2>
+<h3 id="option-2-bourns-pec11r-4215f-s0024">Option 2: Bourns PEC11R-4215F-S0024</h3>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../image8.png" data-desc-position="bottom"><img alt="PEC11R" src="../image8.png" style="max-height:200px;"></a></p>
 <ul>
 <li><strong>$2.2 each</strong>  </li>
@@ -943,7 +996,7 @@ This meets the requirement for precise door position tracking.</p>
 Lower resolution may reduce accuracy when detecting door endpoints.<br>
 This does not fully support the precision needed for 0° and 90° detection.</p>
 <hr>
-<h2 id="option-3-ky-040-rotary-encoder-module">Option 3: KY-040 Rotary Encoder Module</h2>
+<h3 id="option-3-ky-040-rotary-encoder-module">Option 3: KY-040 Rotary Encoder Module</h3>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../image7.png" data-desc-position="bottom"><img alt="KY040" src="../image7.png" style="max-height:200px;"></a></p>
 <ul>
 <li><strong>~$1.85 each</strong>  </li>
@@ -962,7 +1015,7 @@ Noisy output leads to inaccurate angle readings.<br>
 This fails the requirement for consistent and reliable door position feedback.</p>
 <hr>
 <blockquote>
-<h1 id="final-choice_1">Final Choice</h1>
+<h1 id="final-choice">Final Choice</h1>
 <p><strong>Bourns EM14R0D-R20-L064S</strong>  </p>
 <p>The system needs accurate angle detection and the EM14 provides clean quadrature transitions with 64 steps.<br>
 It handles repeated door cycles without wearing out and the long shaft helps with mounting.<br>
@@ -972,77 +1025,21 @@ The project requires reliable angle detection for 0° and 90° stopping.<br>
 The EM14 provides the accuracy and durability required for long term operation.</p>
 </blockquote>
 <hr>
-<h1 id="external-power-supply">External Power Supply</h1>
-<p>The project needs a 9 V regulated supply to feed the 5 V regulator.<br>
-It must be safe, reliable, and give enough current for all subsystems.<br>
-A stable 9 V input keeps the 5 V rail from dropping during motor movement or PIC activity.</p>
-<hr>
-<h2 id="option-1-tri-mag-l6r12-090">Option 1: Tri-Mag L6R12-090</h2>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../image4.png" data-desc-position="bottom"><img alt="TriMag L6R12-090" src="../image4.png" style="max-height:200px;"></a></p>
-<ul>
-<li><strong>$8.76</strong>  </li>
-<li><a href="https://www.digikey.com/en/products/detail/tri-mag-llc/L6R12-090/7682630">L6R12-090 – Tri-Mag LLC</a>  </li>
-<li>Regulated 9 V output, <strong>1.33 A max</strong></li>
-</ul>
-<p><strong>Pros</strong><br>
-<em> Clean 9 V output<br>
-</em> Widely stocked<br>
-<em> UL listed<br>
-</em> Enough current for basic microcontroller systems  </p>
-<p><strong>Cons</strong><br>
-<em> Only 1.33 A headroom<br>
-</em> Lower margin for motors or added subsystems  </p>
-<p><strong>Why this matters</strong><br>
-A stable 9 V source is required to keep the 5 V rail clean.<br>
-With only 1.33 A, this option may limit current during door movement or peak loads.</p>
-<hr>
-<h2 id="option-2-triad-wsu090-1300">Option 2: Triad WSU090-1300</h2>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../image5.png" data-desc-position="bottom"><img alt="WSU090-1300" src="../image5.png" style="max-height:200px;"></a></p>
-<ul>
-<li><strong>$8.86</strong>  </li>
-<li><a href="https://www.digikey.com/en/products/detail/triad-magnetics/WSU090-1300/3094977">WSU090-1300 – Triad Magnetics</a>  </li>
-<li>Regulated 9 V output, <strong>1.3 A max</strong></li>
-</ul>
-<p><strong>Pros</strong><br>
-<em> Reliable regulation<br>
-</em> Similar size to standard wall adapters<br>
-* Good long term performance  </p>
-<p><strong>Cons</strong><br>
-<em> Same current limit as Option 1<br>
-</em> Fewer units in stock  </p>
-<p><strong>Why this matters</strong><br>
-1.3 A is enough for the PIC and encoder subsystem but gives limited headroom for motor surges.<br>
-This may not fully support stable operation under load.</p>
-<hr>
-<h2 id="option-3-triad-wsu090-2000-r-final-choice">Option 3: Triad WSU090-2000-R (FINAL CHOICE)</h2>
-<p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../image6.png" data-desc-position="bottom"><img alt="WSU090-2000-R" src="../image6.png" style="max-height:200px;"></a></p>
-<ul>
-<li><strong>$12.15</strong>  </li>
-<li><a href="https://www.digikey.com/en/products/detail/triad-magnetics/WSU090-2000-R/3094952">WSU090-2000-R – Triad Magnetics</a>  </li>
-<li>Regulated 9 V output, <strong>2 A max</strong></li>
-</ul>
-<p><strong>Pros</strong><br>
-<em> Highest current output of all options<br>
-</em> Good regulation and long term stability<br>
-<em> Safe wall mount design<br>
-</em> Enough headroom for PIC, encoder, and future expansion  </p>
-<p><strong>Cons</strong><br>
-<em> Slightly higher cost<br>
-</em> Fixed cable length  </p>
-<p><strong>Why this matters</strong><br>
-2 A ensures the regulator always gets a stable input voltage.<br>
-This prevents brownouts, voltage dips, and unstable encoder readings during door motion.<br>
-It directly supports the requirement for reliable and safe subsystem operation.</p>
-<hr>
-<blockquote>
-<h1 id="final-choice_2">Final Choice</h1>
-<p><strong>Triad WSU090-2000-R</strong>  </p>
-<p>This power supply gives the most current headroom, which keeps the 5 V regulator stable and supports reliable subsystem operation even under heavier loads.<br>
-Its regulated output meets the project requirements for safe, consistent system power.  </p>
-<p><strong>Why this fits the requirements</strong><br>
-The project requires stable power for the motor, PIC, and sensors.<br>
-This adapter gives enough current and regulation to meet those requirements reliably.</p>
-</blockquote>
+<h1 id="final-selection-table">Final Selection Table</h1>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Part Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rotary Encoder</td>
+<td><a href="https://www.digikey.com/en/products/detail/bourns-inc/EM14R0D-R20-L064S/2538006">EM14R0D-R20-L064S</a></td>
+</tr>
+</tbody>
+</table>
 
 
 
