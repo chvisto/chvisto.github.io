@@ -96,10 +96,21 @@ This fails the requirement for consistent and reliable door position feedback.
 
 ---
 
-# Final Selection Table
+## Final Selection Table
 
 | Function        | Part Name |
 |----------------|-----------|
 | Rotary Encoder | [EM14R0D-R20-L064S](https://www.digikey.com/en/products/detail/bourns-inc/EM14R0D-R20-L064S/2538006) |
+
+## MCC Configuration / Pinout Table 
+
+| Subsystem | Pins |
+|-----------|-------|
+| DAC       | RA2 |
+| UART      | RF1 (RX1), RF0 (TX1) |
+| GPIO      | RA5, RB0, RB1, RB2, RB3, RC2, RC3, RC4, RD4, RD7, RF4 |
+
+![MCC Configuration](MCC-Configuration.png)
+
 
 
