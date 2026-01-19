@@ -11,7 +11,7 @@ theme:
   font:
     text: Roboto
   logo: static/logo314.svg
-  favicon: static/logo314.png
+  favicon: static/logo-314.png
 
   features:
     - navigation.tabs
@@ -59,7 +59,7 @@ extra_javascript:
 not_in_nav: |
   static
   
-copyright: "Copyright &copy; 2026 team-name-here"
+copyright: "Copyright &copy; 2026 ProjectX"
 
 extra:
   generator: false
