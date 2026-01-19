@@ -22,7 +22,7 @@ for<br>
 ### Project Summary
 
 * This needs to be updated to reflect <ins>your version</ins> of the team project, so when shared not via the team's report, the reader gets an idea of the direction of the project and how your work will contribute to the overall success.
-* Add context that ties into the link to your [team report.](https://egr314-s-2026-30.github.io/EGR314-S-2026-305.github.io/)
+* Get more details on my project at the [team report.](https://egr314-s-2026-30.github.io/EGR314-S-2026-305.github.io/)
 
 ### My Contribution
 
