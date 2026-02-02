@@ -508,6 +508,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Module Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hmi-system-safety-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      HMI &amp; System Safety Requirements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -797,6 +812,21 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Module Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hmi-system-safety-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      HMI &amp; System Safety Requirements
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -825,40 +855,123 @@
   <h1>Module's Requirements</h1>
 
 <h2 id="module-requirements">Module Requirements</h2>
-<p>The following sections document the requirements that the this module need to fulfills to .....</p>
+<p>The HMI &amp; System Safety Board provides the primary local human-machine interface for the rover and acts as a safety critical subsystem. It is responsible for displaying real time system status and handling user input. The board also monitors power health and enforces emergency shutdown and fail safe behaviour so that the rover can be brought to a safe state when needed. The board integrates into the rover’s daisy-chained UART communication network. It must not disrupt message flow under any operating condition so that commands and telemetry continue to move correctly between all subsystems.</p>
+<h3 id="hmi-system-safety-requirements">HMI &amp; System Safety Requirements</h3>
 <table>
 <thead>
 <tr>
-<th><strong>Requirement Description</strong></th>
-<th><strong>Measure of<br> Threshold</strong></th>
-<th><strong>Target<br>Measure</strong></th>
-<th style="text-align: center;"><strong>Stretch<br>Requirement<br>(Y-N)</strong></th>
+<th>Requirement</th>
+<th>Description</th>
+<th>Measure of Threshold (Minimum)</th>
+<th>Target Measure / Stretch</th>
+<th>Stretch (Y/N)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Surface mounted, 3.3V switching power regulatore</td>
-<td>3.2 Volts</td>
-<td>3.3 Volts</td>
-<td style="text-align: center;">No</td>
+<td>Standalone PCB</td>
+<td>Implemented as a single modular board</td>
+<td>Custom standalone PCB</td>
+<td>Daisy-chain compatible design</td>
+<td>No</td>
 </tr>
 <tr>
-<td>Surface mounted microcontroller</td>
-<td>1 PIC or ESP</td>
-<td>8-bit PIC</td>
-<td style="text-align: center;">No</td>
+<td>Visual Interface</td>
+<td>Displays rover and subsystem status</td>
+<td>Monochrome OLED</td>
+<td>≥1.3" high-contrast display</td>
+<td>No</td>
 </tr>
 <tr>
-<td>Wireless Communication</td>
-<td>Able to send or receive a Wi-Fi data</td>
-<td>Send and receive Wi-Fi Data to MQTT</td>
-<td style="text-align: center;">Yes</td>
+<td>User Input</td>
+<td>Manual control and menu navigation</td>
+<td>≥4 tactile pushbuttons</td>
+<td>Debounced multi-button UI</td>
+<td>No</td>
 </tr>
 <tr>
-<td><em>Rest are items your modules needs to support the task you are covering for the team's device.</em></td>
-<td>---</td>
-<td>---</td>
-<td style="text-align: center;"><strong>NO</strong></td>
+<td>Emergency Stop</td>
+<td>Immediate rover shutdown capability</td>
+<td>Hard-wired E-Stop input</td>
+<td>Hardware-latched E-Stop with status LED</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Fail-Safe Control</td>
+<td>Safe state on fault or E-Stop</td>
+<td>Software-based halt command</td>
+<td>Hardware + software redundancy</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Power Monitoring</td>
+<td>Monitor rover power health</td>
+<td>Voltage sensing on 9 V rail</td>
+<td>Voltage + current monitoring</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Microcontroller</td>
+<td>Central control and communication</td>
+<td>SMD MCU with UART and I2C</td>
+<td>ESP32 or PIC with dual UART</td>
+<td>No</td>
+</tr>
+<tr>
+<td>UART Communication</td>
+<td>Daisy-chain data handling</td>
+<td>UART TX/RX operational</td>
+<td>Full command + telemetry handling</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Message Forwarding</td>
+<td>Maintain bus integrity</td>
+<td>Non-addressed messages forwarded</td>
+<td>Reliable forwarding under load</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Status Telemetry</td>
+<td>Local system reporting</td>
+<td>Display local board status</td>
+<td>Display telemetry from other subsystems</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Alert System</td>
+<td>Notify user of faults</td>
+<td>Visual alerts on display</td>
+<td>Audible buzzer for critical states</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Power Input</td>
+<td>External power acceptance</td>
+<td>9 V input supported</td>
+<td>Reverse-polarity protected input</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Regulation</td>
+<td>Local voltage regulation</td>
+<td>Regulated 3.3 V output</td>
+<td>Stable 3.3 V switching regulator ≥500 mA</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Operating Conditions</td>
+<td>Indoor lab operation</td>
+<td>Room temperature</td>
+<td>0–40 °C operation</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Programming Interface</td>
+<td>Firmware loading and debug</td>
+<td>ICSP or USB interface</td>
+<td>Onboard USB debug</td>
+<td>No</td>
 </tr>
 </tbody>
 </table>
