@@ -5,20 +5,10 @@ tags:
 - tag2
 ---
 
-## Overview
-This needs to be updated with a brief purpose for having the block diagram.
-Things to mention are:
-* power levels
-* sensor
-* Actuator
-* team connections
-* Power source
-* ...
+## Block Diagram
 
-To get some initial formatting help, one can view ["here"](https://embedded-systems-design.github.io/EGR304DataSheetTemplate/Appendix/basic-markdown-examples/) some basic techniques.
+This block diagram shows the Human Machine Interface Device for Team 305, featuring an ESP32 as the central processor, an LCD interfaced via I2C, upstream and downstream headers for interconnection, a red LED output, and a 12V-to-3.3V power supply chain.
 
+![Individual Block diagram](individual-block-diagram.png)
 
-## Example Block Diagram 
-Showing an example of how to import a screenshot of the block diagram created outside of git and brought into a page.
-
-![Example of Indivial Block diagram ](individual-block-diagram.png)
+**Download:** [Download the PNG here](individual-block-diagram.png)
