@@ -2,42 +2,42 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://chvisto.github.io/</loc>
-         <lastmod>2026-02-12</lastmod>
+         <lastmod>2026-02-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://chvisto.github.io/01-Requirements/Requirements/</loc>
-         <lastmod>2026-02-12</lastmod>
+         <lastmod>2026-02-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://chvisto.github.io/02-Block-Diagram/Block-Diagram/</loc>
-         <lastmod>2026-02-12</lastmod>
+         <lastmod>2026-02-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://chvisto.github.io/03-Component-Selection/Major-Components/Major-Components/</loc>
-         <lastmod>2026-02-12</lastmod>
+         <lastmod>2026-02-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://chvisto.github.io/03-Component-Selection/Microcontroller/Microcontroller/</loc>
-         <lastmod>2026-02-12</lastmod>
+         <lastmod>2026-02-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://chvisto.github.io/03-Component-Selection/Power-Budget/Power-Budget/</loc>
-         <lastmod>2026-02-12</lastmod>
+         <lastmod>2026-02-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://chvisto.github.io/04-BOM/BOM/</loc>
-         <lastmod>2026-02-12</lastmod>
+         <lastmod>2026-02-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://chvisto.github.io/05-Schematic/schematic/</loc>
-         <lastmod>2026-02-12</lastmod>
+         <lastmod>2026-02-21</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
