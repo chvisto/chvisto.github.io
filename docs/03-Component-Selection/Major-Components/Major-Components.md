@@ -62,7 +62,7 @@ These are the parts selected for the main parts on the HMI board.
 
     ![Songhe 0.96" OLED](songhe-oled.png)
 
-    * ~$2 each (sold in 5-packs, ~$10)
+    * $2 each (sold in 5-packs, ~$10)
     * [Amazon Link](https://www.amazon.com/Songhe-0-96-inch-I2C-Raspberry/dp/B085WCRS7C/)
 
     | Pros                                      | Cons                                                             |
