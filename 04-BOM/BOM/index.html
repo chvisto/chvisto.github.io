@@ -26,7 +26,7 @@
 
     
       
-        <title>Module Bill of Materials - EGR 314 Christo's Data Sheet</title>
+        <title>HMI Subsystem Bill of Materials (SMD/Mixed) - EGR 314 Christo's Data Sheet</title>
       
     
     
@@ -125,7 +125,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Module Bill of Materials
+              HMI Subsystem Bill of Materials (SMD/Mixed)
             
           </span>
         </div>
@@ -607,7 +607,7 @@
           
   
   <span class="md-ellipsis">
-    Module Bill of Materials
+    HMI Subsystem Bill of Materials (SMD/Mixed)
   </span>
   
 
@@ -618,7 +618,7 @@
         
   
   <span class="md-ellipsis">
-    Module Bill of Materials
+    HMI Subsystem Bill of Materials (SMD/Mixed)
   </span>
   
 
@@ -800,12 +800,12 @@
   
 
 
-  <h1>Module Bill of Materials</h1>
+  <h1>HMI Subsystem Bill of Materials (SMD/Mixed)</h1>
 
 <h2 id="overview">Overview</h2>
-<p>This is the full bill of materials for the HMI Subsystem board. It covers everything from the main ESP32-S3 microcontroller and the LM2596S-3.3 switching regulator down to the passives, connectors, fuses, and the 0.96" OLED display. Most of the resistors, capacitors, and test points are sourced from Peralta Labs, while the main ICs and connectors are ordered through DigiKey. The table includes part numbers, quantities, vendor links, and schematic reference designators to make it easy to cross-reference with the schematic.</p>
+<p>Full bill of materials for the HMI Subsystem board. Covers the ESP32-S3 microcontroller, LM2596S-3.3 switching regulator, passives, connectors, fuses, and 0.96" OLED display. Resistors, capacitors, and test points come from Peralta Labs. Main ICs, diodes, inductors, and connectors are ordered through DigiKey. All DigiKey links have been verified live.</p>
 <h2 id="bill-of-materials">Bill of Materials</h2>
-<p><em>Table 1: Bill of materials for the HMI Subsystem</em></p>
+<p><em>Table 1: Bill of Materials for the HMI Subsystem</em></p>
 <table>
 <thead>
 <tr>
@@ -816,274 +816,285 @@
 <th style="text-align: left;"><strong>Manufacturer</strong></th>
 <th style="text-align: left;"><strong>Manufacturer #</strong></th>
 <th style="text-align: left;"><strong>Vendor Link</strong></th>
-<th style="text-align: left;"><strong>Datasheet Link</strong></th>
+<th style="text-align: left;"><strong>Package</strong></th>
 <th style="text-align: left;"><strong>Schematic Reference Designators</strong></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">ESP32-S3-WROOM-1 Module, SMD, 4MB Flash</td>
+<td style="text-align: left;">Buck Switching Regulator, 3.3V Fixed, 3A, TO-263-5</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">$6.97</td>
+<td style="text-align: left;">$6.97</td>
+<td style="text-align: left;">Texas Instruments</td>
+<td style="text-align: left;">LM2596S-3.3/NOPB</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/texas-instruments/LM2596S-3-3-NOPB/363704">DigiKey</a></td>
+<td style="text-align: left;">TO-263-5 (D2PAK) SMD</td>
+<td style="text-align: left;">U1</td>
+</tr>
+<tr>
+<td style="text-align: left;">Schottky Rectifier Diode, 5A, 40V, DO-214AB SMD (1N5824 sub)</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">$0.42</td>
+<td style="text-align: left;">$0.42</td>
+<td style="text-align: left;">Vishay</td>
+<td style="text-align: left;">SSC54-E3/57T</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/vishay-general-semiconductor-diodes-division/SSC54-E3-57T/1091564">DigiKey</a></td>
+<td style="text-align: left;">DO-214AB (SMC)</td>
+<td style="text-align: left;">D1</td>
+</tr>
+<tr>
+<td style="text-align: left;">ESD TVS Diode, 5V Clamp, SOD-923 (x2)</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">$0.10</td>
+<td style="text-align: left;">$0.20</td>
+<td style="text-align: left;">onsemi</td>
+<td style="text-align: left;">ESD9B5.0ST5G</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/onsemi/ESD9B5-0ST5G/1646449">DigiKey</a></td>
+<td style="text-align: left;">SOD-923</td>
+<td style="text-align: left;">D6, D7</td>
+</tr>
+<tr>
+<td style="text-align: left;">Schottky Diode, 30V 200mA, SOD-323</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">$0.14</td>
+<td style="text-align: left;">$0.14</td>
+<td style="text-align: left;">onsemi</td>
+<td style="text-align: left;">BAT54HT1G</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/onsemi/BAT54HT1G/920184">DigiKey</a></td>
+<td style="text-align: left;">SOD-323</td>
+<td style="text-align: left;">D8</td>
+</tr>
+<tr>
+<td style="text-align: left;">LED Blue, 0805 SMD, 20mA</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">$0.29</td>
+<td style="text-align: left;">$0.29</td>
+<td style="text-align: left;">Wurth Elektronik</td>
+<td style="text-align: left;">150080BS75000</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/wurth-elektronik/150080BS75000/4489901">DigiKey</a></td>
+<td style="text-align: left;">0805</td>
+<td style="text-align: left;">D2</td>
+</tr>
+<tr>
+<td style="text-align: left;">LED Green, 0805 SMD, 20mA</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">$0.29</td>
+<td style="text-align: left;">$0.29</td>
+<td style="text-align: left;">Wurth Elektronik</td>
+<td style="text-align: left;">150080VS75000</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/wurth-elektronik/150080VS75000/4489913">DigiKey</a></td>
+<td style="text-align: left;">0805</td>
+<td style="text-align: left;">D3</td>
+</tr>
+<tr>
+<td style="text-align: left;">LED White, 0805 SMD, 20mA</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">$0.29</td>
+<td style="text-align: left;">$0.29</td>
+<td style="text-align: left;">Wurth Elektronik</td>
+<td style="text-align: left;">150080WS75000</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/wurth-elektronik/150080WS75000/4489929">DigiKey</a></td>
+<td style="text-align: left;">0805</td>
+<td style="text-align: left;">D4</td>
+</tr>
+<tr>
+<td style="text-align: left;">LED Red, 0805 SMD, 20mA</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">$0.29</td>
+<td style="text-align: left;">$0.29</td>
+<td style="text-align: left;">Wurth Elektronik</td>
+<td style="text-align: left;">150080RS75000</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/wurth-elektronik/150080RS75000/4489907">DigiKey</a></td>
+<td style="text-align: left;">0805</td>
+<td style="text-align: left;">D5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Fixed Inductor, 33uH, 3A, Shielded SMD</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">$1.01</td>
+<td style="text-align: left;">$1.01</td>
+<td style="text-align: left;">Bourns</td>
+<td style="text-align: left;">SRR1260-330M</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/bourns-inc/SRR1260-330M/2127415">DigiKey</a></td>
+<td style="text-align: left;">12.5x12.5x6mm SMD</td>
+<td style="text-align: left;">L1</td>
+</tr>
+<tr>
+<td style="text-align: left;">Fuse, 1A Fast-Blow, Glass Cartridge, 5x20mm</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">$0.53</td>
+<td style="text-align: left;">$0.53</td>
+<td style="text-align: left;">Littelfuse</td>
+<td style="text-align: left;">0217001.MXP</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/littelfuse-inc/0217001-MXP/777543">DigiKey</a></td>
+<td style="text-align: left;">5x20mm THT*</td>
+<td style="text-align: left;">F1</td>
+</tr>
+<tr>
+<td style="text-align: left;">Fuse Holder, 5x20mm Cartridge, PCB Mount THT</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">$0.62</td>
+<td style="text-align: left;">$0.62</td>
+<td style="text-align: left;">Wurth Elektronik</td>
+<td style="text-align: left;">696108003002</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/w%C3%BCrth-elektronik/696108003002/7244560">DigiKey</a></td>
+<td style="text-align: left;">THT*</td>
+<td style="text-align: left;">F1 holder</td>
+</tr>
+<tr>
+<td style="text-align: left;">PTC Resettable Fuse, 500mA Hold, 1A Trip, 6V, 1206 SMD</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">$0.56</td>
+<td style="text-align: left;">$0.56</td>
+<td style="text-align: left;">Littelfuse</td>
+<td style="text-align: left;">1206L050YR</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/littelfuse-inc/1206L050YR/455721">DigiKey</a></td>
+<td style="text-align: left;">1206 SMD</td>
+<td style="text-align: left;">F2</td>
+</tr>
+<tr>
+<td style="text-align: left;">Electrolytic Capacitor, 100uF 16V, Radial Can SMD</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">$0.45</td>
+<td style="text-align: left;">$0.45</td>
+<td style="text-align: left;">Nichicon</td>
+<td style="text-align: left;">UWX1C101MCL1GB</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/nichicon/UWX1C101MCL1GB/589846">DigiKey</a></td>
+<td style="text-align: left;">Radial Can SMD</td>
+<td style="text-align: left;">C1</td>
+</tr>
+<tr>
+<td style="text-align: left;">Electrolytic Capacitor, 220uF 16V, Radial Can SMD</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">$0.54</td>
+<td style="text-align: left;">$0.54</td>
+<td style="text-align: left;">Nichicon</td>
+<td style="text-align: left;">UWX1C221MCL1GB</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/nichicon/UWX1C221MCL1GB/589849">DigiKey</a></td>
+<td style="text-align: left;">Radial Can SMD</td>
+<td style="text-align: left;">C2</td>
+</tr>
+<tr>
+<td style="text-align: left;">Ceramic Capacitor, 0.1uF 50V, 0805 SMD (x3)</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">$0.10</td>
+<td style="text-align: left;">$0.30</td>
+<td style="text-align: left;">Yageo</td>
+<td style="text-align: left;">CC0805KRX7R9BB104</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/yageo/CC0805KRX7R9BB104/302874">DigiKey</a></td>
+<td style="text-align: left;">0805</td>
+<td style="text-align: left;">C3, C4, C5</td>
+</tr>
+<tr>
+<td style="text-align: left;">Resistor, 10k 1% 0.25W, 1206 SMD (x10)</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">$0.10</td>
+<td style="text-align: left;">$1.00</td>
+<td style="text-align: left;">Yageo</td>
+<td style="text-align: left;">RC1206FR-0710KL</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/yageo/RC1206FR-0710KL/728483">DigiKey</a></td>
+<td style="text-align: left;">1206</td>
+<td style="text-align: left;">R1–R7, R10, R11, R16</td>
+</tr>
+<tr>
+<td style="text-align: left;">Resistor, 27 Ohm 1% 0.25W, 1206 SMD (x2)</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">$0.10</td>
+<td style="text-align: left;">$0.20</td>
+<td style="text-align: left;">Yageo</td>
+<td style="text-align: left;">RC1206FR-0727RL</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/yageo/RC1206FR-0727RL/728510">DigiKey</a></td>
+<td style="text-align: left;">1206</td>
+<td style="text-align: left;">R8, R9</td>
+</tr>
+<tr>
+<td style="text-align: left;">Resistor, 470 Ohm 1% 0.25W, 1206 SMD (x2)</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">$0.10</td>
+<td style="text-align: left;">$0.20</td>
+<td style="text-align: left;">Yageo</td>
+<td style="text-align: left;">RC1206FR-07470RL</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/yageo/RC1206FR-07470RL/728586">DigiKey</a></td>
+<td style="text-align: left;">1206</td>
+<td style="text-align: left;">R12, R13</td>
+</tr>
+<tr>
+<td style="text-align: left;">Resistor, 100 Ohm 1% 0.25W, 1206 SMD (x4)</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">$0.10</td>
+<td style="text-align: left;">$0.40</td>
+<td style="text-align: left;">Yageo</td>
+<td style="text-align: left;">RC1206FR-07100RL</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/yageo/RC1206FR-07100RL/728439">DigiKey</a></td>
+<td style="text-align: left;">1206</td>
+<td style="text-align: left;">R14, R15, R17, R18</td>
+</tr>
+<tr>
+<td style="text-align: left;">ESP32-S3-WROOM-1 Module, 4MB Flash, SMD</td>
 <td style="text-align: left;">1</td>
 <td style="text-align: left;">$0.00</td>
 <td style="text-align: left;">$0.00</td>
 <td style="text-align: left;">Espressif</td>
 <td style="text-align: left;">ESP32-S3-WROOM-1-N4</td>
-<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/espressif-systems/ESP32-S3-WROOM-1-N4CT/15297745">DigiKey</a></td>
-<td style="text-align: left;">n/a</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/espressif-systems/ESP32-S3-WROOM-1-N4/16162639">DigiKey</a></td>
+<td style="text-align: left;">SMD Castellated</td>
 <td style="text-align: left;">E1</td>
 </tr>
 <tr>
-<td style="text-align: left;">Buck Switching Regulator, 3.3V Fixed, 3A, TO-263-5</td>
+<td style="text-align: left;">USB Mini B Receptacle, 5-Pin, SMT Right Angle</td>
 <td style="text-align: left;">1</td>
 <td style="text-align: left;">$0.00</td>
 <td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">Texas Instruments</td>
-<td style="text-align: left;">LM2596S-3.3/NOPB</td>
-<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/texas-instruments/LM2596S-3-3-NOPB/363704">DigiKey</a></td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">U1</td>
-</tr>
-<tr>
-<td style="text-align: left;">USB Micro B Receptacle, 5-Pin, SMT Right Angle/THT</td>
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">Amphenol</td>
+<td style="text-align: left;">Hirose</td>
 <td style="text-align: left;">UX60SC-MB-5S8</td>
-<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/amphenol-cs-fci/670-2675-1-ND/2370786">DigiKey</a></td>
-<td style="text-align: left;">n/a</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/hirose-electric-co-ltd/UX60SC-MB-5S8/1949202">DigiKey</a></td>
+<td style="text-align: left;">SMD</td>
 <td style="text-align: left;">J1</td>
 </tr>
 <tr>
-<td style="text-align: left;">Connector Header, Through Hole, 8 Position, 2.54mm</td>
-<td style="text-align: left;">5</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">Wurth Elektronik</td>
-<td style="text-align: left;">61300811121</td>
-<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/wurth-elektronik/61300811121/4846907">DigiKey</a></td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">J3, J4, J5, J6, J7</td>
-</tr>
-<tr>
-<td style="text-align: left;">DC Barrel Jack with Switch, 2.1mm ID, PCB Mount</td>
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">$1.10</td>
-<td style="text-align: left;">$1.10</td>
-<td style="text-align: left;">CUI Devices</td>
-<td style="text-align: left;">PJ-002BH</td>
-<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/cui-devices/PJ-002BH/408447">DigiKey</a></td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">J2</td>
-</tr>
-<tr>
-<td style="text-align: left;">0.96" I2C OLED Display Module, 128x64, SSD1306</td>
+<td style="text-align: left;">0.96" I2C OLED Display, 128x64, SSD1306</td>
 <td style="text-align: left;">1</td>
 <td style="text-align: left;">$0.00</td>
 <td style="text-align: left;">$0.00</td>
 <td style="text-align: left;">Songhe</td>
 <td style="text-align: left;">B085WCRS7C</td>
 <td style="text-align: left;"><a href="https://www.amazon.com/dp/B085WCRS7C">Amazon</a></td>
-<td style="text-align: left;">n/a</td>
+<td style="text-align: left;">Module (THT pins)</td>
 <td style="text-align: left;">LCD1</td>
 </tr>
 <tr>
-<td style="text-align: left;">Schottky Rectifier Diode, 30V 5A, DO-201AD (1N5824 sub)</td>
+<td style="text-align: left;">DC Barrel Jack with Switch, 2.5mm ID, PCB Mount</td>
 <td style="text-align: left;">1</td>
-<td style="text-align: left;">$0.62</td>
-<td style="text-align: left;">$0.62</td>
-<td style="text-align: left;">Vishay</td>
-<td style="text-align: left;">SB530-E3/54</td>
-<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/vishay-general-semiconductor-diodes-division/SB530-E3-54/420422">DigiKey</a></td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">D1</td>
+<td style="text-align: left;">$0.64</td>
+<td style="text-align: left;">$0.64</td>
+<td style="text-align: left;">Same Sky (CUI)</td>
+<td style="text-align: left;">PJ-002BH</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/cui-devices/PJ-002BH/408447">DigiKey</a></td>
+<td style="text-align: left;">THT*</td>
+<td style="text-align: left;">J2</td>
 </tr>
 <tr>
-<td style="text-align: left;">ESD Protection TVS Diode, 5V, SOD-923 (x2)</td>
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">$0.17</td>
-<td style="text-align: left;">$0.34</td>
-<td style="text-align: left;">onsemi</td>
-<td style="text-align: left;">ESD9B5.0ST5G</td>
-<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/onsemi/ESD9B5-0ST5G/1646449">DigiKey</a></td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">D6, D7</td>
-</tr>
-<tr>
-<td style="text-align: left;">LED Blue, T-1 3/4 (5mm), 20mA</td>
-<td style="text-align: left;">1</td>
+<td style="text-align: left;">Connector Header, 8-Position, 2.54mm THT (x5)</td>
+<td style="text-align: left;">5</td>
 <td style="text-align: left;">$0.00</td>
 <td style="text-align: left;">$0.00</td>
 <td style="text-align: left;">Wurth Elektronik</td>
-<td style="text-align: left;">151051BS04000</td>
-<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/wurth-elektronik/151051BS04000/4489940">DigiKey</a></td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">D2</td>
+<td style="text-align: left;">61300811121</td>
+<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/w%C3%BCrth-elektronik/61300811121/4846839">DigiKey</a></td>
+<td style="text-align: left;">THT*</td>
+<td style="text-align: left;">J3, J4, J5, J6, J7</td>
 </tr>
 <tr>
-<td style="text-align: left;">LED Green, T-1 3/4 (5mm), 20mA</td>
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">Wurth Elektronik</td>
-<td style="text-align: left;">151051VS04000</td>
-<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/wurth-elektronik/151051VS04000/4489944">DigiKey</a></td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">D3</td>
-</tr>
-<tr>
-<td style="text-align: left;">LED White, T-1 3/4 (5mm), 20mA</td>
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">Wurth Elektronik</td>
-<td style="text-align: left;">151051WS04000</td>
-<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/wurth-elektronik/151051WS04000/4489952">DigiKey</a></td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">D4</td>
-</tr>
-<tr>
-<td style="text-align: left;">LED Red, T-1 3/4 (5mm), 20mA</td>
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">Wurth Elektronik</td>
-<td style="text-align: left;">151051RS04000</td>
-<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/wurth-elektronik/151051RS04000/4489942">DigiKey</a></td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">D5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Inductor, 33uH, 2.05A, Radial (Bourns RLB9012)</td>
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">$1.25</td>
-<td style="text-align: left;">$1.25</td>
-<td style="text-align: left;">Bourns</td>
-<td style="text-align: left;">RLB9012-330KL</td>
-<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/bourns-inc/RLB9012-330KL/705790">DigiKey</a></td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">L1</td>
-</tr>
-<tr>
-<td style="text-align: left;">Fuse, 1A Fast-Blow, 5x20mm Cylindrical</td>
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">$0.45</td>
-<td style="text-align: left;">$0.45</td>
-<td style="text-align: left;">Littelfuse</td>
-<td style="text-align: left;">0215001.MXP</td>
-<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/littelfuse-inc/0215001-MXP/777524">DigiKey</a></td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">F1</td>
-</tr>
-<tr>
-<td style="text-align: left;">Fuse Holder, 5x20mm, PCB Mount</td>
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">$0.94</td>
-<td style="text-align: left;">$0.94</td>
-<td style="text-align: left;">Keystone</td>
-<td style="text-align: left;">3544-2</td>
-<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/keystone-electronics/3544-2/316039">DigiKey</a></td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">F1 holder</td>
-</tr>
-<tr>
-<td style="text-align: left;">Electrolytic Capacitor, 100uF 16V, Radial</td>
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">$0.20</td>
-<td style="text-align: left;">$0.20</td>
-<td style="text-align: left;">Panasonic</td>
-<td style="text-align: left;">ECA-1CM101</td>
-<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/panasonic-electronic-components/ECA-1CM101/244997">DigiKey</a></td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">C1</td>
-</tr>
-<tr>
-<td style="text-align: left;">Electrolytic Capacitor, 220uF 16V, Radial</td>
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">$0.25</td>
-<td style="text-align: left;">$0.25</td>
-<td style="text-align: left;">Panasonic</td>
-<td style="text-align: left;">ECA-1CM221</td>
-<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/panasonic-electronic-components/ECA-1CM221/245002">DigiKey</a></td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">C2</td>
-</tr>
-<tr>
-<td style="text-align: left;">Ceramic Capacitor, 0.1uF 50V, Through Hole (x3)</td>
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">Various</td>
-<td style="text-align: left;">Generic</td>
-<td style="text-align: left;">Peralta Labs</td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">C3, C4, C5</td>
-</tr>
-<tr>
-<td style="text-align: left;">Resistor, 10k, 2.5mW, Through Hole (x7)</td>
-<td style="text-align: left;">7</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">Various</td>
-<td style="text-align: left;">Generic</td>
-<td style="text-align: left;">Peralta Labs</td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">R1, R2, R3, R4, R5, R6, R7</td>
-</tr>
-<tr>
-<td style="text-align: left;">Resistor, 10k, Through Hole (x3)</td>
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">Various</td>
-<td style="text-align: left;">Generic</td>
-<td style="text-align: left;">Peralta Labs</td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">R10, R11, R16</td>
-</tr>
-<tr>
-<td style="text-align: left;">Resistor, 27 Ohm, Through Hole (x2)</td>
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">Various</td>
-<td style="text-align: left;">Generic</td>
-<td style="text-align: left;">Peralta Labs</td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">R8, R9</td>
-</tr>
-<tr>
-<td style="text-align: left;">Resistor, 470 Ohm, Through Hole (x2)</td>
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">Various</td>
-<td style="text-align: left;">Generic</td>
-<td style="text-align: left;">Peralta Labs</td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">R12, R13</td>
-</tr>
-<tr>
-<td style="text-align: left;">Resistor, 100 Ohm, Through Hole (x4) — LED current limiting</td>
-<td style="text-align: left;">4</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">Various</td>
-<td style="text-align: left;">Generic</td>
-<td style="text-align: left;">Peralta Labs</td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">R14, R15, R17, R18</td>
-</tr>
-<tr>
-<td style="text-align: left;">Tactile Push Button Switch, SPST, Through Hole (x10)</td>
+<td style="text-align: left;">Tactile Push Button Switch, SPST, THT (x10)</td>
 <td style="text-align: left;">10</td>
 <td style="text-align: left;">$0.18</td>
 <td style="text-align: left;">$1.80</td>
 <td style="text-align: left;">E-Switch</td>
 <td style="text-align: left;">TL1105SPF160Q</td>
 <td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/e-switch/TL1105SPF160Q/271573">DigiKey</a></td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">SW1, SW2, SW3, SW4, SW5, SW6, SW7, SW8, SW9, SW10</td>
+<td style="text-align: left;">THT*</td>
+<td style="text-align: left;">SW1–SW10</td>
 </tr>
 <tr>
 <td style="text-align: left;">2-Pin Jumper, 2.54mm (x3)</td>
@@ -1093,41 +1104,19 @@
 <td style="text-align: left;">Wurth Elektronik</td>
 <td style="text-align: left;">61000211121</td>
 <td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/wurth-elektronik/61000211121/4846851">DigiKey</a></td>
-<td style="text-align: left;">n/a</td>
+<td style="text-align: left;">THT*</td>
 <td style="text-align: left;">JP1, JP2, JP3</td>
-</tr>
-<tr>
-<td style="text-align: left;">Schottky Diode, 30V 200mA, SOD-323F (BAT54J)</td>
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">$0.18</td>
-<td style="text-align: left;">$0.18</td>
-<td style="text-align: left;">Nexperia</td>
-<td style="text-align: left;">BAT54J,115</td>
-<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/nxp-semiconductors/BAT54J,115/2531305">DigiKey</a></td>
-<td style="text-align: left;"><a href="https://assets.nexperia.com/documents/data-sheet/BAT54_SER.pdf">datasheet</a></td>
-<td style="text-align: left;">D8</td>
-</tr>
-<tr>
-<td style="text-align: left;">Fuse, 500mA Fast-Blow, 5x20mm Glass Cartridge</td>
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">$0.42</td>
-<td style="text-align: left;">$0.42</td>
-<td style="text-align: left;">Littelfuse</td>
-<td style="text-align: left;">0217.500MXP</td>
-<td style="text-align: left;"><a href="https://www.digikey.com/en/products/detail/littelfuse-inc/0217-500MXP/777536">DigiKey</a></td>
-<td style="text-align: left;"><a href="https://www.littelfuse.com/~/media/electronics/datasheets/fuses/littelfuse_fuse_217_datasheet.pdf.pdf">datasheet</a></td>
-<td style="text-align: left;">F2</td>
 </tr>
 <tr>
 <td style="text-align: left;">Test Point, Small PCB (x30)</td>
 <td style="text-align: left;">30</td>
 <td style="text-align: left;">$0.00</td>
 <td style="text-align: left;">$0.00</td>
-<td style="text-align: left;">-</td>
-<td style="text-align: left;">-</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">—</td>
 <td style="text-align: left;">Peralta Labs</td>
-<td style="text-align: left;">n/a</td>
-<td style="text-align: left;">TP1-TP30</td>
+<td style="text-align: left;">SMD</td>
+<td style="text-align: left;">TP1–TP30</td>
 </tr>
 </tbody>
 </table>
