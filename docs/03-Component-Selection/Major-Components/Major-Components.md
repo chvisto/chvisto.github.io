@@ -58,7 +58,23 @@ These are the parts selected for the main parts on the HMI board.
 
 ## HMI Display
 
-1. SparkFun COM-28380 - 3.2" Color TFT Touchscreen (ILI9341)
+1. Songhe 0.96" 128x64 OLED (SSD1306) - I2C
+
+    ![Songhe 0.96" OLED](songhe-oled.png)
+
+    * ~$2 each (sold in 5-packs, ~$10)
+    * [Amazon Link](https://www.amazon.com/Songhe-0-96-inch-I2C-Raspberry/dp/B085WCRS7C/)
+
+    | Pros                                      | Cons                                                             |
+    | ----------------------------------------- | ---------------------------------------------------------------- |
+    | I2C only needs 2 data pins (SDA + SCL) | Monochrome only, no color status indicators |
+    | Very low power - OLED only lights active pixels | Tiny 0.96" screen limits how much info fits |
+    | SSD1306 driver has excellent ESP32/Arduino library support | 128x64 resolution is limited compared to TFT options |
+    | Extremely cheap and available in bulk | No touchscreen |
+    | Same display used in EGR 314 coursework - already familiar |  |
+    | Compact size fits neatly on the HMI board |  |
+
+2. SparkFun COM-28380 - 3.2" Color TFT Touchscreen (ILI9341)
 
     ![SparkFun COM-28380](sparkfun-com28380.png)
 
@@ -71,22 +87,6 @@ These are the parts selected for the main parts on the HMI board.
     | Color display for status (red errors, green good, yellow warnings) | Draws more current than OLED |
     | 320x240 resolution fits lots of info | Takes up more board space |
     | Touchscreen so we can ditch some buttons |  |
-    | Same price as smaller displays |  |
-    | ILI9341 chip works great with ESP32 |  |
-
-2. Adafruit 2478 - 2.4" TFT LCD with Touchscreen (ILI9341)
-
-    ![Adafruit 2478 TFT LCD](adafruit-2478.png)
-
-    * $29.95
-    * [DigiKey Link](https://www.digikey.com/en/products/detail/adafruit-industries-llc/2478/5761253)
-
-    | Pros                                      | Cons                                                             |
-    | ----------------------------------------- | ---------------------------------------------------------------- |
-    | Color display makes status way clearer | More expensive at $30 |
-    | 240x320 pixels gives room for info | Smaller than SparkFun at 2.4" |
-    | Good Adafruit libraries and support | Uses more power than OLED |
-    | MicroSD slot for logging |  |
 
 3. Adafruit 938 - 1.3" Monochrome OLED (SSD1306)
 
@@ -99,10 +99,9 @@ These are the parts selected for the main parts on the HMI board.
     | ----------------------------------------- | ---------------------------------------------------------------- |
     | High contrast monochrome is easy to read | Only black and white so can't color-code status |
     | Uses way less power than TFT | Tiny at 1.3" and only 128x64 pixels |
-    | I2C only needs 2 pins | Hard to fit rover data plus menus on small screen |
+    | I2C only needs 2 pins | More expensive than the Songhe at $20 |
     | STEMMA QT makes wiring clean |  |
 
-**Choice:** Option 1 - SparkFun COM-28380 3.2" Color TFT
+**Choice:** Option 1 - Songhe 0.96" OLED (SSD1306)
 
-
-> **Rationale:** The SparkFun 3.2" display is the sweet spot - bigger screen than the Adafruit 2.4" but same price at $20.  The ILI9341 controller has tons of ESP32 libraries and examples so getting it running is easy. Touchscreen means we can do a better UI than just buttons. Yeah SPI takes more pins than I2C but the ESP32 has GPIO to spare.
+> **Rationale:** We used the exact same SSD1306-based 0.96" OLED display in our EGR 314 coursework, so the I already know how to wire it up and write code for it. That familiarity cuts development time significantly and reduces the chance of wiring mistakes. The I2C interface is a big win too only SDA and SCL are needed instead of the 5+ pins SPI displays require, which frees up GPIO on the ESP32. The SSD1306 also has mature, well-documented Arduino/ESP32 libraries (Adafruit SSD1306) that integrate easily with our existing code. Power draw is minimal since OLED only lights active pixels, keeping the overall board current budget comfortable. Yes, the screen is small and monochrome, but for displaying sensor readings and system status on an HMI board, 128x64 is sufficient. The TFT options (Options 2 and 3) offer color and larger screens but at the cost of more pins, more power, and more complex wiring — none of which benefit this project enough to justify switching away from a display we already know works.
