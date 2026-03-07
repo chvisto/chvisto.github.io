@@ -7,28 +7,27 @@ tags:
 <center>
 <font size= "6">Christo Jomon Joseph's Datasheet</font><br>
 as part of<br>
-<font size= "8"> ProjectX</font><br>
+<font size= "8"> EGR 314 </font><br>
 for<br>
 <font size= "5"> Team 305 </font><br>
 
-**Submission: January, 18, 2025**
+**Spring 2026**
 </center>
 
 ## Introduction
 
-* This is Christo's datasheet for EGR 314.
-* I am a part of Team 305
+My name is Christo Jomon Joseph and this is my individual datasheet for EGR 314 at Arizona State University. I'm part of Team 305, and my role on the team is designing and building the **HMI (Human Machine Interface) & System Safety subsystem** for our rover project.
 
 ### Project Summary
 
-* This needs to be updated to reflect <ins>your version</ins> of the team project, so when shared not via the team's report, the reader gets an idea of the direction of the project and how your work will contribute to the overall success.
-* Get more details on my project at the [team report.](https://egr314-s-2026-30.github.io/EGR314-S-2026-305.github.io/)
+Our team is building an autonomous rover that uses a daisy-chained UART communication network to connect multiple subsystems together. Each team member is responsible for one subsystem board. My board sits at the user-facing end of the system : it's what the operator interacts with to monitor the rover's status, issue commands, and trigger an emergency stop if something goes wrong.
+
+For more details on the full team project, check out the [team report](https://egr314-s-2026-30.github.io/EGR314-S-2026-305.github.io/).
 
 ### My Contribution
 
-* This needs to be updated to reflect a team introduction
-* Content should also help an unfamiliar reader navigate to areas of interest. Information like:
+I'm responsible for the HMI & System Safety Board, which is the primary local interface between the operator and the rover. The board runs on an **ESP32-S3-WROOM-1** microcontroller and handles real-time display output on a **0.96" OLED screen**, reads user input from tactile push buttons, drives four status LEDs, and manages emergency stop and fail-safe behavior. Power comes in at 9V and gets regulated down to 3.3V using the **LM2596S-3.3** switching regulator.
 
-To review the details listed of the material used to construct the subsection, you can review it in the ["BOM"](https://embedded-systems-design.github.io/EGR314DataSheetTemplate/04-BOM/BOM/) section of the datasheet.
+On the communication side, the board integrates into the team's daisy-chain UART bus, forwarding messages it doesn't own and acting on the ones it does — including sending and receiving telemetry from the other subsystems.
 
->Continue for all the remaining/missing sections.
+The full list of parts used on the board is in the [BOM](04-BOM/BOM.md) section, and the schematic, component selection, and power budget are all documented in their respective sections of this datasheet.
