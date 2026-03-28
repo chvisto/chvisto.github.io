@@ -31,3 +31,7 @@ I'm responsible for the HMI & System Safety Board, which is the primary local in
 On the communication side, the board integrates into the team's daisy-chain UART bus, forwarding messages it doesn't own and acting on the ones it does — including sending and receiving telemetry from the other subsystems.
 
 The full list of parts used on the board is in the [BOM](04-BOM/BOM.md) section, and the schematic, component selection, and power budget are all documented in their respective sections of this datasheet.
+
+## Subsystem API
+
+The [Subsystem API](08-API/api.md) page documents all UART messages my HMI board sends and receives on the team daisy-chain network, including message types, byte layouts, data ranges, ACK behavior, and receiver routing logic.
