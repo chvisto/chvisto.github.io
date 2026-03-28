@@ -9,13 +9,11 @@
       
       
       
-        <link rel="canonical" href="https://chvisto.github.io/01-Requirements/Requirements/">
+        <link rel="canonical" href="https://chvisto.github.io/08-API/api/">
       
       
-        <link rel="prev" href="../..">
+        <link rel="prev" href="../../06-PCB/PCB/">
       
-      
-        <link rel="next" href="../../02-Block-Diagram/Block-Diagram/">
       
       
       <link rel="icon" href="../../static/logo-314.png">
@@ -26,7 +24,7 @@
 
     
       
-        <title>Module's Requirements - EGR 314 Christo's Data Sheet</title>
+        <title>Subsystem API - EGR 314 Christo's Data Sheet</title>
       
     
     
@@ -90,7 +88,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#module-requirements" class="md-skip">
+        <a href="#api-hmi-subsystem" class="md-skip">
           Skip to content
         </a>
       
@@ -125,7 +123,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Module's Requirements
+              Subsystem API
             
           </span>
         </div>
@@ -215,11 +213,9 @@
         
   
   
-    
   
-  
-    <li class="md-tabs__item md-tabs__item--active">
-      <a href="./" class="md-tabs__link">
+    <li class="md-tabs__item">
+      <a href="../../01-Requirements/Requirements/" class="md-tabs__link">
         
   
     
@@ -322,9 +318,11 @@
         
   
   
+    
   
-    <li class="md-tabs__item">
-      <a href="../../08-API/api/" class="md-tabs__link">
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="./" class="md-tabs__link">
         
   
     
@@ -410,28 +408,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Requirements
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../01-Requirements/Requirements/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -440,48 +420,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
-      
-        <li class="md-nav__item">
-  <a href="#module-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      Module Requirements
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Module Requirements">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#hmi-system-safety-requirements" class="md-nav__link">
-    <span class="md-ellipsis">
-      HMI &amp; System Safety Requirements
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -620,10 +558,30 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../08-API/api/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Subsystem API
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -632,6 +590,164 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      Protocol
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#teammate-ids-placeholders" class="md-nav__link">
+    <span class="md-ellipsis">
+      Teammate IDs (Placeholders)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#messages-i-send" class="md-nav__link">
+    <span class="md-ellipsis">
+      Messages I Send
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Messages I Send">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#0x01-motor-speed-command" class="md-nav__link">
+    <span class="md-ellipsis">
+      0x01 — Motor Speed Command
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#messages-i-receive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Messages I Receive
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Messages I Receive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#0x02-environmental-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      0x02 — Environmental Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#0x03-camera-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      0x03 — Camera Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#0x04-gyroscope-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      0x04 — Gyroscope Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#0x05-distance-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      0x05 — Distance Reading
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ack" class="md-nav__link">
+    <span class="md-ellipsis">
+      ACK
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routing-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Routing Logic
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#byte-stuffing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Byte Stuffing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#source-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Source Code
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -653,6 +769,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -661,19 +779,46 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix="">
       
         <li class="md-nav__item">
-  <a href="#module-requirements" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Module Requirements
+      Overview
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Module Requirements">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      Protocol
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#teammate-ids-placeholders" class="md-nav__link">
+    <span class="md-ellipsis">
+      Teammate IDs (Placeholders)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#messages-i-send" class="md-nav__link">
+    <span class="md-ellipsis">
+      Messages I Send
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Messages I Send">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#hmi-system-safety-requirements" class="md-nav__link">
+  <a href="#0x01-motor-speed-command" class="md-nav__link">
     <span class="md-ellipsis">
-      HMI &amp; System Safety Requirements
+      0x01 — Motor Speed Command
     </span>
   </a>
   
@@ -681,6 +826,93 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#messages-i-receive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Messages I Receive
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Messages I Receive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#0x02-environmental-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      0x02 — Environmental Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#0x03-camera-status" class="md-nav__link">
+    <span class="md-ellipsis">
+      0x03 — Camera Status
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#0x04-gyroscope-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      0x04 — Gyroscope Data
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#0x05-distance-reading" class="md-nav__link">
+    <span class="md-ellipsis">
+      0x05 — Distance Reading
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ack" class="md-nav__link">
+    <span class="md-ellipsis">
+      ACK
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#routing-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Routing Logic
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#byte-stuffing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Byte Stuffing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#source-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Source Code
+    </span>
+  </a>
   
 </li>
       
@@ -699,7 +931,7 @@
                   
 
   
-    <a href="https://github.com/chvisto/chvisto.github.io/edit/main/docs/01-Requirements/Requirements.md" title="Edit this page" class="md-content__button md-icon">
+    <a href="https://github.com/chvisto/chvisto.github.io/edit/main/docs/08-API/api.md" title="Edit this page" class="md-content__button md-icon">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4v-2m10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1 2.1 2.1Z"></path></svg>
     </a>
@@ -707,138 +939,422 @@
   
 
 
-  <h1>Requirements</h1>
-
-<h2 id="module-requirements">Module Requirements</h2>
-<p>The HMI &amp; System Safety Board provides the primary local human-machine interface for the rover and acts as a safety critical subsystem. It is responsible for displaying real time system status and handling user input. The board also monitors power health and enforces emergency shutdown and fail safe behaviour so that the rover can be brought to a safe state when needed. The board integrates into the rover’s daisy-chained UART communication network. It must not disrupt message flow under any operating condition so that commands and telemetry continue to move correctly between all subsystems.</p>
-<h3 id="hmi-system-safety-requirements">HMI &amp; System Safety Requirements</h3>
+<hr>
+<h1 id="api-hmi-subsystem">API — HMI Subsystem</h1>
+<p><strong>Name:</strong> Christo Jomon Joseph
+<strong>Team:</strong> 305
+<strong>Board ID:</strong> <code>0x43</code> ('C')</p>
+<blockquote>
+<p><strong>Note:</strong> Teammate board IDs below are temporary placeholders. My team has not finalized individual IDs yet. These will be updated once confirmed with each subsystem owner.</p>
+</blockquote>
+<hr>
+<h2 id="overview">Overview</h2>
+<p>This documents the UART message interface for my HMI subsystem on the EGR 314 daisy-chain network. My board is an ESP32-S3-WROOM-1-N4 running MicroPython v1.23.0, driving a 128x64 SSD1306 OLED over I2C. The HMI sits at one node in a six-board ring. It receives sensor data from four subsystems and sends motor speed commands to one.</p>
+<hr>
+<h2 id="protocol">Protocol</h2>
 <table>
 <thead>
 <tr>
-<th>Requirement</th>
-<th>Description</th>
-<th>Measure of Threshold (Minimum)</th>
-<th>Target Measure / Stretch</th>
-<th>Stretch (Y/N)</th>
+<th>Field</th>
+<th>Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>Standalone PCB</td>
-<td>Implemented as a single modular board</td>
-<td>Custom standalone PCB</td>
-<td>Daisy-chain compatible design</td>
-<td>No</td>
+<td>Baud rate</td>
+<td>9600, 8N1</td>
 </tr>
 <tr>
-<td>Visual Interface</td>
-<td>Displays rover and subsystem status</td>
-<td>Monochrome OLED</td>
-<td>≥1.3" high-contrast display</td>
-<td>No</td>
+<td>Packet size</td>
+<td>64 bytes fixed</td>
 </tr>
 <tr>
-<td>User Input</td>
-<td>Manual control and menu navigation</td>
-<td>≥4 tactile pushbuttons</td>
-<td>Debounced multi-button UI</td>
-<td>No</td>
+<td>Prefix</td>
+<td><code>0x41 0x5A</code></td>
 </tr>
 <tr>
-<td>Emergency Stop</td>
-<td>Immediate rover shutdown capability</td>
-<td>Hard-wired E-Stop input</td>
-<td>Hardware-latched E-Stop with status LED</td>
-<td>No</td>
+<td>Suffix</td>
+<td><code>0x59 0x42</code></td>
 </tr>
 <tr>
-<td>Fail-Safe Control</td>
-<td>Safe state on fault or E-Stop</td>
-<td>Software-based halt command</td>
-<td>Hardware + software redundancy</td>
-<td>No</td>
+<td>Byte 2</td>
+<td>Sender ID</td>
 </tr>
 <tr>
-<td>Power Monitoring</td>
-<td>Monitor rover power health</td>
-<td>Voltage sensing on 9 V rail</td>
-<td>Voltage + current monitoring</td>
-<td>Yes</td>
+<td>Byte 3</td>
+<td>Receiver ID</td>
 </tr>
 <tr>
-<td>Microcontroller</td>
-<td>Central control and communication</td>
-<td>SMD MCU with UART and I2C</td>
-<td>ESP32 or PIC with dual UART</td>
-<td>No</td>
+<td>Bytes 4-61</td>
+<td>Payload (first payload byte = message type)</td>
 </tr>
 <tr>
-<td>UART Communication</td>
-<td>Daisy-chain data handling</td>
-<td>UART TX/RX operational</td>
-<td>Full command + telemetry handling</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Message Forwarding</td>
-<td>Maintain bus integrity</td>
-<td>Non-addressed messages forwarded</td>
-<td>Reliable forwarding under load</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Status Telemetry</td>
-<td>Local system reporting</td>
-<td>Display local board status</td>
-<td>Display telemetry from other subsystems</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Alert System</td>
-<td>Notify user of faults</td>
-<td>Visual alerts on display</td>
-<td>Audible buzzer for critical states</td>
-<td>Yes</td>
-</tr>
-<tr>
-<td>Power Input</td>
-<td>External power acceptance</td>
-<td>9 V input supported</td>
-<td>Reverse-polarity protected input</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Regulation</td>
-<td>Local voltage regulation</td>
-<td>Regulated 3.3 V output</td>
-<td>Stable 3.3 V switching regulator ≥500 mA</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Operating Conditions</td>
-<td>Indoor lab operation</td>
-<td>Room temperature</td>
-<td>0–40 °C operation</td>
-<td>No</td>
-</tr>
-<tr>
-<td>Programming Interface</td>
-<td>Firmware loading and debug</td>
-<td>ICSP or USB interface</td>
-<td>Onboard USB debug</td>
-<td>No</td>
+<td>Broadcast</td>
+<td><code>0x58</code></td>
 </tr>
 </tbody>
 </table>
+<p>The message tables below cover only the inner payload bytes (4-61). Prefix, suffix, sender ID, and receiver ID are not listed since they are the same across every subsystem.</p>
+<hr>
+<h2 id="teammate-ids-placeholders">Teammate IDs (Placeholders)</h2>
+<p>These IDs are assigned by me for now. Actual IDs will be coordinated with teammates before integration.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Subsystem</th>
+<th>Board ID (placeholder)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Christo</td>
+<td>HMI (me)</td>
+<td><code>0x43</code></td>
+</tr>
+<tr>
+<td>Liam</td>
+<td>Motor</td>
+<td><code>0x4C</code></td>
+</tr>
+<tr>
+<td>Isaiah</td>
+<td>Environmental Sensor</td>
+<td><code>0x49</code></td>
+</tr>
+<tr>
+<td>Arianna</td>
+<td>Camera</td>
+<td><code>0x41</code></td>
+</tr>
+<tr>
+<td>Myles</td>
+<td>Distance Sensor</td>
+<td><code>0x4D</code></td>
+</tr>
+<tr>
+<td>Ragul</td>
+<td>Gyroscope</td>
+<td><code>0x52</code></td>
+</tr>
+<tr>
+<td>—</td>
+<td>Broadcast</td>
+<td><code>0x58</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="messages-i-send">Messages I Send</h2>
+<h3 id="0x01-motor-speed-command"><code>0x01</code> — Motor Speed Command</h3>
+<p><strong>To:</strong> Liam (<code>0x4C</code>, placeholder)</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Byte 1</th>
+<th>Byte 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Variable Name</strong></td>
+<td><code>message_type</code></td>
+<td><code>motor_speed</code></td>
+</tr>
+<tr>
+<td><strong>C Type</strong></td>
+<td><code>uint8_t</code></td>
+<td><code>int8_t</code></td>
+</tr>
+<tr>
+<td><strong>Min</strong></td>
+<td><code>1</code></td>
+<td><code>-100</code></td>
+</tr>
+<tr>
+<td><strong>Max</strong></td>
+<td><code>1</code></td>
+<td><code>100</code></td>
+</tr>
+<tr>
+<td><strong>Example</strong></td>
+<td><code>1</code></td>
+<td><code>-30</code></td>
+</tr>
+</tbody>
+</table>
+<p>Positive values mean forward, negative means reverse. Zero is not transmitted. The sender rate-limits this message to once per 500 ms using a non-blocking timer check.</p>
+<hr>
+<h2 id="messages-i-receive">Messages I Receive</h2>
+<h3 id="0x02-environmental-data"><code>0x02</code> — Environmental Data</h3>
+<p><strong>From:</strong> Isaiah (<code>0x49</code>, placeholder)</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Byte 1</th>
+<th>Byte 2</th>
+<th>Byte 3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Variable Name</strong></td>
+<td><code>message_type</code></td>
+<td><code>temp</code></td>
+<td><code>humidity</code></td>
+</tr>
+<tr>
+<td><strong>C Type</strong></td>
+<td><code>uint8_t</code></td>
+<td><code>uint8_t</code></td>
+<td><code>uint8_t</code></td>
+</tr>
+<tr>
+<td><strong>Min</strong></td>
+<td><code>2</code></td>
+<td><code>0</code></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><strong>Max</strong></td>
+<td><code>2</code></td>
+<td><code>100</code></td>
+<td><code>100</code></td>
+</tr>
+<tr>
+<td><strong>Example</strong></td>
+<td><code>2</code></td>
+<td><code>24</code></td>
+<td><code>55</code></td>
+</tr>
+</tbody>
+</table>
+<p>Temperature in degrees Celsius, humidity as percent relative humidity. Both values display on the Values page of the OLED.</p>
+<hr>
+<h3 id="0x03-camera-status"><code>0x03</code> — Camera Status</h3>
+<p><strong>From:</strong> Arianna (<code>0x41</code>, placeholder)</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Byte 1</th>
+<th>Byte 2</th>
+<th>Byte 3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Variable Name</strong></td>
+<td><code>message_type</code></td>
+<td><code>motion</code></td>
+<td><code>object_code</code></td>
+</tr>
+<tr>
+<td><strong>C Type</strong></td>
+<td><code>uint8_t</code></td>
+<td><code>uint8_t</code></td>
+<td><code>uint8_t</code></td>
+</tr>
+<tr>
+<td><strong>Min</strong></td>
+<td><code>3</code></td>
+<td><code>0</code></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><strong>Max</strong></td>
+<td><code>3</code></td>
+<td><code>1</code></td>
+<td><code>255</code></td>
+</tr>
+<tr>
+<td><strong>Example</strong></td>
+<td><code>3</code></td>
+<td><code>1</code></td>
+<td><code>4</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>motion</code> is a boolean: 0 means nothing detected, 1 means motion present. <code>object_code</code> is a classification value from the camera subsystem. Both display on the Values page.</p>
+<hr>
+<h3 id="0x04-gyroscope-data"><code>0x04</code> — Gyroscope Data</h3>
+<p><strong>From:</strong> Ragul (<code>0x52</code>, placeholder)</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Byte 1</th>
+<th>Byte 2</th>
+<th>Byte 3</th>
+<th>Byte 4</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Variable Name</strong></td>
+<td><code>message_type</code></td>
+<td><code>gyro_x</code></td>
+<td><code>gyro_y</code></td>
+<td><code>gyro_z</code></td>
+</tr>
+<tr>
+<td><strong>C Type</strong></td>
+<td><code>uint8_t</code></td>
+<td><code>int8_t</code></td>
+<td><code>int8_t</code></td>
+<td><code>int8_t</code></td>
+</tr>
+<tr>
+<td><strong>Min</strong></td>
+<td><code>4</code></td>
+<td><code>-100</code></td>
+<td><code>-100</code></td>
+<td><code>-100</code></td>
+</tr>
+<tr>
+<td><strong>Max</strong></td>
+<td><code>4</code></td>
+<td><code>100</code></td>
+<td><code>100</code></td>
+<td><code>100</code></td>
+</tr>
+<tr>
+<td><strong>Example</strong></td>
+<td><code>4</code></td>
+<td><code>12</code></td>
+<td><code>-5</code></td>
+<td><code>3</code></td>
+</tr>
+</tbody>
+</table>
+<p>Signed bytes sent as two's complement. Decode with: <code>x if x &lt; 128 else x - 256</code>. All three axes display on the Gyro Data page of the OLED.</p>
+<hr>
+<h3 id="0x05-distance-reading"><code>0x05</code> — Distance Reading</h3>
+<p><strong>From:</strong> Myles (<code>0x4D</code>, placeholder)</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Byte 1</th>
+<th>Byte 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Variable Name</strong></td>
+<td><code>message_type</code></td>
+<td><code>distance_cm</code></td>
+</tr>
+<tr>
+<td><strong>C Type</strong></td>
+<td><code>uint8_t</code></td>
+<td><code>uint8_t</code></td>
+</tr>
+<tr>
+<td><strong>Min</strong></td>
+<td><code>5</code></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><strong>Max</strong></td>
+<td><code>5</code></td>
+<td><code>200</code></td>
+</tr>
+<tr>
+<td><strong>Example</strong></td>
+<td><code>5</code></td>
+<td><code>87</code></td>
+</tr>
+</tbody>
+</table>
+<p>Distance in centimeters from the ultrasonic sensor. Displays on the Values page.</p>
+<hr>
+<h2 id="ack">ACK</h2>
+<p>Every valid packet addressed to me gets an immediate acknowledgement back to the sender:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Byte 1</th>
+<th>Byte 2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Variable Name</strong></td>
+<td><code>message_type</code></td>
+<td><code>received_type</code></td>
+</tr>
+<tr>
+<td><strong>C Type</strong></td>
+<td><code>uint8_t</code></td>
+<td><code>uint8_t</code></td>
+</tr>
+<tr>
+<td><strong>Min</strong></td>
+<td><code>170</code></td>
+<td><code>1</code></td>
+</tr>
+<tr>
+<td><strong>Max</strong></td>
+<td><code>170</code></td>
+<td><code>5</code></td>
+</tr>
+<tr>
+<td><strong>Example</strong></td>
+<td><code>170</code></td>
+<td><code>2</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>0xAA</code> (170) is reserved for ACK only. Byte 2 echoes back whichever message type triggered it. Broadcast packets do not get an ACK.</p>
+<hr>
+<h2 id="routing-logic">Routing Logic</h2>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Receiver == <code>0x43</code> (me)</td>
+<td>Process, send ACK, do not forward</td>
+</tr>
+<tr>
+<td>Receiver == <code>0x58</code> (broadcast)</td>
+<td>Process and forward</td>
+</tr>
+<tr>
+<td>Sender == <code>0x43</code> (looped back)</td>
+<td>Discard</td>
+</tr>
+<tr>
+<td>Receiver == someone else</td>
+<td>Forward immediately</td>
+</tr>
+<tr>
+<td>Malformed packet</td>
+<td>Discard</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="byte-stuffing">Byte Stuffing</h2>
+<p><code>build_packet()</code> subtracts 1 from any payload byte that matches a reserved byte (<code>0x41</code>, <code>0x5A</code>, <code>0x59</code>, <code>0x42</code>). This prevents false prefix or suffix matches inside the payload. Any subsystem decoding my messages needs to account for this.</p>
+<hr>
+<h2 id="source-code">Source Code</h2>
+<p><a href="../HMI_subsystem_code.zip">Download HMI Subsystem Code (ZIP)</a></p>
+<p>MicroPython v1.23.0 on ESP32-S3-WROOM-1-N4.</p>
 
 
 
 
 
 
-
-  
-  
 
 
 
@@ -868,7 +1384,7 @@
       <nav class="md-footer__inner md-grid" aria-label="Footer">
         
           
-          <a href="../.." class="md-footer__link md-footer__link--prev" aria-label="Previous: Home">
+          <a href="../../06-PCB/PCB/" class="md-footer__link md-footer__link--prev" aria-label="Previous: PCB">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"></path></svg>
@@ -878,27 +1394,11 @@
                 Previous
               </span>
               <div class="md-ellipsis">
-                Home
+                PCB
               </div>
             </div>
           </a>
         
-        
-          
-          <a href="../../02-Block-Diagram/Block-Diagram/" class="md-footer__link md-footer__link--next" aria-label="Next: Block Diagram">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                Block Diagram
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"></path></svg>
-            </div>
-          </a>
         
       </nav>
     
