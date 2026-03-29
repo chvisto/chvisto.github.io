@@ -4,7 +4,7 @@ title: HMI Subsystem Schematic
 
 ## Overview
 
-This is the schematic for the HMI subsystem board for Team 305. The whole thing is built around the **ESP32-S3-WROOM-1**, which handles everything : running the display, reading button inputs, managing the status LEDs, and communicating with the rest of the rover through daisy-chain UART. Power comes in through a 9V DC barrel jack, gets stepped down to 3.3V by the LM2596S-3.3 switching regulator, and from there feeds the ESP32 and all the peripherals. There's also a USB Micro-B port for programming and debugging. The 0.96" OLED display connects over I2C, keeping the pin usage minimal, and the four status LEDs give quick visual feedback on system state. Fuses on both the input and USB lines protect against overcurrent faults.
+The HMI subsystem schematic is built around the **ESP32-S3-WROOM-1**. It runs the display, reads button inputs, drives the status LEDs, and handles daisy-chain UART communication with the rest of the rover. Power enters through a 9V DC barrel jack and the LM2596S-3.3 switching regulator steps it down to 3.3V for the ESP32 and all peripherals. There's a USB Micro-B port for programming and debug. The 0.96" OLED connects over I2C (just SDA and SCL), and the four status LEDs are driven directly from GPIO through current-limiting resistors. Fuses on both the input rail and USB line protect against overcurrent faults.
 
 ![HMI Subsystem Schematic](Screenshot.png)
 

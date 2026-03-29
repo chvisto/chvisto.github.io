@@ -67,7 +67,7 @@ nav:
   - BOM: 04-BOM/BOM.md
   - Schematic: 05-Schematic/schematic.md
   - PCB: 06-PCB/PCB.md
-  - Subsystem API: 08-API/api.md
+  - Subsystem API: 07-API/api.md
 
 not_in_nav: |
   static
