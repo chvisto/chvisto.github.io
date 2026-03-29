@@ -15,7 +15,7 @@
         <link rel="prev" href="../../05-Schematic/schematic/">
       
       
-        <link rel="next" href="../../08-API/api/">
+        <link rel="next" href="../../07-API/api/">
       
       
       <link rel="icon" href="../../static/logo-314.png">
@@ -324,7 +324,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../08-API/api/" class="md-tabs__link">
+      <a href="../../07-API/api/" class="md-tabs__link">
         
   
     
@@ -594,6 +594,24 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#board-specs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Board Specs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pcb-renders" class="md-nav__link">
+    <span class="md-ellipsis">
+      PCB Renders
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#resources" class="md-nav__link">
     <span class="md-ellipsis">
       Resources
@@ -617,7 +635,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../08-API/api/" class="md-nav__link">
+      <a href="../../07-API/api/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -664,6 +682,24 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#board-specs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Board Specs
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#pcb-renders" class="md-nav__link">
+    <span class="md-ellipsis">
+      PCB Renders
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#resources" class="md-nav__link">
     <span class="md-ellipsis">
       Resources
@@ -698,7 +734,51 @@
   <h1>PCB</h1>
 
 <h2 id="overview">Overview</h2>
-<p>Below are the front and back renders of the HMI Subsystem PCB.</p>
+<p>This is the HMI subsystem PCB, designed in KiCad as a 2-layer mixed SMD/THT board. The ESP32, regulator, and passives are all SMD. Buttons, LEDs, connectors, and the fuse holder are THT for easier assembly.</p>
+<h2 id="board-specs">Board Specs</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Layers</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Technology</td>
+<td>Mixed SMD + THT</td>
+</tr>
+<tr>
+<td>Power Input</td>
+<td>9V DC, 2.1mm barrel jack</td>
+</tr>
+<tr>
+<td>Regulated Output</td>
+<td>3.3V via LM2596S-3.3</td>
+</tr>
+<tr>
+<td>MCU</td>
+<td>ESP32-S3-WROOM-1-N4</td>
+</tr>
+<tr>
+<td>Display Interface</td>
+<td>I2C (SDA/SCL)</td>
+</tr>
+<tr>
+<td>UART Interface</td>
+<td>2x 8-pin headers (daisy-chain in/out)</td>
+</tr>
+<tr>
+<td>Programming</td>
+<td>USB Micro-B</td>
+</tr>
+</tbody>
+</table>
+<h2 id="pcb-renders">PCB Renders</h2>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Front.png" data-desc-position="bottom"><img alt="PCB Front" src="../Front.png"></a></p>
 <p><strong>Figure 1:</strong> PCB Front</p>
 <p><a class="glightbox" data-type="image" data-width="auto" data-height="auto" href="../Back.png" data-desc-position="bottom"><img alt="PCB Back" src="../Back.png"></a></p>
@@ -760,7 +840,7 @@
         
         
           
-          <a href="../../08-API/api/" class="md-footer__link md-footer__link--next" aria-label="Next: Subsystem API">
+          <a href="../../07-API/api/" class="md-footer__link md-footer__link--next" aria-label="Next: Subsystem API">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next

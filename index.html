@@ -322,7 +322,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="08-API/api/" class="md-tabs__link">
+      <a href="07-API/api/" class="md-tabs__link">
         
   
     
@@ -443,18 +443,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#project-summary" class="md-nav__link">
+  <a href="#project-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Project Summary
+      Project Overview
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#my-contribution" class="md-nav__link">
+  <a href="#my-subsystem" class="md-nav__link">
     <span class="md-ellipsis">
-      My Contribution
+      My Subsystem
     </span>
   </a>
   
@@ -639,7 +639,7 @@
   
   
     <li class="md-nav__item">
-      <a href="08-API/api/" class="md-nav__link">
+      <a href="07-API/api/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -687,18 +687,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#project-summary" class="md-nav__link">
+  <a href="#project-overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Project Summary
+      Project Overview
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#my-contribution" class="md-nav__link">
+  <a href="#my-subsystem" class="md-nav__link">
     <span class="md-ellipsis">
-      My Contribution
+      My Subsystem
     </span>
   </a>
   
@@ -753,15 +753,23 @@ for<br>
 </p></center><p></p>
 <h2 id="introduction">Introduction</h2>
 <p>My name is Christo Jomon Joseph and this is my individual datasheet for EGR 314 at Arizona State University. I'm part of Team 305, and my role on the team is designing and building the <strong>HMI (Human Machine Interface) &amp; System Safety subsystem</strong> for our rover project.</p>
-<h3 id="project-summary">Project Summary</h3>
-<p>Our team is building an autonomous rover that uses a daisy-chained UART communication network to connect multiple subsystems together. Each team member is responsible for one subsystem board. My board sits at the user-facing end of the system : it's what the operator interacts with to monitor the rover's status, issue commands, and trigger an emergency stop if something goes wrong.</p>
 <p>For more details on the full team project, check out the <a href="https://egr314-s-2026-30.github.io/EGR314-S-2026-305.github.io/">team report</a>.</p>
-<h3 id="my-contribution">My Contribution</h3>
-<p>I'm responsible for the HMI &amp; System Safety Board, which is the primary local interface between the operator and the rover. The board runs on an <strong>ESP32-S3-WROOM-1</strong> microcontroller and handles real-time display output on a <strong>0.96" OLED screen</strong>, reads user input from tactile push buttons, drives four status LEDs, and manages emergency stop and fail-safe behavior. Power comes in at 9V and gets regulated down to 3.3V using the <strong>LM2596S-3.3</strong> switching regulator.</p>
-<p>On the communication side, the board integrates into the team's daisy-chain UART bus, forwarding messages it doesn't own and acting on the ones it does — including sending and receiving telemetry from the other subsystems.</p>
-<p>The full list of parts used on the board is in the <a href="04-BOM/BOM/">BOM</a> section, and the schematic, component selection, and power budget are all documented in their respective sections of this datasheet.</p>
+<h3 id="project-overview">Project Overview</h3>
+<p>Our team is building an autonomous rover that uses a daisy-chained UART communication network to connect multiple subsystems together. Each team member owns one subsystem board. My board sits at the user-facing end of the system — it's what the operator interacts with to monitor the rover's status, issue commands, and trigger an emergency stop if something goes wrong.</p>
+<h3 id="my-subsystem">My Subsystem</h3>
+<p>I'm responsible for the HMI &amp; System Safety Board, which is the primary local interface between the operator and the rover. Here's what it does:</p>
+<ul>
+<li><strong>Microcontroller:</strong> ESP32-S3-WROOM-1 running MicroPython v1.23.0</li>
+<li><strong>Display:</strong> 0.96" SSD1306 OLED over I2C, showing live telemetry from other subsystems</li>
+<li><strong>Input:</strong> 7 tactile pushbuttons for menu navigation and control</li>
+<li><strong>Safety:</strong> Dedicated emergency stop button with hardware fail-safe behavior</li>
+<li><strong>Status LEDs:</strong> 4 LEDs for quick visual system state feedback</li>
+<li><strong>Power:</strong> 9V input regulated to 3.3V via LM2596S-3.3 switching regulator</li>
+<li><strong>Communication:</strong> Integrated into the team's daisy-chain UART bus : forwards messages it doesn't own, processes and ACKs the ones it does</li>
+</ul>
+<p>The full parts list is in the <a href="04-BOM/BOM/">BOM</a> section. Schematic, component selection, and power budget are each documented in their own sections of this datasheet.</p>
 <h2 id="subsystem-api">Subsystem API</h2>
-<p>The <a href="08-API/api/">Subsystem API</a> page documents all UART messages my HMI board sends and receives on the team daisy-chain network, including message types, byte layouts, data ranges, ACK behavior, and receiver routing logic.</p>
+<p>The <a href="07-API/api/">Subsystem API</a> page documents all UART messages my HMI board sends and receives on the team daisy-chain network, including message types, byte layouts, data ranges, ACK behavior, and receiver routing logic.</p>
 
 
 

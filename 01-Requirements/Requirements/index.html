@@ -324,7 +324,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../08-API/api/" class="md-tabs__link">
+      <a href="../../07-API/api/" class="md-tabs__link">
         
   
     
@@ -623,7 +623,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../08-API/api/" class="md-nav__link">
+      <a href="../../07-API/api/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -710,7 +710,7 @@
   <h1>Requirements</h1>
 
 <h2 id="module-requirements">Module Requirements</h2>
-<p>The HMI &amp; System Safety Board provides the primary local human-machine interface for the rover and acts as a safety critical subsystem. It is responsible for displaying real time system status and handling user input. The board also monitors power health and enforces emergency shutdown and fail safe behaviour so that the rover can be brought to a safe state when needed. The board integrates into the rover’s daisy-chained UART communication network. It must not disrupt message flow under any operating condition so that commands and telemetry continue to move correctly between all subsystems.</p>
+<p>The HMI &amp; System Safety Board is the primary local human machine interface for the rover and a safety critical subsystem. It displays real time system status, reads user input, monitors power health, and enforces emergency shutdown and fail safe behavior when the rover needs to reach a safe state. On the communication side, it sits in the rover’s daisy chained UART network and must not disrupt message flow under any operating condition — commands and telemetry need to keep moving between all subsystems regardless of what this board is doing.</p>
 <h3 id="hmi-system-safety-requirements">HMI &amp; System Safety Requirements</h3>
 <table>
 <thead>
@@ -727,34 +727,34 @@
 <td>Standalone PCB</td>
 <td>Implemented as a single modular board</td>
 <td>Custom standalone PCB</td>
-<td>Daisy-chain compatible design</td>
+<td>Daisy chain compatible design</td>
 <td>No</td>
 </tr>
 <tr>
 <td>Visual Interface</td>
 <td>Displays rover and subsystem status</td>
 <td>Monochrome OLED</td>
-<td>≥1.3" high-contrast display</td>
+<td>≥1.3" high contrast display</td>
 <td>No</td>
 </tr>
 <tr>
 <td>User Input</td>
 <td>Manual control and menu navigation</td>
 <td>≥4 tactile pushbuttons</td>
-<td>Debounced multi-button UI</td>
+<td>Debounced multi button UI</td>
 <td>No</td>
 </tr>
 <tr>
 <td>Emergency Stop</td>
 <td>Immediate rover shutdown capability</td>
-<td>Hard-wired E-Stop input</td>
-<td>Hardware-latched E-Stop with status LED</td>
+<td>Hard wired E Stop input</td>
+<td>Hardware latched E Stop with status LED</td>
 <td>No</td>
 </tr>
 <tr>
-<td>Fail-Safe Control</td>
-<td>Safe state on fault or E-Stop</td>
-<td>Software-based halt command</td>
+<td>Fail Safe Control</td>
+<td>Safe state on fault or E Stop</td>
+<td>Software based halt command</td>
 <td>Hardware + software redundancy</td>
 <td>No</td>
 </tr>
@@ -774,7 +774,7 @@
 </tr>
 <tr>
 <td>UART Communication</td>
-<td>Daisy-chain data handling</td>
+<td>Daisy chain data handling</td>
 <td>UART TX/RX operational</td>
 <td>Full command + telemetry handling</td>
 <td>No</td>
@@ -782,7 +782,7 @@
 <tr>
 <td>Message Forwarding</td>
 <td>Maintain bus integrity</td>
-<td>Non-addressed messages forwarded</td>
+<td>Non addressed messages forwarded</td>
 <td>Reliable forwarding under load</td>
 <td>No</td>
 </tr>
@@ -804,7 +804,7 @@
 <td>Power Input</td>
 <td>External power acceptance</td>
 <td>9 V input supported</td>
-<td>Reverse-polarity protected input</td>
+<td>Reverse polarity protected input</td>
 <td>No</td>
 </tr>
 <tr>
