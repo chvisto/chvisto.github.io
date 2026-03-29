@@ -1,16 +1,9 @@
-This is a template to help you get started with the Individual Datasheet GitHub Report. Use this template to help guide your team through the initial setup process. You will see ways to get results. When there are multiple methods, choose the method that works for you. There could be other ways to accomplish the same thing, but they are not as guaranteed to work.
+# EGR 314 — Christo Jomon Joseph's Individual Datasheet
 
-You <ins>will need to add and modify files for the different individual assignments. **THIS template is <ins>ALMOST outlines</ins>** what you will need to get you the External Review.
-# Remove ALL ITEMS not current in the Appendix before submitting report Check Points!
-The four items currently there are placeholders and could serve as possible resources.
+This is my individual datasheet for EGR 314 at Arizona State University, Spring 2026. I'm part of Team 305 and my subsystem is the HMI & System Safety Board for our autonomous rover project.
 
-## Tips if the template does not initially publish/update correctly:
-If, after checking these [settings](https://embedded-systems-design.github.io/fork-report-website/#settings-to-check/), you often find that renaming the workflow file initiates builds (for whatever reason).
+The board runs on an ESP32-S3-WROOM-1, drives a 0.96" SSD1306 OLED over I2C, reads input from 10 tactile buttons, drives 4 status LEDs, and handles daisy-chain UART communication with the rest of the team's subsystems. Power comes in at 9V and gets regulated down to 3.3V by a LM2596S-3.3 switching regulator.
 
-Either on your computer or on the GitHub website,
-1. Navigate to the files of your repository in the .github/workflows/.
-1. Rename **pages.yml** to something else (**main.yml** worked for me).
-1 Stage, commit, and push your files.
-1. Check the "actions" tab (found in your repository's main GitHub page) to see that your commit is triggering the **"mkdocs-build"** action.
-A video detailing the steps to check your build process can be viewed [here.](https://www.youtube.com/watch?v=8EgFkG2HHxM/) 
+The site covers requirements, block diagram, component selection, BOM, schematic, PCB, and the full subsystem API.
 
+Live site: [chvisto.github.io](https://chvisto.github.io)
