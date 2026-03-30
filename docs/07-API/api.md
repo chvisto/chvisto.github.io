@@ -6,7 +6,7 @@
 **Team:** 305
 **Board ID:** `0x43` ('C')
 
-> **Note:** Teammate board IDs below are temporary placeholders. My team has not finalized individual IDs yet. These will be updated once confirmed with each subsystem owner.
+> **Note:** Teammate board IDs below are my own assignments. They have not been confirmed by all teammates yet and will be updated before integration.
 
 ---
 
@@ -33,11 +33,9 @@ The message tables below cover only the inner payload bytes (4-61). Prefix, suff
 
 ---
 
-## Teammate IDs (Placeholders)
+## Teammate IDs (Unconfirmed)
 
-These IDs are assigned by me for now. Actual IDs will be coordinated with teammates before integration.
-
-| Name | Subsystem | Board ID (placeholder) |
+| Name | Subsystem | Board ID |
 |---|---|---|
 | Christo | HMI (me) | `0x43` |
 | Liam | Motor | `0x4C` |
@@ -53,7 +51,7 @@ These IDs are assigned by me for now. Actual IDs will be coordinated with teamma
 
 ### `0x01` — Motor Speed Command
 
-**To:** Liam (`0x4C`, placeholder)
+**To:** Liam (`0x4C`)
 
 | | Byte 1 | Byte 2 |
 |---|---|---|
@@ -69,67 +67,111 @@ Positive values mean forward, negative means reverse. Zero is not transmitted. T
 
 ## Messages I Receive
 
-### `0x02` — Environmental Data
+### Type 8 / 10 / 11 — Environmental Data
 
-**From:** Isaiah (`0x49`, placeholder)
+**From:** Isaiah (`0x49`)
 
-| | Byte 1 | Byte 2 | Byte 3 |
+Isaiah's subsystem sends three separate message types from a BME680 sensor. I display temperature and humidity on the OLED. Pressure is forwarded but not displayed.
+
+#### Type 8 — Temperature
+
+| | Byte 1-2 | Byte 3-4 |
+|---|---|---|
+| **Variable Name** | `message_type` | `temperature` |
+| **C Type** | `uint16_t` | `int16_t` |
+| **Min** | `8` | `-4000` |
+| **Max** | `8` | `8500` |
+| **Example** | `8` | `2400` |
+
+Scaled × 100 (°C × 100). Divide by 100.0 to display. Range: -40.00 to 85.00 °C.
+
+#### Type 10 — Barometric Pressure
+
+| | Byte 1-2 | Byte 3-6 | Byte 7-10 |
 |---|---|---|---|
-| **Variable Name** | `message_type` | `temp` | `humidity` |
-| **C Type** | `uint8_t` | `uint8_t` | `uint8_t` |
-| **Min** | `2` | `0` | `0` |
-| **Max** | `2` | `100` | `100` |
-| **Example** | `2` | `24` | `55` |
+| **Variable Name** | `message_type` | `pressure` | `altitude` |
+| **C Type** | `uint16_t` | `uint32_t` | `int32_t` |
+| **Min** | `10` | `30000` | `-50000` |
+| **Max** | `10` | `110000` | `100000` |
+| **Example** | `10` | `101325` | `150` |
 
-Temperature in degrees Celsius, humidity as percent relative humidity. Both values display on the Values page of the OLED.
+Pressure in Pa. Altitude in cm. Forwarded but not rendered on OLED.
+
+#### Type 11 — Humidity
+
+| | Byte 1-2 | Byte 3-4 |
+|---|---|---|
+| **Variable Name** | `message_type` | `humidity` |
+| **C Type** | `uint16_t` | `uint16_t` |
+| **Min** | `11` | `0` |
+| **Max** | `11` | `10000` |
+| **Example** | `11` | `5500` |
+
+Scaled × 100 (% × 100). Divide by 100.0 to display. Shown on the Values page of the OLED.
 
 ---
 
-### `0x03` — Camera Status
+### Type 3 / 4 — Camera Data
 
-**From:** Arianna (`0x41`, placeholder)
+**From:** Arianna (`0x41`)
 
-| | Byte 1 | Byte 2 | Byte 3 |
-|---|---|---|---|
-| **Variable Name** | `message_type` | `motion` | `object_code` |
-| **C Type** | `uint8_t` | `uint8_t` | `uint8_t` |
-| **Min** | `3` | `0` | `0` |
-| **Max** | `3` | `1` | `255` |
-| **Example** | `3` | `1` | `4` |
+Arianna's subsystem sends two message types. Type 4 (camera status) is displayed on the OLED. Type 3 (image frame chunks) is received and forwarded but not rendered.
 
-`motion` is a boolean: 0 means nothing detected, 1 means motion present. `object_code` is a classification value from the camera subsystem. Both display on the Values page.
+#### Type 4 — Camera Status Report
+
+| | Byte 1-2 | Byte 3 | Byte 4-5 | Byte 6-7 | Byte 8 |
+|---|---|---|---|---|---|
+| **Variable Name** | `message_type` | `camera_state` | `frame_width` | `frame_height` | `error_code` |
+| **C Type** | `uint16_t` | `uint8_t` | `uint16_t` | `uint16_t` | `uint8_t` |
+| **Min** | `4` | `0` | `0` | `0` | `0` |
+| **Max** | `4` | `2` | `1920` | `1080` | `2` |
+| **Example** | `4` | `2` | `640` | `480` | `0` |
+
+`camera_state`: 0 = Off, 1 = Idle, 2 = Capturing. `error_code`: 0 = No error, 1 = Camera not detected, 2 = Unknown error. State and error code display on the Values page.
+
+#### Type 3 — Camera Frame Data Packet (forward only)
+
+| | Byte 1-2 | Byte 3-4 | Byte 5-6 | Byte 7-8 | Byte 9-58 |
+|---|---|---|---|---|---|
+| **Variable Name** | `message_type` | `frame_id` | `packet_index` | `total_packets` | `image_data_chunk` |
+| **C Type** | `uint16_t` | `uint16_t` | `uint16_t` | `uint16_t` | `uint8_t[50]` |
+| **Min** | `3` | `0` | `0` | `1` | `0` |
+| **Max** | `3` | `65535` | `65535` | `65535` | `255` |
+| **Example** | `3` | `25` | `1` | `10` | `45` |
+
+Each frame is split across multiple 64-byte packets. My subsystem forwards these but does not reconstruct or render image data.
 
 ---
 
-### `0x04` — Gyroscope Data
+### Type 4 — Gyroscope Data
 
-**From:** Ragul (`0x52`, placeholder)
+**From:** Ragul (`0x52`)
 
-| | Byte 1 | Byte 2 | Byte 3 | Byte 4 |
+| | Byte 1 | Byte 2-3 | Byte 4-5 | Byte 6-7 |
 |---|---|---|---|---|
 | **Variable Name** | `message_type` | `gyro_x` | `gyro_y` | `gyro_z` |
-| **C Type** | `uint8_t` | `int8_t` | `int8_t` | `int8_t` |
+| **C Type** | `uint8_t` | `int16_t` | `int16_t` | `int16_t` |
 | **Min** | `4` | `-100` | `-100` | `-100` |
 | **Max** | `4` | `100` | `100` | `100` |
 | **Example** | `4` | `12` | `-5` | `3` |
 
-Signed bytes sent as two's complement. Decode with: `x if x < 128 else x - 256`. All three axes display on the Gyro Data page of the OLED.
+Values are pre-scaled from raw LSM9DS1 counts to -100 to 100 by Ragul's firmware. Each axis is a 2-byte little-endian `int16_t`. All three axes display on the Gyro Data page of the OLED.
 
 ---
 
-### `0x05` — Distance Reading
+### Type 12 — Distance Reading
 
-**From:** Myles (`0x4D`, placeholder)
+**From:** Myles (`0x4D`)
 
-| | Byte 1 | Byte 2 |
+| | Byte 1-2 | Byte 3-6 |
 |---|---|---|
-| **Variable Name** | `message_type` | `distance_cm` |
-| **C Type** | `uint8_t` | `uint8_t` |
-| **Min** | `5` | `0` |
-| **Max** | `5` | `200` |
-| **Example** | `5` | `87` |
+| **Variable Name** | `message_type` | `distance_m` |
+| **C Type** | `uint16_t` | `float` |
+| **Min** | `12` | `0.00` |
+| **Max** | `12` | `6.00` |
+| **Example** | `12` | `0.87` |
 
-Distance in centimeters from the ultrasonic sensor. Displays on the Values page.
+Distance in meters as a 4-byte IEEE 754 float. Myles sends this message only when distance is at or below 0.50 m. Multiply by 100.0 to display centimeters on the OLED Values page.
 
 ---
 
