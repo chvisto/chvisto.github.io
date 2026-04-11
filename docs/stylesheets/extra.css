@@ -44,16 +44,16 @@ article a {
   border-radius: 4px;
 }
 
-.md-typeset blockquote {
-  border-left: 3px solid var(--md-primary-fg-color);
-  background: transparent;
-  padding: 0.4em 1em;
-  margin: 0.75em 0;
+.md-typeset blockquote:has(> p > strong:first-child) {
+  border-left: 3px solid #ffe600;
+  background: #fffde6;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  box-shadow: 0 0 12px rgba(255, 230, 0, 0.45), 0 0 4px rgba(255, 230, 0, 0.3);
 }
 
-.md-typeset blockquote p,
-.md-typeset blockquote li {
-  color: var(--md-typeset-color);
+[data-md-color-scheme="slate"] .md-typeset blockquote:has(> p > strong:first-child) {
+  background: #1f1e00;
+  box-shadow: 0 0 16px rgba(255, 230, 0, 0.35), 0 0 6px rgba(255, 230, 0, 0.2);
 }
 
 .md-typeset table:not([class]) {
