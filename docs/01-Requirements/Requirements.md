@@ -4,7 +4,7 @@ title: Module's Requirements
 
 ## Module Requirements
 
-The HMI & System Safety Board is the primary local human machine interface for the rover and a safety critical subsystem. It displays real time system status, reads user input, monitors power health, and enforces emergency shutdown and fail safe behavior when the rover needs to reach a safe state. On the communication side, it sits in the rover’s daisy chained UART network and must not disrupt message flow under any operating condition — commands and telemetry need to keep moving between all subsystems regardless of what this board is doing.
+The HMI & System Safety Board is the primary local human machine interface for the rover and a safety critical subsystem. It displays real time system status, reads user input, monitors power health, and enforces emergency shutdown and fail safe behavior when the rover needs to reach a safe state. On the communication side, it sits in the rover’s daisy chained UART network and must not disrupt message flow under any operating condition: commands and telemetry need to keep moving between all subsystems regardless of what this board is doing.
 
 ### HMI & System Safety Requirements
 

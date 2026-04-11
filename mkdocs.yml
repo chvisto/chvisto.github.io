@@ -19,8 +19,8 @@ theme:
         icon: material/weather-sunny
         name: Switch to light mode
   font:
-    text: Inter
-    code: JetBrains Mono
+    text: Roboto
+    code: Roboto Mono
   logo: static/logo314.svg
   favicon: static/logo-314.png
   icon:

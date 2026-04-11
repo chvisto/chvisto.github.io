@@ -46,7 +46,7 @@ Each node ID is the ASCII hex encoding of the person's first name initial. This 
 | Myles | Distance Sensor | `0x4D` | M |
 | Ragul | Gyroscope | `0x52` | R |
 | Damian | MQTT / Wireless | `0x44` | D |
-| — | Broadcast / Everyone | `0x58` | X |
+| - | Broadcast / Everyone | `0x58` | X |
 
 ---
 
@@ -71,7 +71,7 @@ RX drains completely before any outbound packet goes out. Packets with bad start
 
 ## Messages I Send
 
-### Type 1 — Motor Control State Report
+### Type 1: Motor Control State Report
 
 **To:** Liam (`0x4C`)
 
@@ -91,7 +91,7 @@ RX drains completely before any outbound packet goes out. Packets with bad start
 
 All multi-byte fields are little-endian. The message type occupies payload bytes 1-2 as a `uint16_t` on every incoming message type.
 
-### Type 8 — Temperature Sensor Data Report
+### Type 8: Temperature Sensor Data Report
 
 **From:** Isaiah (`0x49`)
 
@@ -107,7 +107,7 @@ IEEE 754 little-endian float, degrees Celsius. Shown on the Values page of the O
 
 ---
 
-### Type 10 — Barometric Pressure Sensor Data Report
+### Type 10: Barometric Pressure Sensor Data Report
 
 **From:** Isaiah (`0x49`)
 
@@ -123,7 +123,7 @@ Pressure in hPa, altitude in meters, both as floats. All three environmental rea
 
 ---
 
-### Type 11 — Humidity Sensor Data Report
+### Type 11: Humidity Sensor Data Report
 
 **From:** Isaiah (`0x49`)
 
@@ -139,7 +139,7 @@ Relative humidity as a float percentage. Shown on the Values page alongside temp
 
 ---
 
-### Type 4 — Camera Status Report
+### Type 4: Camera Status Report
 
 **From:** Arianna (`0x41`)
 
@@ -155,7 +155,7 @@ Relative humidity as a float percentage. Shown on the Values page alongside temp
 
 ---
 
-### Type 3 — Camera Frame Data Packet (forward only)
+### Type 3: Camera Frame Data Packet (forward only)
 
 **From:** Arianna (`0x41`)
 
@@ -165,13 +165,13 @@ Relative humidity as a float percentage. Shown on the Values page alongside temp
 | **C Type** | `uint16_t` | `uint16_t` | `uint16_t` | `uint16_t` | `uint8_t[50]` |
 | **Min** | `3` | `0` | `0` | `1` | `0` |
 | **Max** | `3` | `65535` | `65535` | `65535` | `255` |
-| **Example** | `3` | `25` | `1` | `10` | `—` |
+| **Example** | `3` | `25` | `1` | `10` | `-` |
 
 Arianna chunks each frame across multiple 64-byte packets. This subsystem forwards them immediately without buffering or attempting to reconstruct the image.
 
 ---
 
-### Type 5 — Gyroscope Data Report
+### Type 5: Gyroscope Data Report
 
 **From:** Ragul (`0x52`)
 
@@ -187,7 +187,7 @@ Three-axis angular velocity from Ragul's LSM9DS1, in rad/s. Each axis is a 4-byt
 
 ---
 
-### Type 12 — Distance Sensor Data Report
+### Type 12: Distance Sensor Data Report
 
 **From:** Myles (`0x4D`)
 
@@ -207,7 +207,7 @@ Distance in meters as an IEEE 754 little-endian float. Myles only transmits this
 
 Broadcast packets go to address `0x58`. This subsystem processes them and then passes them downstream : both actions are required. Dropping a broadcast breaks the ring for every node that hasn't seen it yet.
 
-### Type 13 — System Status Report
+### Type 13: System Status Report
 
 **From:** Damian (`0x44`) or any subsystem
 
@@ -223,7 +223,7 @@ System state and battery voltage render on the status page of the OLED. The upti
 
 ---
 
-### Type 14 — System Error Code Report
+### Type 14: System Error Code Report
 
 **From:** Any subsystem (broadcast)
 
@@ -239,7 +239,7 @@ The subsystem ID field identifies which board threw the error. An alert renders 
 
 ---
 
-### Type 16 — Heartbeat / Alive Signal
+### Type 16: Heartbeat / Alive Signal
 
 **From:** Any subsystem (broadcast)
 

@@ -23,7 +23,7 @@ For more details on the full team project, check out the [team report](https://e
 
 ### Project Overview
 
-Our team is building an autonomous rover that uses a daisy-chained UART communication network to connect multiple subsystems together. Each team member owns one subsystem board. My board sits at the user-facing end of the system — it's what the operator interacts with to monitor the rover's status, issue commands, and trigger an emergency stop if something goes wrong.
+Our team is building an autonomous rover that uses a daisy-chained UART communication network to connect multiple subsystems together. Each team member owns one subsystem board. My board sits at the user-facing end of the system: it's what the operator interacts with to monitor the rover's status, issue commands, and trigger an emergency stop if something goes wrong.
 
 ### My Subsystem
 
