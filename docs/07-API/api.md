@@ -1,6 +1,6 @@
 ---
 
-# API — HMI Subsystem
+# HMI Subsystem API
 
 **Name:** Christo Jomon Joseph
 **Team:** 305
@@ -296,4 +296,3 @@ Full source code is available on the [Resources](../08-Resources/resources.md) p
 
 [Download HMI Subsystem Code (ZIP)](./Christo_HMI_Final.zip)
 
-MicroPython v1.23.0 on ESP32-S3-WROOM-1-N4.
