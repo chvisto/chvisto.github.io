@@ -47,8 +47,8 @@
         
         
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&amp;display=fallback">
-        <style>:root{--md-text-font:"Inter";--md-code-font:"JetBrains Mono"}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
     
@@ -775,7 +775,7 @@
   <h1>Requirements</h1>
 
 <h2 id="module-requirements">Module Requirements</h2>
-<p>The HMI &amp; System Safety Board is the primary local human machine interface for the rover and a safety critical subsystem. It displays real time system status, reads user input, monitors power health, and enforces emergency shutdown and fail safe behavior when the rover needs to reach a safe state. On the communication side, it sits in the rover’s daisy chained UART network and must not disrupt message flow under any operating condition — commands and telemetry need to keep moving between all subsystems regardless of what this board is doing.</p>
+<p>The HMI &amp; System Safety Board is the primary local human machine interface for the rover and a safety critical subsystem. It displays real time system status, reads user input, monitors power health, and enforces emergency shutdown and fail safe behavior when the rover needs to reach a safe state. On the communication side, it sits in the rover’s daisy chained UART network and must not disrupt message flow under any operating condition: commands and telemetry need to keep moving between all subsystems regardless of what this board is doing.</p>
 <h3 id="hmi-system-safety-requirements">HMI &amp; System Safety Requirements</h3>
 <table>
 <thead>
