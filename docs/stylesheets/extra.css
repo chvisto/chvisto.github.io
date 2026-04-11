@@ -103,10 +103,10 @@ article a {
 
 .md-tabs__link {
   font-weight: 500;
-  font-size: 0.78rem;
-  letter-spacing: 0.06em;
+  font-size: 0.65rem;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
-  padding: 0 1.4rem;
+  padding: 0 0.6rem;
   transition: opacity var(--transition);
 }
 
