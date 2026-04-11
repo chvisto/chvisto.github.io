@@ -39,7 +39,7 @@ Each node ID is the ASCII hex encoding of the person's first name initial. This 
 
 | Name | Subsystem | Board ID | Initial |
 |---|---|---|---|
-| Christo | HMI (me) | `0x43` | C |
+| **Christo** | **HMI** | **`0x43`** | **C** |
 | Liam | Motor | `0x4C` | L |
 | Isaiah | Environmental Sensor | `0x49` | I |
 | Arianna | Camera | `0x41` | A |
@@ -292,6 +292,8 @@ RX drains before any outbound packet goes out. A packet that loops back (sender 
 
 ## Source Code
 
-[Download HMI Subsystem Code (ZIP)](./HMI_subsystem_code.zip)
+Full source code is available on the [Resources](../08-Resources/resources.md) page.
+
+[Download HMI Subsystem Code (ZIP)](./Christo_HMI_Final.zip)
 
 MicroPython v1.23.0 on ESP32-S3-WROOM-1-N4.
