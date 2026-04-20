@@ -2,6 +2,9 @@
   --radius: 8px;
   --shadow: 0 1px 6px rgba(0, 0, 0, 0.07);
   --transition: 0.2s ease;
+  /* Use the accent (deep orange) for decorative highlights so they show on
+     both the black navbar and the white content area. */
+  --accent: var(--md-accent-fg-color);
 }
 
 [data-md-color-scheme="slate"] {
@@ -12,15 +15,102 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-article a {
-  font-style: normal;
-  text-underline-offset: 3px;
+/* ── Header / Navbar ──────────────────────────────────────────── */
+
+/* Logo: the PNG was designed for a light background (dark "EGR" text).
+   Invert it to white so every part reads on the black header. */
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+  filter: brightness(0) invert(1);
+}
+
+/* Ensure the header title text is always white on the black bar */
+.md-header__topic,
+.md-header__title,
+.md-header__ellipsis {
+  color: #fff;
+}
+
+/* Keep all header icons/buttons white and readable */
+.md-header__button {
+  color: rgba(255, 255, 255, 0.87);
+}
+.md-header__button:hover {
+  color: #fff;
+  opacity: 1;
+}
+
+/* Search form: slightly lighter background so it stands out from solid black */
+.md-search__form {
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.12);
+}
+.md-search__form:hover,
+.md-search__form:focus-within {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.md-search__input {
+  color: #fff;
+}
+.md-search__input::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ── Navigation Tabs (the sticky strip below the header) ─────── */
+
+.md-tabs {
+  background-color: rgba(0, 0, 0, 0.85); /* slightly translucent vs pure header */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.md-tabs__list {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0;
+}
+
+.md-tabs__item {
+  flex-shrink: 0;
+}
+
+.md-tabs__link {
+  font-weight: 500;
+  font-size: 0.65rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 0 0.6rem;
+  color: rgba(255, 255, 255, 0.75);
   transition: color var(--transition);
 }
 
+.md-tabs__link:hover {
+  color: #fff;
+}
+
+/* Active tab gets the accent colour underline so it pops on black */
+.md-tabs__link--active {
+  font-weight: 700;
+  color: #fff;
+  border-bottom: 2px solid var(--md-accent-fg-color);
+}
+
+/* ── Sidebar nav ─────────────────────────────────────────────── */
+
+.md-nav__link--active {
+  font-weight: 600;
+}
+
+.md-nav--secondary .md-nav__link--active {
+  color: var(--md-accent-fg-color);
+}
+
+/* ── Content typography ───────────────────────────────────────── */
+
+/* Use accent (deep orange) for h1 underline — visible on white content */
 .md-typeset h1 {
   font-weight: 700;
-  border-bottom: 2px solid var(--md-primary-fg-color);
+  border-bottom: 2px solid var(--md-accent-fg-color);
   padding-bottom: 0.2em;
   margin-bottom: 0.6em;
 }
@@ -35,6 +125,14 @@ article a {
   font-weight: 600;
 }
 
+article a {
+  font-style: normal;
+  text-underline-offset: 3px;
+  transition: color var(--transition);
+}
+
+/* ── Code ─────────────────────────────────────────────────────── */
+
 .md-typeset pre {
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -43,6 +141,8 @@ article a {
 .md-typeset code {
   border-radius: 4px;
 }
+
+/* ── Blockquote highlight ─────────────────────────────────────── */
 
 .md-typeset blockquote:has(> p > strong:first-child) {
   border-left: 3px solid #ffe600;
@@ -56,6 +156,8 @@ article a {
   box-shadow: 0 0 16px rgba(255, 230, 0, 0.35), 0 0 6px rgba(255, 230, 0, 0.2);
 }
 
+/* ── Tables ───────────────────────────────────────────────────── */
+
 .md-typeset table:not([class]) {
   border-radius: var(--radius);
   overflow: hidden;
@@ -63,9 +165,10 @@ article a {
   font-size: 0.8rem;
 }
 
+/* Table header: use accent colour so it reads on white content area */
 .md-typeset table:not([class]) th {
-  background-color: var(--md-primary-fg-color);
-  color: var(--md-primary-bg-color);
+  background-color: #212121; /* near-black matching the navbar */
+  color: #fff;
   font-weight: 600;
   text-transform: uppercase;
   font-size: 0.7rem;
@@ -90,46 +193,7 @@ article a {
   transition: background-color var(--transition);
 }
 
-.md-tabs__list {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  padding: 0;
-}
-
-.md-tabs__item {
-  flex-shrink: 0;
-}
-
-.md-tabs__link {
-  font-weight: 500;
-  font-size: 0.65rem;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  padding: 0 0.6rem;
-  transition: opacity var(--transition);
-}
-
-.md-tabs__link--active {
-  font-weight: 700;
-  border-bottom: 2px solid currentColor;
-}
-
-.md-nav__link--active {
-  font-weight: 600;
-}
-
-.md-nav--secondary .md-nav__link--active {
-  color: var(--md-primary-fg-color);
-}
-
-.md-header {
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-}
-
-.md-search__form {
-  border-radius: 20px;
-}
+/* ── Admonitions ─────────────────────────────────────────────── */
 
 .md-typeset .admonition,
 .md-typeset details {
@@ -137,9 +201,19 @@ article a {
   box-shadow: var(--shadow);
 }
 
+/* ── Header shadow ───────────────────────────────────────────── */
+
+.md-header {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+/* ── Footer ──────────────────────────────────────────────────── */
+
 .md-footer {
   border-top: 1px solid var(--md-default-fg-color--lightest);
 }
+
+/* ── Scroll & page-in animation ─────────────────────────────── */
 
 html {
   scroll-behavior: smooth;
